@@ -1,0 +1,12 @@
+# 옵시디언 작업공간·캐시 (기기마다 다른 값)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/plugins/*/data.json
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
+
+# 휴지통
+.trash/
