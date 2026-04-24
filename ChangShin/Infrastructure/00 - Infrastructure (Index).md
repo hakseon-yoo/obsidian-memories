@@ -44,6 +44,10 @@ tags:
 
 - [[31 - Decision Log]] — 주요 기술 선택과 근거 (D-001 ~)
 
+### 운영 현황
+
+- [[32 - Deployment State]] — 구축 완료/진행 상태 · 핵심 참조값 · 남은 작업
+
 <!--
 향후 추가 가능:
 - 02 - Requirements & Constraints
@@ -66,4 +70,5 @@ tags:
 
 - 초기 설계 문서 작성 단계 (2026-04-23)
 - 주요 결정: D-001 ~ D-014 확정 (자세한 내용은 [[31 - Decision Log]])
-- 다음 단계: Terraform 코드 작성 시작 (환경 템플릿 `aws/env/_template/` → `dev`/`stage`/`prod` 복제, 불필요 모듈 비활성화)
+- **2026-04-24 기준 구축 상태**: AWS dev 환경 + EKS + Flux + observability 스택 완료. 앱 리포 3개(auth/ax2/ax3) 보일러플레이트 push 완료. 자세한 상태는 [[32 - Deployment State]] 참고.
+- **다음 단계**: `changshin-auth-api`에서 Auth 서비스 구현 (D-007/D-009)
