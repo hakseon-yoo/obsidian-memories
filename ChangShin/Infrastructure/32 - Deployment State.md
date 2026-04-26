@@ -3,7 +3,7 @@ title: Deployment State
 parent: "[[00 - Infrastructure (Index)]]"
 project: 창신
 created: 2026-04-24
-updated: 2026-04-24
+updated: 2026-04-24 (dev2)
 tags:
   - infrastructure
   - state
@@ -124,20 +124,40 @@ OIDC Provider `git.weplanet.co.kr`는 **AWS 계정당 1개만 존재 가능**한
 
 ### 단기 (현재 사이클)
 
+- [x] **Auth 보일러플레이트 정리 + 배포 파이프라인** (2026-04-24 완료)
+  - [x] `apps/` 예시 4개 삭제(`admin-api`, `batch`, `llm-api`, `mcp-server`)
+  - [x] `apps/user-api` → `apps/auth` 리네임 (git mv로 히스토리 보존)
+  - [x] `apps/auth/{package.json, nest-cli.json, Dockerfile, tsconfig.json}` 경로/이름 수정
+  - [x] `apps/auth/src/user-api.module.ts` + `api-docs/index.ts`에서 admin-api import 제거
+  - [x] `.gitlab-ci.yml`: `ecr_repo=changshin-auth`, `oidc_role=changshin-oidc-ci`, 브랜치 `main→prod`, `dev→dev`
+  - [x] K8s 매니페스트 (`k8s/clusters/dev/auth/`): deploy/service/ingress/parameter-store/secrets-manager 전부 교체
+  - [x] `pnpm install` + `turbo build --filter=auth` 성공 검증
+  - ⚠️ **변경사항 아직 커밋 안 됨** (working tree에 머물러 있음)
 - [ ] **Auth 서비스 구현** ← 다음 세션 시작점
-  - [ ] `changshin-auth-api`에서 보일러플레이트 `apps/` 중 하나를 `auth`로 리네임 (또는 신규 생성)
-  - [ ] 불필요한 예시 앱 정리
+  - [ ] ⚠️ 결정 필요 3가지 (아래 "다음 세션 시작 전 결정" 참조)
   - [ ] D-007 `aud` 기반 JWT 발급 로직 (`/auth/{service}/login`, `/auth/.well-known/jwks.json`)
   - [ ] D-009 자체 JWT (users 테이블, bcrypt/argon2 비밀번호 해시, 비밀번호 재설정 등)
   - [ ] D-002 공유 DB 스키마 `auth.*` 마이그레이션
-- [ ] **Auth 배포 파이프라인**
-  - [ ] `.gitlab-ci.yml`의 ECR URL을 `changshin-auth`로 변경
-  - [ ] OIDC Role ARN 설정
-  - [ ] 브랜치 매핑: `main→prod`, `dev→dev` (stg 없음)
-- [ ] **Auth K8s 매니페스트** (`changshin-auth-api/k8s/clusters/dev/auth/`)
-  - [ ] Deployment, Service, Ingress (path `/auth/*`), ExternalSecret (DB 비밀번호, JWT 서명 키)
+  - [ ] 내부 src 리네임 (선택): `user-api.module.ts` → `auth-app.module.ts`, `UserApiModule` → `AuthAppModule` 등
+- [ ] **Auth 배포 선행 작업**
+  - [ ] SSM Parameter Store에 JWT 키 pair 업로드 (`/changshin/dev/auth/jwt/{private-key,public-key}`)
+  - [ ] Ingress host 최종 확정 (현재 placeholder)
 - [ ] **AX2 서비스 구현** (Auth 검증 적용)
 - [ ] **changshin-iac의 `.gitlab-ci.yml` 생성** (`./ci.sh`) — Terraform plan/apply 자동화
+
+### 다음 세션 시작 전 결정 필요
+
+1. **Ingress host** — 현재 `api.dev.changshin.weplanet.co.kr` placeholder. AX1/2/3과 ALB/host 공유 규칙 확정 필요. 후보:
+   - A안: 단일 host + path 라우팅 (`api.dev.changshin.weplanet.co.kr/auth`, `.../ax1`, ...)
+   - B안: 서비스별 host (`auth.dev.changshin...`, `ax1.dev.changshin...`) — D-011은 path 라우팅 명시했으므로 A안 유력
+2. **SSM JWT 키 경로** — `/changshin/dev/auth/jwt/{private-key,public-key}` 제안. terraform으로 관리할지(iac 리포에 넣기) 수동 put 할지.
+3. **내부 src 리네임** — Auth 도메인 구현과 같이 묶어서 할지, 선행으로 먼저 정리할지.
+
+### 다음 세션 재개 포인트
+
+워킹 디렉터리: `/Users/yoohakseon/Documents/GitLab/changshin/changshin-auth-api`
+- 브랜치: `main`, working tree에 리네임/수정 미커밋 상태
+- 커밋 전에: 위 3개 결정 정리 → 커밋 → Auth 도메인 구현 시작
 
 ### 중기
 
