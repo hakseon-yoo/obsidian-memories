@@ -308,6 +308,90 @@ tags:
 
 ---
 
+## D-015 임시 도메인 호스트 = `changshin-api.dev.weplanet.co.kr`
+
+- **일자**: 2026-04-27
+- **상태**: accepted (임시, 클라이언트 도메인 확정 시 교체)
+- **결정**: 클라이언트가 자체 도메인을 제공할 때까지 **임시 호스트 `changshin-api.dev.weplanet.co.kr`** 사용. D-011의 path 기반 라우팅 그대로 적용 (단일 host + `/auth`, `/ax1`, `/ax2`, `/ax3` prefix).
+- **맥락**: D-011에서 라우팅 전략은 path 기반으로 확정했으나 실제 호스트값이 미정이었음. 첫 ALB 노출 시점에 결정 필요했고, 클라이언트 도메인은 아직 미수령.
+- **대안**:
+  - **changshin 전용 ACM 신규 발급** (`*.dev.changshin.weplanet.co.kr`) + Route53 별도 zone — 클라이언트 도메인 받기 전엔 과설계
+  - **`api.dev.changshin.weplanet.co.kr`** 같은 4단계 subdomain — 기존 ACM 와일드카드(`*.dev.weplanet.co.kr`) 미커버 → 인증서 신규 발급 필요
+- **근거**:
+  - 기존 weplanet 공용 ACM `*.dev.weplanet.co.kr` 와일드카드가 즉시 매칭 → 인증서 작업 0
+  - Route53 alias 레코드 1개로 외부 노출 완료
+  - 클라이언트 도메인 확정 시 ingress의 `host` + 인증서 ARN만 바꾸면 됨 (마이그레이션 비용 낮음)
+- **영향**:
+  - Ingress: `host: changshin-api.dev.weplanet.co.kr`, path `/auth` Prefix
+  - Route53 hosted zone `Z2ELFWHU9W34XL` (weplanet.co.kr) 에 alias 레코드 추가, ALB DNS로 향함
+  - 모든 서비스(auth/ax1/ax2/ax3) ingress가 같은 host 공유하므로 ALB 1개로 통합 (`group.name: default`)
+  - 클라이언트 도메인 받으면: 해당 도메인용 ACM 발급 → IngressClassParams 또는 cluster-vars 갱신 → ingress host 일괄 교체
+
+---
+
+## D-016 ECR 리포 분리 = `{svc}` + `{svc}-deploy`
+
+- **일자**: 2026-04-27
+- **상태**: accepted
+- **결정**: 서비스별로 **이미지 ECR(`changshin-{svc}`)** 과 **Flux OCI artifact ECR(`changshin-{svc}-deploy`)** 을 분리해서 두 개씩 운영.
+- **맥락**: 사내 `weplanet-starter-nestjs` 보일러 CI(`ci/job-nestjs.gitlab-ci.yml` · `ci/job-flux.gitlab-ci.yml`)가 두 ECR 입력값을 분리해서 받는 구조. taabshop도 동일하게 사용 중이나 iac에는 미선언 상태로 수동 생성한 IaC drift가 발견됨. changshin은 처음부터 iac에 등록.
+- **대안**:
+  - **단일 ECR + 태그 분리** — `:image-development`, `:flux-development` 등으로 구분. 보일러 CI 스크립트 리팩터링 필요. 이미지 태그(`:development`)와 artifact 태그(`:development`) 충돌 회피 위한 작업량 큼
+  - **단일 공용 deploy ECR**(예: `changshin-deploy`) — 모든 서비스 artifact 한 ECR에 push, 태그로 구분. CI 일부 변경 필요
+- **근거**:
+  - 보일러 CI 그대로 채택 → 변경 비용 0
+  - 이미지 retention과 artifact retention을 **독립 lifecycle 정책**으로 관리 가능
+  - Lens/console에서 서비스별 분리되어 가시성 좋음
+- **영향**:
+  - `changshin-iac/aws/env/base.yml`의 `ecr.repositories`에 `*-deploy` 4개(`auth-deploy`, `ax1-deploy`, `ax2-deploy`, `ax3-deploy`) 추가
+  - terraform이 lifecycle policy(미태그 이미지 1일 후 만료, dev/prod 태그 최근 20개 보존)도 자동 생성
+  - 각 앱 리포 `.gitlab-ci.yml`의 `ecr_deploy: changshin-{svc}-deploy` 입력값 사용
+
+---
+
+## D-017 K8s 네임스페이스 = `changshin` (프로젝트명, 환경 무관)
+
+- **일자**: 2026-04-27
+- **상태**: accepted
+- **결정**: 모든 changshin 앱 워크로드(`auth`, `ax1`, `ax2`, `ax3`)를 **`changshin` 단일 namespace**에 배치한다. namespace는 **프로젝트 식별자**로만 사용하고, 환경(dev/stg/prod)은 클러스터 자체로 구분(`changshin-dev` 클러스터 = dev, 향후 `changshin-prod` 클러스터 = prod).
+- **맥락**: 보일러 매니페스트의 namespace 기본값이 `dev`로 들어 있어 환경명과 혼동 소지가 컸음. taabshop 컨벤션은 namespace=프로젝트명(`taabshop`). 둘 중 어느 쪽을 따를지 결정 필요했음.
+- **대안**:
+  - **namespace=환경명**(`dev`, `stg`, `prod`) — D-012(단일 AWS 계정 + 환경별 클러스터/VPC)와 의미 중복. 클러스터 자체가 환경 식별이라 namespace까지 환경 식별로 두는 건 redundant
+  - **서비스별 namespace**(`auth`, `ax1`, ...) — 단일 프로젝트 내부에서 namespace 분리는 운영 부담 대비 격리 이득 작음
+- **근거**:
+  - 클러스터 단위로 환경이 이미 격리됨 → namespace까지 환경에 묶을 필요 없음
+  - taabshop·기타 사내 프로젝트와 일관된 컨벤션
+  - EKS Pod Identity association이 `namespace + service_account` 키 기반이라 namespace를 프로젝트로 두면 정합성 높음
+- **영향**:
+  - 각 앱 리포의 `k8s/clusters/dev/{svc}/kustomization.yaml` namespace 값을 `changshin`으로
+  - `changshin-iac/k8s/clusters/dev/namespace.yaml`이 `changshin` namespace 생성 (기존 `dev` namespace는 prune됨)
+  - `changshin-iac/aws/env/dev/config.yml`의 `eks.services[*].namespace = changshin`
+  - 향후 stg/prod 클러스터 추가 시에도 namespace는 `changshin` 유지
+
+---
+
+## D-018 JWT 서명키 저장 = 수동 관리 K8s Secret
+
+- **일자**: 2026-04-27
+- **상태**: accepted
+- **결정**: Auth 서비스의 JWT RSA 키 페어는 SSM Parameter Store/Secrets Manager 경유 없이 **수동 생성된 K8s Secret(`auth-jwt`)에 직접 주입**한다. 로컬 개발은 `apps/auth/.env`에 PEM을 직접 박는다.
+- **맥락**: 보일러는 RSA 키를 SSM Parameter Store에 두고 `ExternalSecret` operator로 K8s Secret을 자동 생성하는 구조. 사용자 측 컨벤션 정립 시 단순화 요청 — env 직접 주입 방식 채택.
+- **대안**:
+  - **SSM Parameter Store + ExternalSecret** (보일러 기본): DB·기타 secret과 별도 store. 추가 IAM 부담
+  - **Secrets Manager JSON + ExternalSecret** (DB credentials 패턴 통일): 회전 자동화 미사용 시 과설계
+- **근거**:
+  - JWT 키 회전은 토큰 invalidate 정책(version bump 등)을 코드에서 같이 처리해야 해서 **AWS-managed 회전이 의미 없음**
+  - 키 회전 빈도 낮음 → 수동 절차로 충분
+  - 단순한 K8s Secret이 인프라 복잡도 낮춤
+- **영향**:
+  - `apps/auth/.env`에 `RSA_PRIVATE_KEY="..."`, `RSA_PUBLIC_KEY="..."` 직접 입력 (multi-line PEM)
+  - 클러스터에는 1회 수동 생성: `kubectl create secret generic auth-jwt -n changshin --from-file=RSA_PRIVATE_KEY=... --from-file=RSA_PUBLIC_KEY=...`
+  - `deploy.yaml`이 `auth-jwt` K8s Secret을 `secretKeyRef`로 참조
+  - Flux가 이 Secret을 관리하지 않으므로 prune 대상 아님 (안전)
+  - **키 회전 시 절차**: 새 키 페어 생성 → `.env` 갱신 → K8s Secret 재생성(`kubectl create secret ... --dry-run=client -o yaml | kubectl apply -f -`) → 모든 사용자 토큰 version bump
+
+---
+
 ## (템플릿) D-### 제목
 
 - **일자**:
@@ -322,7 +406,10 @@ tags:
 
 ## 미결정 · 논의 필요
 
-> 2026-04-23 시점 현재 주요 미결정 항목은 모두 `D-001 ~ D-014`로 확정되었다. 새로운 질문이 생기면 이 섹션에 체크박스로 추가한 뒤 결정되면 `D-###`로 이동.
+> 2026-04-27 시점 현재 주요 미결정 항목은 모두 `D-001 ~ D-018`로 확정되었다. 새로운 질문이 생기면 이 섹션에 체크박스로 추가한 뒤 결정되면 `D-###`로 이동.
+
+- [ ] **클라이언트 도메인 확정 시 인증서 + host 일괄 교체** — D-015 임시 도메인 → 영구 도메인 전환 절차 (별도 D-### 부여)
+- [ ] **80 포트 listener 미동작 원인** — IngressClassParams는 80/443 모두 listen하라고 설정했으나 ALB SG에 80 인바운드가 안 열린 상태. HTTPS-only로 가도 무방하면 그대로 두고, 80→443 redirect를 정식 적용할지 결정 필요
 
 ---
 

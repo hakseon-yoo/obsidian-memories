@@ -3,19 +3,19 @@ title: Deployment State
 parent: "[[00 - Infrastructure (Index)]]"
 project: 창신
 created: 2026-04-24
-updated: 2026-04-24 (dev2)
+updated: 2026-04-27
 tags:
   - infrastructure
   - state
   - 창신
 ---
 
-# Deployment State (2026-04-24 기준)
+# Deployment State (2026-04-27 기준)
 
 > 상위 문서: [[00 - Infrastructure (Index)]]
 
 > [!summary]
-> AWS(single account, dev env) · EKS + Flux + observability 스택까지 구축 완료. 앱 서비스 리포 4개 중 3개 보일러플레이트 초기화 완료. Auth 서비스 구현이 다음 단계.
+> AWS(single account, dev env) · EKS + Flux + observability 스택 완료. **Auth 서비스 첫 Pod이 dev 클러스터에 떠서 외부 HTTPS로 health 응답 확인.** Swagger도 외부 노출. 다음은 Auth 도메인 로직 구현(D-007 aud 분기, D-009 자체 JWT) → AX1 띄우기.
 
 ---
 
@@ -38,10 +38,27 @@ tags:
 
 | 서비스 | GitLab 리포 | 초기화 상태 |
 |---|---|---|
-| Auth | `changshin/changshin-auth-api` | ✅ 보일러플레이트 push (커밋 `9163aa4`) |
+| Auth | `changshin/changshin-auth-api` | ✅ **첫 Pod 외부 HTTPS 노출 완료** (2026-04-27) |
 | AX1 | `changshin/changshin-api` (기존) | ⏭️ 본 프로젝트 범위 외 |
 | AX2 | `changshin/changshin-ax2-api` | ✅ 보일러플레이트 push (커밋 `a9857ce`) |
 | AX3 | `changshin/changshin-ax3-api` | ✅ 보일러플레이트 push, placeholder (커밋 `ee90069`) |
+
+### Auth 서비스 배포 (2026-04-27)
+
+| 항목 | 상태 |
+|---|---|
+| `apps/auth` 보일러 정리 (apps 4개 삭제, user-api → auth 리네임) | ✅ |
+| `.gitlab-ci.yml`: `ecr_repo=changshin-auth`, `ecr_deploy=changshin-auth-deploy`, OIDC role, 브랜치 매핑 | ✅ |
+| `globalPrefix='auth'` + AuthController prefix 정리 + `/auth/health` | ✅ |
+| Swagger를 `/auth/api-docs` 아래로 이동 (외부 노출) | ✅ |
+| K8s 매니페스트(`k8s/clusters/dev/auth/`): deploy/service/ingress/secrets-manager | ✅ |
+| Flux GitOps 사이클 (push → CI → ECR → Flux → Pod) | ✅ |
+| `auth-jwt` K8s Secret (RSA 키, 수동 생성) | ✅ |
+| `auth-api-docs` K8s Secret (swagger basic auth, 수동 생성) | ✅ |
+| Pod Identity association (`changshin-svc-auth` IAM Role) | ✅ |
+| Ingress + ALB(internet-facing) + Route53 alias 레코드 | ✅ |
+| `https://changshin-api.dev.weplanet.co.kr/auth/health` 200 | ✅ |
+| `https://changshin-api.dev.weplanet.co.kr/auth/api-docs/swagger` 접근 | ✅ |
 
 ---
 
@@ -60,12 +77,19 @@ tags:
 | CI Role ARN | `arn:aws:iam::687582709363:role/changshin-oidc-ci` |
 | OIDC Audience | `flux-deploy` |
 | ECR (auth) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-auth` |
-| ECR (ax1) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-ax1` |
-| ECR (ax2) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-ax2` |
-| ECR (ax3) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-ax3` |
+| ECR (auth-deploy, Flux artifact) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-auth-deploy` |
+| ECR (ax1 / ax1-deploy) | `…/changshin-ax1`, `…/changshin-ax1-deploy` |
+| ECR (ax2 / ax2-deploy) | `…/changshin-ax2`, `…/changshin-ax2-deploy` |
+| ECR (ax3 / ax3-deploy) | `…/changshin-ax3`, `…/changshin-ax3-deploy` |
 | ECR (iac/Flux OCI) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-iac` |
 | S3 temp | `changshin-temp` |
 | Terraform state S3 | `changshin-terraform-backend` |
+| K8s Namespace (앱 워크로드) | `changshin` (D-017) |
+| 임시 외부 호스트 | `changshin-api.dev.weplanet.co.kr` (D-015) |
+| ALB DNS (auto-managed) | `k8s-default-1acb9e2c57-1088456801.ap-northeast-2.elb.amazonaws.com` |
+| RDS endpoint | `changshin-dev-changshin.cgigcuul8yn2.ap-northeast-2.rds.amazonaws.com` |
+| RDS Secrets Manager key | `changshin/dev/rds-changshin` (host/port/username/password/dbname property) |
+| 수동 관리 K8s Secret | `auth-jwt`(RSA 키), `auth-api-docs`(swagger basic auth) — both in `changshin` ns |
 
 ---
 
@@ -122,42 +146,42 @@ OIDC Provider `git.weplanet.co.kr`는 **AWS 계정당 1개만 존재 가능**한
 
 ## 6. 남은 작업 (우선순위 순)
 
-### 단기 (현재 사이클)
+### 완료 (2026-04-24 ~ 04-27)
 
-- [x] **Auth 보일러플레이트 정리 + 배포 파이프라인** (2026-04-24 완료)
-  - [x] `apps/` 예시 4개 삭제(`admin-api`, `batch`, `llm-api`, `mcp-server`)
-  - [x] `apps/user-api` → `apps/auth` 리네임 (git mv로 히스토리 보존)
-  - [x] `apps/auth/{package.json, nest-cli.json, Dockerfile, tsconfig.json}` 경로/이름 수정
-  - [x] `apps/auth/src/user-api.module.ts` + `api-docs/index.ts`에서 admin-api import 제거
-  - [x] `.gitlab-ci.yml`: `ecr_repo=changshin-auth`, `oidc_role=changshin-oidc-ci`, 브랜치 `main→prod`, `dev→dev`
-  - [x] K8s 매니페스트 (`k8s/clusters/dev/auth/`): deploy/service/ingress/parameter-store/secrets-manager 전부 교체
-  - [x] `pnpm install` + `turbo build --filter=auth` 성공 검증
-  - ⚠️ **변경사항 아직 커밋 안 됨** (working tree에 머물러 있음)
-- [ ] **Auth 서비스 구현** ← 다음 세션 시작점
-  - [ ] ⚠️ 결정 필요 3가지 (아래 "다음 세션 시작 전 결정" 참조)
-  - [ ] D-007 `aud` 기반 JWT 발급 로직 (`/auth/{service}/login`, `/auth/.well-known/jwks.json`)
-  - [ ] D-009 자체 JWT (users 테이블, bcrypt/argon2 비밀번호 해시, 비밀번호 재설정 등)
-  - [ ] D-002 공유 DB 스키마 `auth.*` 마이그레이션
-  - [ ] 내부 src 리네임 (선택): `user-api.module.ts` → `auth-app.module.ts`, `UserApiModule` → `AuthAppModule` 등
-- [ ] **Auth 배포 선행 작업**
-  - [ ] SSM Parameter Store에 JWT 키 pair 업로드 (`/changshin/dev/auth/jwt/{private-key,public-key}`)
-  - [ ] Ingress host 최종 확정 (현재 placeholder)
-- [ ] **AX2 서비스 구현** (Auth 검증 적용)
-- [ ] **changshin-iac의 `.gitlab-ci.yml` 생성** (`./ci.sh`) — Terraform plan/apply 자동화
+- [x] **Auth 보일러 정리** — apps 4개 삭제, `user-api → auth` 리네임, Dockerfile/nest-cli/tsconfig 정리, admin-api 의존 제거
+- [x] **Auth 배포 파이프라인** — `.gitlab-ci.yml`(ECR, OIDC, 브랜치 매핑), K8s 매니페스트 세트 (`deploy/service/ingress/secrets-manager`)
+- [x] **Auth 결정 3가지** — Ingress host(임시) [[31 - Decision Log#D-015]], JWT 키 저장(K8s Secret 직접) [[31 - Decision Log#D-018]], 내부 src 리네임(Auth 도메인 구현과 함께)
+- [x] **iac에 service 등록** — `aws/env/dev/config.yml` `eks.services` 활성화, namespace=`changshin` [[31 - Decision Log#D-017]], ECR `*-deploy` 4개 추가 [[31 - Decision Log#D-016]]
+- [x] **iac 첫 적용** — `terraform apply` (Pod Identity, IAM Role, Flux OCIRepository/Kustomization 생성)
+- [x] **첫 Pod 외부 노출 검증** — Route53 alias + ACM `*.dev.weplanet.co.kr` 와일드카드 + ALB → `https://changshin-api.dev.weplanet.co.kr/auth/health` 200 OK
+- [x] **Swagger 외부 접근** — `globalPrefix='auth'` 적용, swagger documentPath `/auth/api-docs`로 이동, basic auth 자격증명을 `auth-api-docs` Secret으로 강화
 
-### 다음 세션 시작 전 결정 필요
+### 단기 (현재 사이클) ← **다음 세션 재개 포인트**
 
-1. **Ingress host** — 현재 `api.dev.changshin.weplanet.co.kr` placeholder. AX1/2/3과 ALB/host 공유 규칙 확정 필요. 후보:
-   - A안: 단일 host + path 라우팅 (`api.dev.changshin.weplanet.co.kr/auth`, `.../ax1`, ...)
-   - B안: 서비스별 host (`auth.dev.changshin...`, `ax1.dev.changshin...`) — D-011은 path 라우팅 명시했으므로 A안 유력
-2. **SSM JWT 키 경로** — `/changshin/dev/auth/jwt/{private-key,public-key}` 제안. terraform으로 관리할지(iac 리포에 넣기) 수동 put 할지.
-3. **내부 src 리네임** — Auth 도메인 구현과 같이 묶어서 할지, 선행으로 먼저 정리할지.
+- [ ] **Auth 도메인 구현 본격** [[31 - Decision Log#D-007]] [[31 - Decision Log#D-009]]
+  - [ ] D-007 `aud` 분기 로그인 (`/auth/{ax1|ax2|ax3}/login`) — 단일 JwtStrategy를 aud 동적으로 확장
+  - [ ] `/auth/.well-known/jwks.json` — RSA 공개키 JWK 노출 (AX 서비스 검증 진입점)
+  - [ ] D-009 자체 JWT — users 테이블, bcrypt/argon2 해시, 비밀번호 재설정·이메일 인증
+  - [ ] D-002 `auth.*` 스키마 마이그레이션
+  - [ ] 보일러 잔재 정리 — 소셜 로그인(D-009 자체 JWT 결정에 따라), files/faqs/notices/verifications/admin 등 Auth 본질과 무관한 컨트롤러
+  - [ ] 내부 src 리네임 (`user-api.module.ts` → `auth-app.module.ts` 등) — 도메인 구현 중 자연스럽게 정리
+- [ ] **AX1 서비스 띄우기** — Auth 도메인 어느 정도 완성된 후, 같은 패턴으로 (보일러 정리 → ECR/iac 등록 → Pod)
+- [ ] **changshin-iac의 `.gitlab-ci.yml` 생성** — Terraform plan/apply 자동화 (현재는 로컬에서 수동 apply)
+
+### 중기
+
+- [ ] **AX2/AX3 서비스 구현** (Auth 검증 적용)
+- [ ] **클라이언트 도메인 확정 시 인증서/host 교체** [[31 - Decision Log#D-015]]
+- [ ] **80 listener 미동작 진단** — IngressClassParams는 80/443 listen 설정인데 실제 ALB SG는 443만 열려 있음. HTTPS-only로 갈지, 80→443 redirect 정식 적용할지 결정
+- [ ] **OIDC Provider 소유권 정리** (5번 항목)
+- [ ] **Backend state 공유 방법** (`aws/env/backend/terraform.tfstate`가 로컬에만 있음)
 
 ### 다음 세션 재개 포인트
 
 워킹 디렉터리: `/Users/yoohakseon/Documents/GitLab/changshin/changshin-auth-api`
-- 브랜치: `main`, working tree에 리네임/수정 미커밋 상태
-- 커밋 전에: 위 3개 결정 정리 → 커밋 → Auth 도메인 구현 시작
+- 브랜치: `dev` (origin/dev 동기화), Auth Pod 클러스터에 정상 동작 중
+- 시작점: **Auth 도메인 구현 (D-007 aud 분기, JWKS, D-009 자체 JWT)**
+- 보일러의 기존 `apps/auth/src/controllers/auth/auth.controller.ts`·`auth.service.ts`가 이미 register/login/refresh/password/social 풀스택 구현 — `aud` 동적화 + JWKS 추가 + 소셜 부분 정리(또는 제거) 결정부터 시작하면 자연스러움
 
 ### 중기
 
@@ -173,4 +197,4 @@ OIDC Provider `git.weplanet.co.kr`는 **AWS 계정당 1개만 존재 가능**한
 
 ## 관련 문서
 - [[00 - Infrastructure (Index)]]
-- [[31 - Decision Log]] — D-001 ~ D-014
+- [[31 - Decision Log]] — D-001 ~ D-018
