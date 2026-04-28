@@ -420,6 +420,68 @@ tags:
 
 ---
 
+## D-020 도메인 패키지 트랙별 디렉토리 분리 (ax / ax2 / ax3 / shared)
+
+- **일자**: 2026-04-28
+- **상태**: accepted (D-019 후속 — "도메인 모듈 디렉터리 컨벤션")
+- **결정**: `packages/data/domain/src/` 평탄 구조를 폐기하고 **트랙별 sub-barrel 디렉토리**로 재배치한다.
+  - `ax/` — AX-1 (마켓센싱) 도메인
+  - `ax2/` — AX-2 (스케줄링) 도메인 (현재 비어 있음)
+  - `ax3/` — AX-3 (구매정산) 도메인 (현재 비어 있음)
+  - `shared/` — 트랙 간 공유 마스터 (`sku/` 등)
+  - 최상위 `index.ts` 는 4개 트랙 sub-barrel 을 re-export
+- **맥락**: D-019 로 단일 서비스 통합 후, AX-1/AX-2/AX-3 트랙을 동시에 작업하는 개발자가 늘어남. 평탄 구조에서는 신규 도메인 추가마다 동일 디렉토리·동일 `index.ts` 를 동시에 수정하게 돼 **머지 충돌 빈발 예상**. 트랙 경계가 코드 디렉토리 수준에서 드러나도록 분리 필요.
+- **대안**:
+  - **별도 패키지 분할** (`@data/domain-ax`, `@data/domain-ax2` 등) — 격리도는 강하지만 공유 엔티티(예: User, Vendor, SKU 등)가 `shared` 패키지로 빠져야 하고 cross-track relation 시 도로 얽힘. 빌드 그래프·tsconfig path 재구성 비용도 큼.
+  - **CODEOWNERS + 파일 prefix 컨벤션 유지** — 격리도 약함, barrel 충돌 그대로
+- **근거**:
+  - 트랙별 sub-barrel(`ax/index.ts`, `ax2/index.ts`, `ax3/index.ts`, `shared/index.ts`) 로 신규 도메인 추가 시 다른 트랙 파일을 건드리지 않음 → 머지 충돌 격리
+  - 한 패키지(`@data/domain`) 내부에서 cross-track import 가 자연스럽게 가능 (별도 패키지 분할 시의 순환 의존 문제 회피)
+  - tsconfig path · 빌드 entry · barrel re-export 만 손대면 되는 가장 가벼운 변경
+  - 향후 트랙 도메인이 진짜 독립적임이 확정되면 별도 패키지로 승격하는 비용 낮춤
+- **영향**:
+  - **저장소**: 기존 17개 도메인 디렉토리는 `ax/` 하위로 `git mv` (rename 73건). 트랙 prefix 가 `CSA/CSB/CSC...` 인 마켓센싱 자재코드 기준 트랙 분류 일치
+  - **deep import**: `@app/data/domain/{name}` 형태 deep import 7건을 `@app/data/domain/ax/{name}` 로 갱신. tsconfig path `@app/data/domain/*` → `src/*` 매핑은 그대로 동작
+  - **컨벤션 문서**: `.claude/rules/coding-conventions.md` 의 "Service는 domain에" 섹션과 금지 패턴(`packages/data/domain/src/` 바로 아래 도메인 직접 두기 금지) 갱신
+  - **shared 디렉토리 도입**: 트랙 간 공유 마스터 도메인의 자리. 첫 입주는 SKU 마스터 (D-021)
+  - **상위 barrel**: `src/index.ts` 가 단순한 `export * from './ax' / './ax2' / './ax3' / './shared'` 형태로 정리됨
+
+---
+
+## D-021 SKU 마스터 도메인 설계 (창신 제품 클렌징 기반)
+
+- **일자**: 2026-04-28
+- **상태**: accepted
+- **결정**: 창신 제품 List(330건) 클렌징 작업의 기반으로 **5개 엔티티 + 1 enum** 으로 SKU 마스터를 구성하고 `packages/data/domain/src/shared/sku/` 에 배치한다.
+  - **`Sku`**: 마스터 본체. PK 는 `id` (auto-increment) + UNIQUE(`materialCode`, `productCode`)
+  - **`SkuSeries`**: 시리즈 마스터 (A, 장식A, B, C-3, ... V — 31종, 인적 입력 추가 대비 마스터화)
+  - **`SkuComponentType`**: 부품 타입 마스터 (오버캡, 캡, 내캡, ... 주걱 — 31종, 부품 추가 시 enum 변경 회피)
+  - **`SkuChamber`**: 챔버 자식 (단일/다중 챔버 모두 표현, `chamberIndex`/`capacityMl`/`baseMaterial`/`containerMaterial`)
+  - **`SkuComponent`**: 부품-소재 매핑 junction (`material` 컬럼, `chamberIndex` 로 챔버별 부품 구분)
+  - **`SkuContainerType` enum**: 12종 (Pump Bottle, Open Jar, Double Chamber Bottle 등 CSV 의 "최종 Mapping" 카테고리)
+- **맥락**: 창신 제품 카탈로그 CSV 분석 결과 (1) 자재코드 1건이 소재 변형(PETG/PP)으로 1:N 으로 분기하는 8건, (2) 30+ 부품 컬럼이 sparse 한 행렬, (3) Double Chamber Bottle 의 챔버별 용량/소재 분리 필요 같은 모델링 결정사항이 다수 도출됨. 단순 1:1 매핑으로 import 하면 클렌징/조회/확장에 모두 부담.
+- **대안**:
+  - **자재코드를 string PK 로 사용** — 동일 자재코드 변형 처리에 `parentSkuCode` self-FK 또는 코드 합성 룰 필요. 프로젝트 컨벤션(다른 엔티티들이 `id` PK 사용)과도 어긋남
+  - **30+ 부품 컬럼 인라인** — sparse 데이터 낭비, 신규 부품 추가 시 ALTER, 소재 통일 같은 클렌징 작업이 30 컬럼 모두 UPDATE
+  - **부품 타입을 enum 으로 고정** — 인적 입력으로 부품이 추가될 때마다 enum 값 추가 + 마이그레이션 필요
+  - **챔버 정보 컬럼 대칭 분리** (capacityMlPrimary/Secondary 등) — Double Chamber 만 위해 컬럼 6개 추가, 3챔버 등장 시 또 추가
+  - **시리즈를 string 컬럼으로** — 표기 흔들림(`A` vs ` A`) 방지 못함, 부가 속성(설명·정렬) 붙이기 어려움
+- **근거**:
+  - **surrogate PK + natural unique** 가 프로젝트 컨벤션과 맞고 자식 테이블(SkuChamber/SkuComponent) FK 가 깔끔
+  - **부품 정규화 (`SkuComponent`)**: 클렌징 작업 핵심인 "소재 표기 통일", "이상치 제거", "부품×소재 빈도 분석" 모두 한 컬럼 단위로 처리 가능
+  - **`SkuComponentType` 마스터화**: 인적 입력 (사람이 카탈로그 추가) 컨텍스트라 부품 종류는 계속 추가될 가능성 높음. enum 보다 row 추가가 가볍고 부가 속성(설명/순서) 붙이기 쉬움
+  - **`SkuChamber` 자식 테이블**: 단일 챔버는 1 row, 이중 챔버는 2 row, 3챔버 등장도 row 추가만으로 흡수. Double Chamber Bottle enum 이 정식 카테고리이므로 데이터 모델도 "챔버를 1급 시민" 으로 다루는 게 일관됨
+  - **`SkuSeries` 마스터화**: 인적 입력으로 시리즈 추가 예정, 표기 통제 + 향후 부가 속성(설명·이미지·정렬) 자리 마련
+- **영향**:
+  - **위치**: `packages/data/domain/src/shared/sku/` (D-020 의 `shared/` 첫 입주). 엔티티 5개는 `entities/` 하위로 묶음
+  - **컬럼 정규화 룰**: import 시 `productCode` 공백 제거 (`CSC60-DU - PETG` → `CSC60-DU-PETG`), `0` 값은 NULL, 슬래시 들어간 부품 셀(`PETG/PP`)은 다중 챔버에서 `chamberIndex` 별로 row 분리
+  - **이미지 필드**: `Sku.imageUrl` (S3 object key 저장, 응답 시 presigned URL 변환). PDF 카탈로그에서 코워크가 추출 후 업데이트 예정
+  - **클렌징 보존**: `소재 Sanitized` 의 `PMMA (아크릴)` 표기는 의도적 차이라 그대로 유지 (다른 컬럼은 `PMMA`). `장식A` 같은 시리즈 표기 흔들림도 그대로 유지
+  - **import 스크립트**: `apps/ax-api/scripts/sku-import.ts` (1회성, 재현성 위해 커밋). 환경변수로 DB 연결 주입
+  - **데이터 검토 후속 항목**: CSF60-DU / CSF100-DU 가 `containerType=doubleChamberBottle` 인데 CSV 표기는 단일 챔버 — PDF 카탈로그 검토 후 결정 필요 (미결정 항목으로 추가)
+
+---
+
 ## (템플릿) D-### 제목
 
 - **일자**:
@@ -439,9 +501,11 @@ tags:
 - [ ] **D-019 후속**: `aud` 클레임 처리 방향 — 완전 제거 vs 클라이언트 컨텍스트(웹/모바일/외부) 구분용으로 재정의
 - [ ] **D-019 후속**: Ingress path 단순화 여부 (`/auth`, `/api/ax{1,2,3}` → `/api/*` 통합)
 - [ ] **D-019 후속**: ECR 리포 통폐합 (`changshin-auth/ax1/ax2/ax3` 4세트 → `changshin-ax-api` 1세트로 정리)
-- [ ] **D-019 후속**: 단일 서비스 안에서 도메인 모듈 디렉터리 컨벤션 (예: `apps/ax-api/src/modules/{auth,ax1,ax2,ax3}/`)
+- [x] **D-019 후속**: 단일 서비스 안에서 도메인 모듈 디렉터리 컨벤션 → [[#D-020]] 로 결정 (도메인 패키지를 `ax/ax2/ax3/shared/` 트랙별 sub-barrel 로 분리)
 - [ ] **클라이언트 도메인 확정 시 인증서 + host 일괄 교체** — D-015 임시 도메인 → 영구 도메인 전환 절차 (별도 D-### 부여)
 - [ ] **80 포트 listener 미동작 원인** — IngressClassParams는 80/443 모두 listen하라고 설정했으나 ALB SG에 80 인바운드가 안 열린 상태. HTTPS-only로 가도 무방하면 그대로 두고, 80→443 redirect를 정식 적용할지 결정 필요
+- [ ] **D-021 후속**: CSF60-DU · CSF100-DU 의 챔버 구조 — `containerType=doubleChamberBottle` 인데 CSV 표기는 단일 챔버(`용량=60`, `용기 소재=PETG` or `PP` 단일). PDF 카탈로그 또는 클라이언트 확인 후 ① CSV 입력 누락 (실제 이중 챔버), ② 카테고리 오분류 (실제 단일 챔버), ③ 단일 챔버 + 이중 소재(외층/내층) 구조 중 결정 필요
+- [ ] **D-021 후속**: 시리즈 표기 흔들림 정리 — `장식A` 가 진짜 별도 시리즈인지 vs `A` 시리즈의 변형인지 확인 후 `SkuSeries` 마스터 정리
 
 ---
 

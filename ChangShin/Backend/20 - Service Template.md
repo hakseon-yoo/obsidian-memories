@@ -23,6 +23,14 @@ tags:
 > [!warning] 2026-04-28 변경
 > 4개 분리 앱(auth/ax1-api/ax2-api/ax3-api) → 단일 통합 앱으로 변경 ([[Infrastructure/31 - Decision Log#D-019|D-019]]).
 
+> [!note] 2026-04-28 추가 결정
+> - 도메인 패키지(`@data/domain`) 를 트랙별 디렉토리(`ax/ax2/ax3/shared/`) 로 분리 ([[Infrastructure/31 - Decision Log#D-020|D-020]])
+> - 트랙 간 공유 마스터(`shared/sku/`) 첫 입주: SKU 마스터 5 엔티티 ([[Infrastructure/31 - Decision Log#D-021|D-021]])
+> - 본 문서의 `apps/ax-api/src/modules/{auth,ax1,ax2,ax3}/` 구조 제안은 **이전 안**이며, 실제 구조는 다음과 같음:
+>   - `apps/ax-api/src/controllers/<resource>/` (HTTP 핸들러 + DTO 만)
+>   - `packages/data/domain/src/{ax|ax2|ax3|shared}/<resource>/` (Service + Entity + Module)
+>   - 컨벤션 상세: 리포의 `.claude/rules/coding-conventions.md`
+
 ---
 
 ## 1. 보일러플레이트 앱 구조 (참고)
@@ -71,10 +79,18 @@ changshin-api/
 │   │       ├── api-docs/
 │   │       ├── app.ts
 │   │       └── main.ts
-│   ├── batch/
-│   │   └── src/cron/                     # enrichment / trend-promotion scheduler
-│   └── ax2-api/                          # legacy stub (삭제 예정)
-├── packages/                             # 공유 패키지 (data/decorators/config)
+│   ├── ax2-api/                          # AX-2 트랙 컨트롤러 (현재 비어 있음, D-019 후 활성화 예정)
+│   └── batch/
+│       └── src/cron/                     # enrichment / trend-promotion scheduler
+├── packages/
+│   ├── data/
+│   │   ├── domain/src/                   # 트랙별 도메인 (D-020)
+│   │   │   ├── ax/                       # AX-1 (현재 17개 도메인 — beauty-category, trend, ...)
+│   │   │   ├── ax2/                      # AX-2 (대기)
+│   │   │   ├── ax3/                      # AX-3 (대기)
+│   │   │   └── shared/sku/               # 트랙 공유 (D-021)
+│   │   ├── decorators/, config/, dto/, lib/, migrations/
+│   └── infra/, system/                   # 인프라/시스템 공유 패키지
 ├── k8s/clusters/dev/                     # K8s 매니페스트
 └── pnpm-workspace.yaml
 ```
