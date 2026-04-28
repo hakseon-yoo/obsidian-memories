@@ -4,7 +4,7 @@ project: 창신 AX-2
 version: v1.0 (쉬운버전)
 source: "[모니터 딜로이트] AX-2 지능형 스케줄러 워크플로우 v6"
 audience: 개발팀 (PM · 백엔드 · 프론트)
-implementation: AX2 API Server
+implementation: changshin-api · apps/ax-api · AX2 모듈
 created: 2026-04-23
 updated: 2026-04-23
 tags:
@@ -21,9 +21,10 @@ tags:
 > AX-2가 책임지는 4개의 모듈과 전체 업무 흐름을 한 번에 정리했습니다.
 
 > [!important] 구현 위치
-> 이 폴더의 도메인 문서는 **AX2 API 서버**에 구현된다.
-> - 서버 구성: [[Backend/20 - Service Template#2-3. AX2 API apps-ax2-api|Backend/20 - Service Template]]
-> - 인증(aud=ax2): [[Backend/10 - Auth Strategy]]
+> 이 폴더의 도메인 문서는 **`changshin-api`의 `apps/ax-api/` AX2 모듈**에 구현된다.
+> 2026-04-28 단일 통합 서비스로 변경되어 ([[Infrastructure/31 - Decision Log#D-019|D-019]]) 기존 "AX2 API 서버" → "AX2 모듈"로 변경.
+> - 서버 구성: [[Backend/20 - Service Template]] · [[Backend/01 - Overview]]
+> - 인증: [[Backend/10 - Auth Strategy]]
 > - 배포: [[Infrastructure/20 - AWS Deployment]]
 > - DB 스키마: 공유 DB 내 `ax2.*` ([[Infrastructure/10 - Architecture#2. 공유 데이터베이스 전략]])
 

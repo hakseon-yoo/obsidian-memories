@@ -2,7 +2,7 @@
 title: Module 2 · 생산 계획 관리
 parent: "[[00 - AX-2 쉬운 설명서 (Index)]]"
 module: M2
-implementation: AX2 API Server
+implementation: changshin-api · apps/ax-api · AX2 모듈 · production-planning
 related_teams:
   - 생산관리팀
   - 외주처

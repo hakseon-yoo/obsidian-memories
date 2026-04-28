@@ -2,7 +2,7 @@
 title: Module 3 · 물류 · 배차 관리
 parent: "[[00 - AX-2 쉬운 설명서 (Index)]]"
 module: M3
-implementation: AX2 API Server
+implementation: changshin-api · apps/ax-api · AX2 모듈 · logistics
 related_teams:
   - 자재팀
   - 외주처

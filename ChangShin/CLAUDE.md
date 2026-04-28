@@ -12,15 +12,21 @@
 ### 현재 작업 맥락
 
 - **주요 프로젝트**: 창신 AX 시리즈 (AX1 · AX2 · AX3)
+- **아키텍처 (2026-04-28 변경)**: 4서비스 분리 → **단일 통합 API 서비스 (`changshin-api`)** 로 통합 ([[Infrastructure/31 - Decision Log#D-019|D-019]])
+  - 리포: GitLab `changshin/changshin-api` 1개
+  - 워크로드: `apps/ax-api` (HTTP API) + `apps/batch` (cron)
+  - 도메인 분리: NestJS 모듈 디렉터리 단위 (`Auth`, `AX1`, `AX2`, `AX3`)
+  - DB: PostgreSQL 단일, 스키마 단위 논리 분리 유지
+  - 운영 중: AWS EKS dev 환경 (`changshin-dev`), `https://changshin-api.dev.weplanet.co.kr/`
 - **현재 단계**:
-  - AX-2 Module 1 · 2 MVP 스펙 확정 준비
-  - **인프라 초기 설계 진행 중** — K8s 기반 마이크로서비스, AWS→Azure 이전 고려
+  - **D-019 후속 정리** — Auth legacy 자산 통합, `aud` 처리 결정, ECR 통폐합
+  - AX-2 Module 1·2 MVP 스펙 확정 준비
 - **당면 과제**:
   - 딜로이트 인터뷰 답변 취합 · [[AX-2 지능형 스케줄러/08 - 아직 답이 필요한 질문|AX-2 열린 질문]] 실무진 확인 미팅
+  - [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트|클라이언트 미팅 P0 질의]] 정리
   - SKU 마스터 데이터 정합성 점검 계획 수립
-  - 외주 협력업체 1~2곳 인터뷰 세팅
-  - 인프라 [[Infrastructure/31 - Decision Log#미결정 · 논의 필요|미결정 항목]] 확정 (DB 엔진, 인증 방식 등)
-- **마지막 업데이트**: 2026-04-23
+  - `changshin-api`에 Auth 모듈 통합 + AX-2 모듈 골격 작성
+- **마지막 업데이트**: 2026-04-28
 
 ### 세션 시작 체크리스트
 
@@ -40,15 +46,15 @@
 
 ### AX-2 지능형 스케줄러 (창신)
 
-> **구현 서버**: AX2 API Server ([[Backend/20 - Service Template#2-3. AX2 API apps-ax2-api]])
-> 이 폴더의 도메인 문서는 전부 **AX2 서버**에 구현된다.
+> **구현 위치**: `changshin-api`의 `apps/ax-api` AX2 모듈 ([[Backend/20 - Service Template]])
+> 2026-04-28 단일 통합 서비스로 변경됨 ([[Infrastructure/31 - Decision Log#D-019|D-019]]).
 
 **허브 · 전체 개요**
 - [[AX-2 지능형 스케줄러/00 - AX-2 쉬운 설명서 (Index)]] — 시작점 MOC
 - [[AX-2 지능형 스케줄러/01 - 사전 준비 - 등장인물 · 용어집]] — 도메인 용어 · 팀 구성
 - [[AX-2 지능형 스케줄러/02 - 전체 흐름]] — 10 STEP 업무 흐름
 
-**모듈별 스펙** (AX2 API 서버 구현)
+**모듈별 스펙** (`apps/ax-api`의 AX2 모듈에 구현)
 - [[AX-2 지능형 스케줄러/02 - Module 1 · 납기일 예측]] — M1
 - [[AX-2 지능형 스케줄러/03 - Module 2 · 생산 계획 관리]] — M2
 - [[AX-2 지능형 스케줄러/04 - Module 3 · 물류 · 배차]] — M3

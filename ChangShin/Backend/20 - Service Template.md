@@ -1,8 +1,9 @@
 ---
-title: Service Template (from Boilerplate)
+title: Service Template (Single API)
 parent: "[[00 - Backend (Index)]]"
 project: 창신
 created: 2026-04-23
+updated: 2026-04-28
 status: draft
 tags:
   - backend
@@ -11,244 +12,247 @@ tags:
   - 창신
 ---
 
-# Service Template · 보일러플레이트 기반 서비스 구성
+# Service Template · 통합 API 구성
 
 > 상위 문서: [[00 - Backend (Index)]]
 > 이전: [[10 - Auth Strategy]]
 
 > [!summary] 한 줄로 말하면
-> 보일러플레이트의 `apps/` 아래 앱 하나(예: `user-api`)를 **기본 템플릿**으로 삼아 Auth / AX1 / AX2 / AX3 네 개 앱을 분화한다. 공통 가드·설정은 `libs/`로 분리.
+> `changshin-api` 단일 NestJS monorepo에 **`apps/ax-api`(API) + `apps/batch`(배치)** 두 워크로드를 두고, 도메인은 `apps/ax-api/src/modules/{auth,ax1,ax2,ax3}/`로 분리한다.
+
+> [!warning] 2026-04-28 변경
+> 4개 분리 앱(auth/ax1-api/ax2-api/ax3-api) → 단일 통합 앱으로 변경 ([[Infrastructure/31 - Decision Log#D-019|D-019]]).
 
 ---
 
 ## 1. 보일러플레이트 앱 구조 (참고)
 
+`weplanet-starter-nestjs/apps/user-api/` 등을 참조해 도메인별 코드 배치 컨벤션을 적용:
+
 ```
-apps/user-api/
+apps/<app>/
 ├── src/
-│   ├── app.ts                            # NestJS bootstrap
-│   ├── user-api.controller.ts            # 루트 컨트롤러 (헬스체크 등)
-│   ├── user-api.module.ts                # 루트 모듈
-│   ├── api-docs/                         # Swagger YAML + Markdown
-│   ├── controllers/
-│   │   ├── user-http.module.ts           # 컨트롤러 모듈 묶음
-│   │   ├── auth/
-│   │   │   ├── auth.controller.ts
-│   │   │   ├── auth.service.ts
-│   │   │   ├── auth-http.module.ts
+│   ├── app.ts                            # bootstrap
+│   ├── <app>.controller.ts               # 루트 (헬스체크)
+│   ├── <app>.module.ts                   # 루트 모듈
+│   ├── api-docs/                         # Swagger
+│   ├── controllers/                      # 또는 modules/
+│   │   ├── <domain>/
+│   │   │   ├── <domain>.controller.ts
+│   │   │   ├── <domain>.service.ts
+│   │   │   ├── <domain>-http.module.ts
 │   │   │   └── dto/
 │   │   │       ├── req/
 │   │   │       └── res/
-│   │   ├── faqs/
-│   │   └── files/
-│   └── guards/
-│       ├── authentication.guard.ts
-│       └── authorization.guard.ts
+│   ├── guards/                           # authentication / authorization
+│   └── strategies/                       # JWT
 ├── eslint.config.mjs
 ├── jest.config.ts
 ├── nest-cli.json
-├── package.json
-└── .lintstagedrc.json
+└── package.json
 ```
 
 ---
 
-## 2. 서비스별 역할 분담
+## 2. `changshin-api` 실제 구조 (현재 + 목표)
 
-### 2-1. Auth (`apps/auth/`)
+### 2-1. 현재 (2026-04-28)
 
-- **기반**: `user-api`의 `controllers/auth/` **전체**를 복사 후 확장
-- **추가·수정**:
-  - `/auth/ax1/login`, `/auth/ax2/login`, `/auth/ax3/login` 분기
-  - JWT 발급 시 `aud` 주입 (자세한 것: [[10 - Auth Strategy]])
-  - `/auth/.well-known/jwks.json` 엔드포인트 추가
-  - Refresh 토큰 저장소(Redis) 설정
-- **제거**: `faqs`, `files` 등 AX 서비스가 필요로 하지 않는 컨트롤러
+```
+changshin-api/
+├── apps/
+│   ├── ax-api/
+│   │   └── src/
+│   │       ├── ax-api.module.ts
+│   │       ├── ax-api.controller.ts
+│   │       ├── controllers/              # 현재는 enrichment / market 등 잔재
+│   │       ├── guards/
+│   │       ├── strategies/
+│   │       ├── api-docs/
+│   │       ├── app.ts
+│   │       └── main.ts
+│   ├── batch/
+│   │   └── src/cron/                     # enrichment / trend-promotion scheduler
+│   └── ax2-api/                          # legacy stub (삭제 예정)
+├── packages/                             # 공유 패키지 (data/decorators/config)
+├── k8s/clusters/dev/                     # K8s 매니페스트
+└── pnpm-workspace.yaml
+```
 
-### 2-2. AX1 API (`apps/ax1-api/`)
+### 2-2. 목표 (D-019 후속 정리 후)
 
-- **기반**: `user-api`의 구조 복사
-- **남김**: `authentication.guard.ts` (수정해서 `aud=ax1` 검증)
-- **제거**: `controllers/auth/` (Auth 서버가 담당하므로 삭제)
-- **추가**: AX1 도메인 컨트롤러 (도메인은 별도 결정)
-- **설정**: 공유 DB 중 `ax1.*` 스키마 접근 권한만
-
-### 2-3. AX2 API (`apps/ax2-api/`)
-
-- AX1과 동일한 패턴, `aud=ax2`, `ax2.*` 스키마
-- [[AX-2 지능형 스케줄러/00 - AX-2 쉬운 설명서 (Index)|AX-2 모듈 1~4]] 도메인이 여기에 구현됨
-
-### 2-4. AX3 API (`apps/ax3-api/`)
-
-- 동일 패턴, `aud=ax3`, `ax3.*`
+```
+changshin-api/
+├── apps/
+│   ├── ax-api/
+│   │   └── src/
+│   │       ├── ax-api.module.ts          # 모든 도메인 모듈 import
+│   │       ├── ax-api.controller.ts      # 헬스체크
+│   │       ├── modules/                  # 도메인 모듈 단위 분리
+│   │       │   ├── auth/
+│   │       │   ├── ax1/
+│   │       │   ├── ax2/
+│   │       │   │   ├── due-date-prediction/    # M1
+│   │       │   │   ├── production-planning/    # M2
+│   │       │   │   ├── logistics/               # M3
+│   │       │   │   └── settlement/              # M4
+│   │       │   └── ax3/
+│   │       ├── common/                   # 공통 (예외, 상수, 헬퍼)
+│   │       ├── guards/                   # 공통 가드
+│   │       ├── strategies/
+│   │       └── api-docs/
+│   └── batch/
+│       └── src/
+│           ├── batch.module.ts
+│           ├── cron/                     # 도메인별 scheduler
+│           │   ├── ax2/                  # AX-2 배치 (납기 예측 batch 등)
+│           │   └── ...
+│           └── main.ts
+├── packages/
+│   ├── data/                             # 공유 엔티티·decorator·config
+│   └── (필요 시) auth/                    # JWT 검증 공통 (단일 서비스라 우선순위 낮음)
+├── k8s/clusters/{dev,stage,prod}/
+└── pnpm-workspace.yaml
+```
 
 ---
 
-## 3. 공유 코드 배치 (`libs/`)
+## 3. 도메인 모듈 작성 규칙
 
-```
-libs/
-├── auth/                       # JWT 검증 공통 (AX1/2/3 모두 사용)
-│   ├── src/
-│   │   ├── jwt-audience.guard.ts
-│   │   ├── jwks-client.service.ts
-│   │   └── auth.module.ts
-│   └── tsconfig.lib.json
-├── common/                     # 공통 유틸 · 상수 · 에러 클래스
-├── database/                   # TypeORM datasource · 공통 엔티티 (users, orgs)
-└── api-docs/                   # Swagger 공통 설정
-```
+### 3-1. 디렉토리 컨벤션 (제안)
 
-### 3-1. libs/auth 사용 예 (AX1)
+각 도메인 모듈은 자기만의:
+
+- `<domain>.module.ts` (NestJS Module)
+- `<domain>.controller.ts` (HTTP)
+- `<domain>.service.ts`
+- `entities/` (TypeORM 엔티티, 자기 스키마)
+- `migrations/` (자기 스키마 전용 마이그레이션)
+- `dto/req/`, `dto/res/`
+
+### 3-2. 모듈 import 정책
+
+- **권장**: 도메인 모듈 간 직접 import 금지 (공유 데이터는 `packages/` 또는 `common.*` 스키마로)
+- **허용**: Auth 모듈은 모든 도메인에서 가드/데코레이터로 사용 가능
+- 강제 수단: ESLint `no-restricted-imports` 규칙
+
+### 3-3. DB 스키마 매핑
 
 ```typescript
-// apps/ax1-api/src/ax1-api.module.ts
-@Module({
-  imports: [
-    AuthModule.forService({ aud: 'ax1' }),
-    // ...
-  ],
-})
-export class Ax1ApiModule {}
+// apps/ax-api/src/modules/ax2/entities/order.entity.ts
+@Entity({ schema: 'ax2', name: 'orders' })
+export class Order { ... }
 ```
-
-### 3-2. libs/database 예
-
-- 공유 DB의 `common.*` 스키마 엔티티 (예: `User`, `Organization`) 정의
-- 각 앱은 `libs/database`를 import + 자기 스키마 엔티티를 `apps/<svc>/src/entities/` 에 추가
 
 ---
 
-## 4. 새 앱 생성 절차
-
-NestJS CLI로 monorepo에 새 앱 추가:
-
-```bash
-# 보일러플레이트 루트에서
-nest generate app auth
-nest generate app ax1-api
-nest generate app ax2-api
-nest generate app ax3-api
-```
-
-이후:
-
-1. `apps/<svc>/` 의 기본 구조를 `user-api` 참고해 정리
-2. `nest-cli.json`에 앱 등록 확인
-3. `package.json` 스크립트 추가 (`start:dev:auth`, `start:dev:ax1` 등)
-4. 불필요 컨트롤러 제거
-5. `libs/auth`, `libs/database` 등록
-
----
-
-## 5. 환경 변수 규칙 (초안)
-
-각 앱 공통:
+## 4. 환경 변수 규칙 (단일 서비스 기준)
 
 ```
-NODE_ENV=                 # development | staging | production
-PORT=                     # 앱 포트 (내부)
+# 공통
+NODE_ENV=               # development | staging | production
+PORT=3000
 
+# DB (단일 연결 풀 — 모든 스키마 접근)
 DB_HOST=
 DB_PORT=
 DB_NAME=
-DB_USERNAME=              # 앱별 분리된 DB 계정
+DB_USERNAME=
 DB_PASSWORD=
-DB_SCHEMA=                # auth / ax1 / ax2 / ax3 / common
-```
 
-Auth 서버만:
-
-```
-JWT_PRIVATE_KEY_PEM=      # 서명용 비밀키
-JWT_KID=                  # 키 ID (JWKS)
-JWT_ACCESS_TTL=3600       # 초 단위
-JWT_REFRESH_TTL=1209600
+# Redis
 REDIS_URL=
+
+# JWT
+JWT_PRIVATE_KEY_PEM=
+JWT_PUBLIC_KEY_PEM=
+JWT_ISSUER=https://changshin-api.dev.weplanet.co.kr
+JWT_ACCESS_TTL=3600
+JWT_REFRESH_TTL=1209600
+
+# 외부 (옵션)
+ERP_BASE_URL=
+ERP_API_KEY=
 ```
 
-AX 서버만:
-
-```
-JWT_EXPECTED_AUD=ax1      # ax1 | ax2 | ax3 (앱별)
-JWT_ISSUER=https://auth.changshin.io
-JWKS_URL=https://auth.changshin.io/auth/.well-known/jwks.json
-```
-
-> 시크릿은 Secrets Manager + External Secrets로 주입 ([[Infrastructure/20 - AWS Deployment#2. 사용할 AWS 서비스 매핑]])
+> 시크릿은 **External Secrets로 Secrets Manager에서 자동 주입** + 일부는 K8s Secret 수동 (예: JWT 키 — [[Infrastructure/31 - Decision Log#D-018|D-018]])
 
 ---
 
-## 6. 포트 · 도메인 규칙 (초안)
+## 5. 빌드 · 배포
 
-| 서비스 | 로컬 포트 | 도메인 (후보) |
-|--------|----------|-------------|
-| Auth | 3000 | `auth.changshin.io` |
-| AX1 | 3001 | `ax1.changshin.io` |
-| AX2 | 3002 | `ax2.changshin.io` |
-| AX3 | 3003 | `ax3.changshin.io` |
+### 5-1. 로컬
 
-또는 path 기반:
-- `https://api.changshin.io/auth/*`
-- `https://api.changshin.io/ax1/*`
-
-자세한 Ingress 설계: [[Infrastructure/10 - Architecture#3-1. 라우팅]]
-
----
-
-## 7. Dockerfile · 빌드 전략
-
-### 공통 Dockerfile (monorepo 기준)
-
-```dockerfile
-# 빌드용 인자
-ARG APP=auth
-
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build -- --project $APP
-
-FROM node:20-alpine
-WORKDIR /app
-COPY --from=builder /app/dist/apps/$APP ./dist
-COPY --from=builder /app/node_modules ./node_modules
-ENV APP=${APP}
-CMD ["node", "dist/main.js"]
+```bash
+pnpm install
+pnpm dev:ax-api          # API
+pnpm dev:batch           # 배치 (별도 터미널)
 ```
 
-ECR에는 앱별 리포지토리로 push:
+### 5-2. Dockerfile
 
-- `<account>.dkr.ecr.<region>.amazonaws.com/changshin/auth`
-- `.../changshin/ax1-api`
-- `.../changshin/ax2-api`
-- `.../changshin/ax3-api`
+`apps/ax-api/Dockerfile`, `apps/batch/Dockerfile`을 각각 운영. 공통 멀티스테이지 빌드 권장.
+
+### 5-3. ECR 레포
+
+현재 4세트(`changshin-{auth,ax1,ax2,ax3}` + `*-deploy`) 잔재 → D-019 후속 통폐합:
+
+- 통합안 A: `changshin-ax-api`(이미지) + `changshin-ax-api-deploy`(Flux artifact) — 1세트
+- 통합안 B: 워크로드별 분리 — `changshin-ax-api`, `changshin-batch` (+ 각각 `-deploy`) — 2세트
+
+> [!info] 결정 후 작업
+> 통합안 결정 → `changshin-iac/aws/env/base.yml`의 `ecr.repositories` 갱신 → `.gitlab-ci.yml` 인자 갱신 → 기존 ECR 정리
+
+### 5-4. K8s 배포
+
+자세한 내용: [[Infrastructure/20 - AWS Deployment#4. K8s 리소스 구성]]
 
 ---
 
-## 8. 체크리스트 · 앱 하나 신규 생성 시
+## 6. 포트 · 도메인
 
-- [ ] `nest generate app <svc>` 로 앱 골격 생성
-- [ ] `user-api` 구조 참고해 `controllers/`, `guards/`, `api-docs/` 디렉토리 정비
-- [ ] AX API 앱이면 `controllers/auth/` 제거
-- [ ] `libs/auth`, `libs/database` 등록
-- [ ] `apps/<svc>/.env.example` 작성
-- [ ] Dockerfile 빌드 인자 추가
-- [ ] ECR 레포지토리 생성 (Terraform `modules/ecr`)
-- [ ] K8s 매니페스트 작성 (Deployment · Service · Ingress · ExternalSecret)
-- [ ] Swagger doc (`api-docs/`) 시드
-- [ ] CI 파이프라인에 빌드·테스트 추가
+| 워크로드 | 로컬 포트 | 외부 노출 |
+|---------|----------|---------|
+| `ax-api` | 3000 | `https://changshin-api.dev.weplanet.co.kr/*` (path 기반) |
+| `batch` | (HTTP 노출 없음) | 클러스터 내부 cron |
+
+자세한 Ingress 설계: [[Infrastructure/10 - Architecture#3-1. 라우팅 (현행)]]
+
+---
+
+## 7. 체크리스트 · 새 도메인 모듈 추가
+
+- [ ] `apps/ax-api/src/modules/<domain>/` 디렉토리 생성
+- [ ] `<domain>.module.ts`·`<domain>.controller.ts`·`<domain>.service.ts` 작성
+- [ ] 엔티티는 `entities/`에, 스키마는 `@Entity({ schema: '<domain>', ... })`로 명시
+- [ ] 마이그레이션 파일 추가 (`<domain>/migrations/`)
+- [ ] DTO `dto/req/`, `dto/res/` 작성
+- [ ] 가드 적용: `@UseGuards(AuthenticationGuard, AuthorizationGuard)`
+- [ ] Swagger 데코레이터 (`@ApiTags`, `@ApiOperation`)
+- [ ] 테스트 (`*.spec.ts`)
+- [ ] `ax-api.module.ts`에 import
+- [ ] (필요 시) 배치도 `apps/batch/src/cron/<domain>/`에 추가
+
+---
+
+## 8. 도메인 ↔ 외부 상세 (현재 시점)
+
+| 도메인 | NestJS 위치 | 외부 라우팅 | DB 스키마 | 상태 |
+|--------|-----------|-----------|----------|------|
+| Auth | `apps/ax-api/src/modules/auth/` | `/auth/*` | `auth.*` | legacy 자산 통합 진행 |
+| AX1 | `apps/ax-api/src/modules/ax1/` | `/api/ax1/*` | `ax1.*` | 도메인 정의 대기 |
+| AX2 | `apps/ax-api/src/modules/ax2/` | `/api/ax2/*` | `ax2.*` | 모듈 골격 작성 예정 |
+| AX3 | `apps/ax-api/src/modules/ax3/` | `/api/ax3/*` | `ax3.*` | 도메인 정의 대기 |
 
 ---
 
 ## 열린 질문
 
-- [ ] 공유 라이브러리 배포 방식 (NestJS monorepo `libs/` vs 별도 npm private registry)
-- [ ] TypeORM Migration 관리: 서비스별 실행 vs Auth에 집중
-- [ ] 헬스체크 엔드포인트 규격 (`/healthz` · `/readyz`)
-- [ ] API 버저닝 (`/v1/...`) 시점
+- [ ] 디렉토리 명: `modules/` vs 보일러 컨벤션의 `controllers/`
+- [ ] `packages/`에 어디까지 분리할지 (현재 data/decorators/config 존재 — 더 추가할지)
+- [ ] `apps/ax2-api` legacy stub 제거 시점
+- [ ] TypeORM Migration 실행 주체 (API 시작 시? 별도 job?)
+- [ ] API 버저닝(`/v1/...`) 도입 시점
 
 ---
 

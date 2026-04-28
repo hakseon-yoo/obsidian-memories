@@ -1,8 +1,9 @@
 ---
-title: Auth Strategy (aud-based JWT)
+title: Auth Strategy (Single-Service JWT)
 parent: "[[00 - Backend (Index)]]"
 project: 창신
 created: 2026-04-23
+updated: 2026-04-28
 status: draft
 tags:
   - backend
@@ -11,146 +12,128 @@ tags:
   - 창신
 ---
 
-# Auth Strategy · `aud` 기반 JWT
+# Auth Strategy · 단일 서비스 JWT
 
 > 상위 문서: [[00 - Backend (Index)]]
 > 이전: [[01 - Overview]]
 
 > [!summary] 한 줄로 말하면
-> **Auth 서버 1곳이 JWT를 발급**하고, 발급 시 JWT의 `aud` (audience) 클레임으로 **어느 AX 서비스 대상인지** 명시한다. 각 AX 서비스는 자신의 `aud`가 아닌 토큰은 거부한다.
+> Auth 모듈이 같은 프로세스 안에서 **JWT를 발급**하고, 모든 도메인 모듈이 **공통 가드(`AuthenticationGuard`)** 로 같은 JWT를 검증한다. 외부 IdP 미사용 (자체 JWT, [[Infrastructure/31 - Decision Log#D-009|D-009]]).
+
+> [!warning] 2026-04-28 변경
+> 4서비스 분리 시기에는 `aud=ax1|ax2|ax3`로 토큰을 **서비스별로** 발급할 계획이었으나 ([[Infrastructure/31 - Decision Log#D-007|D-007]]), 단일 서비스로 통합되면서 그 의미가 약화되었다. `aud` 처리 방향은 후속 결정 ([[Infrastructure/31 - Decision Log#미결정 · 논의 필요|미결정]]).
 
 ---
 
-## 1. 전체 플로우
+## 1. 전체 플로우 (단일 서비스)
 
 ```mermaid
 sequenceDiagram
   participant C as Client
-  participant Auth as Auth Service
-  participant AX1 as AX1 API
-  participant AX2 as AX2 API
+  participant API as ax-api
+  participant Auth as Auth 모듈
+  participant Guard as AuthenticationGuard
+  participant Domain as AX 도메인 모듈
 
-  C->>Auth: POST /auth/login<br/>(id, pw, target: "ax2")
-  Auth->>Auth: 검증 · aud="ax2" JWT 발급
-  Auth-->>C: { access_token, refresh_token }
+  C->>API: POST /auth/login (id, pw)
+  API->>Auth: 위임
+  Auth->>Auth: 검증 · JWT 발급
+  Auth-->>C: JWT (access · refresh)
 
-  C->>AX2: GET /api/ax2/...<br/>Authorization: Bearer <JWT>
-  AX2->>AX2: JWT 검증 (서명 + exp + aud="ax2")
-  AX2-->>C: 200 OK
-
-  C->>AX1: GET /api/ax1/...<br/>Authorization: Bearer <JWT (aud=ax2)>
-  AX1->>AX1: aud 불일치 → 401
-  AX1-->>C: 401 Unauthorized
+  C->>API: GET /api/ax2/...<br/>Authorization: Bearer <JWT>
+  API->>Guard: canActivate
+  Guard->>Guard: 서명 검증 (RSA 공개키, 같은 프로세스 메모리)
+  Guard->>Guard: exp · iat 검증
+  Guard->>Domain: req.user 주입 후 통과
+  Domain-->>C: 응답
 ```
+
+핵심: 서비스 간 호출 없음. JWKS HTTP fetch 없음(같은 프로세스 메모리에서 공개키 사용).
 
 ---
 
-## 2. JWT 클레임 설계
+## 2. JWT 클레임 (현재 안)
 
-| 클레임 | 예시 값 | 설명 |
-|--------|--------|------|
-| `iss` | `https://auth.changshin.io` | 발급자 (Auth 서버) |
+| 클레임 | 예시 | 설명 |
+|--------|------|------|
+| `iss` | `https://changshin-api.dev.weplanet.co.kr` | 발급자 |
 | `sub` | `user-uuid-1234` | 사용자 ID |
-| `aud` | `ax1` / `ax2` / `ax3` | **대상 서비스** (단일 또는 배열) |
+| `aud` | (TBD) | **재정의 예정** — 아래 §4 참조 |
 | `iat` | `1714000000` | 발급 시각 |
-| `exp` | `1714003600` | 만료 시각 (access 토큰: 예 1h) |
-| `jti` | `uuid` | 토큰 고유 ID (차단 리스트 관리용) |
-| `roles` | `["admin", "user"]` | 역할 (선택) |
-| `scope` | `"read write"` | 권한 스코프 (선택) |
-
-### 2-1. `aud` 값 정의
-
-| 값 | 의미 |
-|----|------|
-| `"ax1"` | AX1 API 전용 |
-| `"ax2"` | AX2 API 전용 |
-| `"ax3"` | AX3 API 전용 |
-| `["ax1", "ax2"]` | (선택) 다중 서비스 접근 허용 |
-
-> [!tip] 다중 aud
-> 한 사용자가 AX1과 AX2를 모두 접근해야 할 때 배열로 발급 가능. 다만 단순성을 위해 **초기엔 단일 `aud`로 시작**하고, 필요 시 확장.
-
-### 2-2. `aud` 선택 방식
-
-로그인 엔드포인트 호출 시 클라이언트가 명시:
-
-```http
-POST /auth/login
-Content-Type: application/json
-
-{
-  "username": "user@example.com",
-  "password": "...",
-  "target": "ax2"         // ← 어느 서비스로 로그인할지
-}
-```
-
-또는 사용자가 특정 AX 서비스에 접속 중인 경우 **서비스별 엔드포인트**:
-
-```
-POST /auth/ax1/login  → aud=ax1
-POST /auth/ax2/login  → aud=ax2
-POST /auth/ax3/login  → aud=ax3
-```
-
-> **권장**: 후자 (`/auth/<svc>/login`). URL 자체가 의도를 드러내 가독성·감사성이 좋다.
+| `exp` | `1714003600` | 만료 시각 (access: 1h 권장) |
+| `jti` | `uuid` | 토큰 고유 ID |
+| `roles` | `["admin", "user"]` | 역할 |
+| `scope` | `"ax1.read ax2.write"` | 권한 스코프 (선택) |
 
 ---
 
-## 3. Auth 서버 구현 포인트
+## 3. Auth 모듈 구현 포인트
 
-보일러플레이트의 기존 Auth 컨트롤러(`apps/<template>/src/controllers/auth/`)를 기반으로 확장.
+기존 `changshin-auth-api`의 자산을 `apps/ax-api/src/modules/auth/`로 흡수하면서 정리:
 
-### 3-1. 발급 로직 (`auth.service.ts` 수정)
-
-- 로그인 요청에서 `target`(또는 URL path)에 따라 `aud` 세팅
-- JWT 서명: **비대칭 키(RS256)** 사용 권장 → 공개키를 각 AX 서비스가 검증에 사용
-- Refresh 토큰도 별도 발급 (DB 또는 Redis에 저장)
-
-### 3-2. 공개키 노출
-
-```
-GET /auth/.well-known/jwks.json
-```
-
-- 표준 JWKS 포맷으로 공개키 노출
-- 각 AX 서비스가 기동 시 fetch + 캐시 + 주기 갱신
-
-### 3-3. 엔드포인트 예시
+### 3-1. 엔드포인트 (현행 가정)
 
 | 메서드 | 경로 | 설명 |
 |--------|------|------|
-| `POST` | `/auth/ax1/login` | AX1 대상 로그인 (`aud=ax1`) |
-| `POST` | `/auth/ax2/login` | AX2 대상 로그인 |
-| `POST` | `/auth/ax3/login` | AX3 대상 로그인 |
-| `POST` | `/auth/refresh` | Refresh 토큰으로 재발급 (동일 `aud` 유지) |
-| `POST` | `/auth/logout` | 로그아웃 (토큰 차단 리스트 등록) |
-| `GET` | `/auth/me` | 토큰 기반 내 정보 조회 |
-| `GET` | `/auth/.well-known/jwks.json` | 공개키 노출 |
+| `POST` | `/auth/login` | 로그인 (id/pw → JWT 발급) |
+| `POST` | `/auth/register` | 회원가입 |
+| `POST` | `/auth/refresh` | Refresh 토큰으로 access 재발급 |
+| `POST` | `/auth/logout` | 로그아웃 (refresh 토큰 무효화) |
+| `POST` | `/auth/password/reset-request` | 비밀번호 재설정 요청 |
+| `POST` | `/auth/password/reset` | 비밀번호 재설정 |
+| `GET` | `/auth/me` | 내 정보 조회 |
+| `GET` | `/auth/health` | 헬스체크 |
+
+### 3-2. 키 저장
+
+- RSA 키 페어는 **K8s Secret(`auth-jwt`)** 로 주입 ([[Infrastructure/31 - Decision Log#D-018|D-018]])
+- 같은 프로세스에서 발급·검증하므로 **JWKS 외부 노출은 선택 사항**
+  - 외부 시스템(예: ERP webhook 검증)에서 토큰 검증이 필요하면 노출
+  - 그렇지 않으면 노출하지 않아도 됨
+
+### 3-3. Refresh 토큰
+
+- DB 또는 Redis에 저장 (rotate on use 권장)
+- Access 토큰 짧게 (1h 이내) + Refresh 짧지 않게 (예: 14d)
 
 ---
 
-## 4. AX 서비스(AX1/2/3) 검증 로직
+## 4. `aud` 클레임 재정의 옵션 (후속 결정 필요)
 
-각 AX 서비스는 보일러플레이트의 `authentication.guard.ts`를 기반으로 수정:
+[[Infrastructure/31 - Decision Log#D-007|D-007]]의 `aud=ax1|ax2|ax3` 분기는 단일 서비스에서 **서비스 라우팅 의미가 사라짐**. 다음 중 선택 필요:
 
-### 4-1. 기본 동작
+### 옵션 A: 제거
 
-1. `Authorization: Bearer <token>` 헤더 파싱
-2. Auth 서버의 JWKS로 서명 검증
-3. `exp`, `iat` 검증
-4. **`aud` 값이 자신의 서비스 ID와 일치하는지 확인** ← 핵심
-5. 불일치 시 `401 Unauthorized` 또는 `403 Forbidden`
+- JWT에 `aud` 미포함
+- 가장 단순. 도메인 권한 분리는 `roles` · `scope`로 표현
+- 추천도: ⭐⭐⭐
 
-### 4-2. NestJS 구현 스케치
+### 옵션 B: 클라이언트 컨텍스트 구분
+
+- `aud=web | mobile | erp-webhook | partner-app`
+- 발행 컨텍스트별로 다른 정책(만료 시간 · CORS · 로깅) 적용 가능
+- 추천도: ⭐⭐ (필요해질 때 도입)
+
+### 옵션 C: 도메인 권한 표현 (scope과 통합)
+
+- `aud=["ax1", "ax2"]` 식으로 어느 도메인에 접근 가능한지 표현
+- 도메인 진입점 가드에서 검증
+- 사실상 `scope`와 중복 → `scope` 사용을 권장
+
+> **권장 시작**: 옵션 A로 단순화. 필요 시 옵션 B로 확장.
+
+---
+
+## 5. AuthenticationGuard 동작
+
+`apps/ax-api/src/guards/authentication.guard.ts`(보일러플레이트 기반 + 정리):
 
 ```typescript
-// libs/auth/src/jwt-audience.guard.ts
 @Injectable()
-export class JwtAudienceGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate {
   constructor(
-    @Inject('EXPECTED_AUD') private readonly expectedAud: string,
-    private readonly jwksClient: JwksClient,
+    private readonly jwtService: JwtService,
+    @Inject(JWT_PUBLIC_KEY) private readonly publicKey: string,
   ) {}
 
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
@@ -158,11 +141,12 @@ export class JwtAudienceGuard implements CanActivate {
     const token = extractBearer(req.headers.authorization);
     if (!token) throw new UnauthorizedException();
 
-    const payload = await this.verifyToken(token); // 서명/exp 검증
-    const aud = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
-    if (!aud.includes(this.expectedAud)) {
-      throw new UnauthorizedException('aud mismatch');
-    }
+    const payload = await this.jwtService.verifyAsync(token, {
+      publicKey: this.publicKey,
+      algorithms: ['RS256'],
+      // issuer: env.JWT_ISSUER  // 선택
+      // audience: env.JWT_AUDIENCE  // aud 옵션 결정 후
+    });
 
     req.user = payload;
     return true;
@@ -170,80 +154,70 @@ export class JwtAudienceGuard implements CanActivate {
 }
 ```
 
-### 4-3. 앱별 설정
+도메인 모듈은 별도 가드 없이 `@UseGuards(AuthenticationGuard)` 만 붙이면 된다.
+
+---
+
+## 6. 권한 분기 (Authorization)
+
+도메인별 권한은 `AuthorizationGuard` 또는 데코레이터로 처리:
 
 ```typescript
-// apps/ax1-api/src/ax1-api.module.ts
-@Module({
-  providers: [
-    { provide: 'EXPECTED_AUD', useValue: 'ax1' },
-    JwtAudienceGuard,
-  ],
-})
+@UseGuards(AuthenticationGuard, AuthorizationGuard)
+@Roles('admin', 'production_planner')
+@RequiredScopes('ax2.write')
+@Post('/api/ax2/orders')
 ```
 
-→ AX2는 `'ax2'`, AX3는 `'ax3'`로 설정.
+> 보일러플레이트의 `.claude/rules/auth-security.md`에 더 자세한 가드/데코레이터 컨벤션 있음.
 
 ---
 
-## 5. 키 관리
+## 7. 키 관리
 
-### 5-1. 키 저장
+### 7-1. 키 저장
 
-- **AWS Secrets Manager** (프로덕션) / `.env` (로컬)
-- External Secrets로 K8s Secret 동기화 ([[Infrastructure/20 - AWS Deployment#2. 사용할 AWS 서비스 매핑]])
+- 프로덕션: K8s Secret(`auth-jwt`) — 수동 생성 ([[Infrastructure/31 - Decision Log#D-018|D-018]])
+- 로컬: `apps/ax-api/.env`에 PEM 직접 입력
 
-### 5-2. 키 로테이션
+### 7-2. 키 로테이션
 
-- 주기: 90일 권장
-- 방식: **keys.jwks**에 **이전 키 + 신규 키 병존** → 충분한 유예 후 이전 키 제거
-- 각 AX 서비스가 JWKS를 주기 갱신(예: 10분)하므로 무중단 로테이션 가능
-
----
-
-## 6. 토큰 차단 리스트 · 로그아웃
-
-- JWT는 stateless라 **로그아웃 시 즉시 무효화** 어렵다
-- **옵션 A**: `jti`를 Redis에 blacklist 저장 (짧은 TTL로 성능 ↓ 최소화)
-- **옵션 B**: 짧은 access 토큰 수명 + refresh 토큰 무효화
-- **권장**: B (단순) + 중요 액션(결제 등)에만 A 적용
+- 빈도: 90일 권장 (수동)
+- 동시 활성: 새 키 발급 후 일정 기간 이전 키도 검증 허용 → 기존 토큰 점진 만료
+- 모든 사용자 강제 로그아웃이 필요하면 키 즉시 교체 + Redis로 토큰 차단
 
 ---
 
-## 7. 보안 원칙
+## 8. 보안 원칙
 
 > [!warning] 필수
 > - **HTTPS 전용** (로컬 제외)
-> - `Authorization` 헤더 외 쿠키로 보낼 경우 `SameSite=strict; HttpOnly; Secure`
-> - Access 토큰 수명 **짧게** (예 1h 이내)
-> - Refresh 토큰은 DB/Redis에 저장하고 **일회용화** (rotate on use)
+> - Access 토큰 수명 짧게 (예: 1h 이내)
+> - Refresh 토큰 일회용화 (rotate on use), 저장소(DB/Redis)에서 관리
 > - 비밀번호 해싱: `argon2` 또는 `bcrypt`(cost ≥ 12)
-> - Rate limiting: 로그인 엔드포인트 기본 적용
-
-> 보일러플레이트의 `.claude/rules/auth-security.md`에 더 자세한 규칙이 있을 가능성 — 실제 구현 시 참조.
+> - 로그인 엔드포인트 Rate Limiting 기본 적용
+> - 보일러 `.claude/rules/auth-security.md` 준수
 
 ---
 
-## 8. 테스트 시나리오
+## 9. 테스트 시나리오
 
-- [ ] `aud=ax1` 토큰으로 AX1 호출 → 200
-- [ ] `aud=ax1` 토큰으로 AX2 호출 → 401
-- [ ] 만료된 토큰 → 401
+- [ ] 정상 로그인 → JWT 발급 → 도메인 API 호출 200
+- [ ] 만료 토큰 → 401
 - [ ] 서명 깨진 토큰 → 401
-- [ ] JWKS 갱신 후 이전 토큰도 grace period 내 허용
+- [ ] Refresh 토큰으로 재발급
 - [ ] 로그아웃 후 refresh 토큰 재사용 시도 → 거부
-- [ ] `aud` 배열인 토큰 (다중 서비스) → 해당 서비스들만 허용
+- [ ] (옵션 B 채택 시) 잘못된 `aud`로 호출 → 거부
 
 ---
 
 ## 열린 질문
 
-- [ ] Access 토큰 수명 (15m / 1h / etc.)
+- [ ] `aud` 클레임 옵션 A/B/C 중 결정
+- [ ] Access · Refresh 토큰 수명 (15m/1h vs 7d/14d 등)
 - [ ] Refresh 토큰 저장소 (DB vs Redis)
-- [ ] `aud` 다중 발급 허용 여부
-- [ ] SSO·OIDC 외부 IdP 연동 여부
-- [ ] 로그인 실패 시 잠금 정책 (5회/N분 등)
-- [ ] MFA 도입 여부·시점
+- [ ] SSO·OIDC 외부 IdP 연동 여부 (D-009 자체 JWT 유지 vs 하이브리드)
+- [ ] MFA 도입 시점
 
 ---
 

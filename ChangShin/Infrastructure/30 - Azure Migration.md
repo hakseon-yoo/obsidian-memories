@@ -3,6 +3,7 @@ title: Azure Migration Plan
 parent: "[[00 - Infrastructure (Index)]]"
 project: 창신
 created: 2026-04-23
+updated: 2026-04-28
 status: draft
 tags:
   - infrastructure
@@ -17,7 +18,10 @@ tags:
 > 이전: [[20 - AWS Deployment]]
 
 > [!summary] 한 줄로 말하면
-> **K8s 위에 모든 워크로드를 올렸기 때문에 매니페스트는 대부분 재사용.** 이전 비용은 Terraform 리라이트와 데이터 마이그레이션, 네트워크/보안/DNS 컷오버에 집중.
+> **K8s 위에 단일 통합 API를 올렸기 때문에 매니페스트는 대부분 재사용.** 이전 비용은 Terraform 리라이트와 데이터 마이그레이션, 네트워크/보안/DNS 컷오버에 집중.
+
+> [!warning] 2026-04-28 변경 반영
+> 단일 통합 서비스로 변경됨에 따라 ([[31 - Decision Log#D-019|D-019]]) 이전 시 옮길 워크로드는 **API 1개 + Batch 1개**로 단순화됨.
 
 ---
 

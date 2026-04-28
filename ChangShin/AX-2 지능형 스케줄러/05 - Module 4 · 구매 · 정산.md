@@ -2,7 +2,7 @@
 title: Module 4 · 구매 · 정산
 parent: "[[00 - AX-2 쉬운 설명서 (Index)]]"
 module: M4
-implementation: AX2 API Server
+implementation: changshin-api · apps/ax-api · AX2 모듈 · settlement
 related_teams:
   - 구매팀
   - 생산관리팀

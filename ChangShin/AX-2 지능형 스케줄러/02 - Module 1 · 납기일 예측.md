@@ -2,7 +2,7 @@
 title: Module 1 · 납기일 예측
 parent: "[[00 - AX-2 쉬운 설명서 (Index)]]"
 module: M1
-implementation: AX2 API Server
+implementation: changshin-api · apps/ax-api · AX2 모듈 · due-date-prediction
 related_teams:
   - 영업팀
   - 생산관리팀

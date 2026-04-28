@@ -3,19 +3,23 @@ title: Deployment State
 parent: "[[00 - Infrastructure (Index)]]"
 project: 창신
 created: 2026-04-24
-updated: 2026-04-27
+updated: 2026-04-28
 tags:
   - infrastructure
   - state
   - 창신
 ---
 
-# Deployment State (2026-04-27 기준)
+# Deployment State (2026-04-28 기준)
 
 > 상위 문서: [[00 - Infrastructure (Index)]]
 
+> [!warning] 2026-04-28 아키텍처 변경
+> 4서비스 분리 → **단일 통합 API 서비스(`changshin-api`)**로 변경 ([[31 - Decision Log#D-019|D-019]]).
+> 기존 4리포(`changshin-auth-api`, `changshin-ax2-api`, `changshin-ax3-api`)는 `changshin/changshin-legacy/` 로 이전. 빌드/배포 중단. 코드 자산은 `changshin-api`의 도메인 모듈로 흡수 진행 중.
+
 > [!summary]
-> AWS(single account, dev env) · EKS + Flux + observability 스택 완료. **Auth 서비스 첫 Pod이 dev 클러스터에 떠서 외부 HTTPS로 health 응답 확인.** Swagger도 외부 노출. 다음은 Auth 도메인 로직 구현(D-007 aud 분기, D-009 자체 JWT) → AX1 띄우기.
+> AWS(single account, dev env) · EKS + Flux + observability 스택 운영 중. **단일 `changshin-api` 리포 + `apps/ax-api` Deployment**가 dev 클러스터에서 동작 중. 다음은 도메인 모듈(Auth · AX-2) 구현.
 
 ---
 
@@ -34,31 +38,31 @@ tags:
 | Flux OCI 아티팩트 push | ✅ | `changshin-iac` ECR, 태그: `6ea3fbc`/`development`/`latest` |
 | Flux 동기화 (operators, monitoring, infra, node-pools) | ✅ | 10개 HelmRelease 전부 Ready |
 
-### 앱 리포 (4개 중 3개)
+### 앱 리포 (단일 통합 — D-019 적용 후)
 
-| 서비스 | GitLab 리포 | 초기화 상태 |
+| 리포 | 역할 | 상태 |
 |---|---|---|
-| Auth | `changshin/changshin-auth-api` | ✅ **첫 Pod 외부 HTTPS 노출 완료** (2026-04-27) |
-| AX1 | `changshin/changshin-api` (기존) | ⏭️ 본 프로젝트 범위 외 |
-| AX2 | `changshin/changshin-ax2-api` | ✅ 보일러플레이트 push (커밋 `a9857ce`) |
-| AX3 | `changshin/changshin-ax3-api` | ✅ 보일러플레이트 push, placeholder (커밋 `ee90069`) |
+| **`changshin/changshin-api`** | 통합 API 단일 리포 (`apps/ax-api` + `apps/batch`) | ✅ **K8s에서 동작 중** (2026-04-28) |
+| `changshin/changshin-legacy/changshin-auth-api` | (구) Auth 분리 리포 | 🗄️ legacy 보관 |
+| `changshin/changshin-legacy/changshin-ax2-api` | (구) AX2 분리 리포 | 🗄️ legacy 보관 |
+| `changshin/changshin-legacy/changshin-ax3-api` | (구) AX3 분리 리포 | 🗄️ legacy 보관 |
 
-### Auth 서비스 배포 (2026-04-27)
+### 통합 API 배포 상태 (2026-04-28)
 
 | 항목 | 상태 |
 |---|---|
-| `apps/auth` 보일러 정리 (apps 4개 삭제, user-api → auth 리네임) | ✅ |
-| `.gitlab-ci.yml`: `ecr_repo=changshin-auth`, `ecr_deploy=changshin-auth-deploy`, OIDC role, 브랜치 매핑 | ✅ |
-| `globalPrefix='auth'` + AuthController prefix 정리 + `/auth/health` | ✅ |
-| Swagger를 `/auth/api-docs` 아래로 이동 (외부 노출) | ✅ |
-| K8s 매니페스트(`k8s/clusters/dev/auth/`): deploy/service/ingress/secrets-manager | ✅ |
-| Flux GitOps 사이클 (push → CI → ECR → Flux → Pod) | ✅ |
-| `auth-jwt` K8s Secret (RSA 키, 수동 생성) | ✅ |
-| `auth-api-docs` K8s Secret (swagger basic auth, 수동 생성) | ✅ |
-| Pod Identity association (`changshin-svc-auth` IAM Role) | ✅ |
+| `changshin-api` 리포 생성 + `apps/ax-api`, `apps/batch` 구조 정착 | ✅ |
+| Auth 분리 리포의 `apps/auth/` 자산 → `changshin-api` 통합 (모듈로 흡수 진행) | ⏳ 진행 중 |
+| `.gitlab-ci.yml`: `ecr_repo=changshin-{?}`, `ecr_deploy=changshin-{?}-deploy`, OIDC role | ⏳ ECR 통폐합 후속 결정 |
+| K8s 매니페스트(`k8s/clusters/dev/ax-api/`, `k8s/clusters/dev/batch/`) | ✅ |
+| Flux GitOps 사이클 | ✅ |
+| `auth-jwt` K8s Secret (RSA 키, 수동) | ✅ (재활용) |
+| Pod Identity association | ✅ |
 | Ingress + ALB(internet-facing) + Route53 alias 레코드 | ✅ |
-| `https://changshin-api.dev.weplanet.co.kr/auth/health` 200 | ✅ |
-| `https://changshin-api.dev.weplanet.co.kr/auth/api-docs/swagger` 접근 | ✅ |
+| `https://changshin-api.dev.weplanet.co.kr` 외부 접근 | ✅ |
+
+> [!info] 도메인 모듈 통합 진행 메모
+> 기존 `changshin-auth-api`(분리 시기)의 코드 자산(register/login/refresh/password/social, Swagger, gitlab-ci 등)을 `changshin-api`의 Auth 모듈로 흡수. 보일러 잔재 정리(verifications/admin 등)와 함께 진행.
 
 ---
 
@@ -76,11 +80,7 @@ tags:
 | OIDC Provider | `arn:aws:iam::687582709363:oidc-provider/git.weplanet.co.kr` |
 | CI Role ARN | `arn:aws:iam::687582709363:role/changshin-oidc-ci` |
 | OIDC Audience | `flux-deploy` |
-| ECR (auth) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-auth` |
-| ECR (auth-deploy, Flux artifact) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-auth-deploy` |
-| ECR (ax1 / ax1-deploy) | `…/changshin-ax1`, `…/changshin-ax1-deploy` |
-| ECR (ax2 / ax2-deploy) | `…/changshin-ax2`, `…/changshin-ax2-deploy` |
-| ECR (ax3 / ax3-deploy) | `…/changshin-ax3`, `…/changshin-ax3-deploy` |
+| ECR (현재) | `…/changshin-auth`, `…/changshin-auth-deploy` 등 4세트 — D-019 후속 통폐합 예정 |
 | ECR (iac/Flux OCI) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-iac` |
 | S3 temp | `changshin-temp` |
 | Terraform state S3 | `changshin-terraform-backend` |
@@ -158,36 +158,30 @@ OIDC Provider `git.weplanet.co.kr`는 **AWS 계정당 1개만 존재 가능**한
 
 ### 단기 (현재 사이클) ← **다음 세션 재개 포인트**
 
-- [ ] **Auth 도메인 구현 본격** [[31 - Decision Log#D-007]] [[31 - Decision Log#D-009]]
-  - [ ] D-007 `aud` 분기 로그인 (`/auth/{ax1|ax2|ax3}/login`) — 단일 JwtStrategy를 aud 동적으로 확장
-  - [ ] `/auth/.well-known/jwks.json` — RSA 공개키 JWK 노출 (AX 서비스 검증 진입점)
-  - [ ] D-009 자체 JWT — users 테이블, bcrypt/argon2 해시, 비밀번호 재설정·이메일 인증
-  - [ ] D-002 `auth.*` 스키마 마이그레이션
-  - [ ] 보일러 잔재 정리 — 소셜 로그인(D-009 자체 JWT 결정에 따라), files/faqs/notices/verifications/admin 등 Auth 본질과 무관한 컨트롤러
-  - [ ] 내부 src 리네임 (`user-api.module.ts` → `auth-app.module.ts` 등) — 도메인 구현 중 자연스럽게 정리
-- [ ] **AX1 서비스 띄우기** — Auth 도메인 어느 정도 완성된 후, 같은 패턴으로 (보일러 정리 → ECR/iac 등록 → Pod)
+- [ ] **`changshin-api` 통합 마무리** ([[31 - Decision Log#D-019|D-019]] 후속)
+  - [ ] 기존 `changshin-auth-api`의 Auth 자산(register/login/refresh/password 등)을 `changshin-api/apps/ax-api/src/modules/auth/` 로 흡수
+  - [ ] 보일러 잔재 정리 (verifications/admin/files/faqs 등 본 프로젝트와 무관한 컨트롤러)
+  - [ ] `aud` 클레임 처리 방향 결정 (제거 / 클라이언트 컨텍스트 / scope 통합)
+  - [ ] Ingress path 단순화 여부 결정
+  - [ ] ECR 통폐합 (4세트 → 1세트, gitlab-ci `ecr_repo`/`ecr_deploy` 인자 갱신)
+  - [ ] D-002 스키마 마이그레이션 (`auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*`)
+- [ ] **AX-2 도메인 모듈 구현 시작** — [[AX-2 지능형 스케줄러/02 - Module 1 · 납기일 예측|M1]] · [[AX-2 지능형 스케줄러/03 - Module 2 · 생산 계획 관리|M2]] 우선
 - [ ] **changshin-iac의 `.gitlab-ci.yml` 생성** — Terraform plan/apply 자동화 (현재는 로컬에서 수동 apply)
 
 ### 중기
 
-- [ ] **AX2/AX3 서비스 구현** (Auth 검증 적용)
+- [ ] **AX1·AX3 도메인 모듈 구현** (도메인 정의 후 — [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트#7. AX 시리즈 도메인 명확화|클라이언트 확인 필요]])
 - [ ] **클라이언트 도메인 확정 시 인증서/host 교체** [[31 - Decision Log#D-015]]
-- [ ] **80 listener 미동작 진단** — IngressClassParams는 80/443 listen 설정인데 실제 ALB SG는 443만 열려 있음. HTTPS-only로 갈지, 80→443 redirect 정식 적용할지 결정
+- [ ] **80 listener 미동작 진단** — HTTPS-only로 갈지, 80→443 redirect 정식 적용할지 결정
 - [ ] **OIDC Provider 소유권 정리** (5번 항목)
 - [ ] **Backend state 공유 방법** (`aws/env/backend/terraform.tfstate`가 로컬에만 있음)
 
 ### 다음 세션 재개 포인트
 
-워킹 디렉터리: `/Users/yoohakseon/Documents/GitLab/changshin/changshin-auth-api`
-- 브랜치: `dev` (origin/dev 동기화), Auth Pod 클러스터에 정상 동작 중
-- 시작점: **Auth 도메인 구현 (D-007 aud 분기, JWKS, D-009 자체 JWT)**
-- 보일러의 기존 `apps/auth/src/controllers/auth/auth.controller.ts`·`auth.service.ts`가 이미 register/login/refresh/password/social 풀스택 구현 — `aud` 동적화 + JWKS 추가 + 소셜 부분 정리(또는 제거) 결정부터 시작하면 자연스러움
-
-### 중기
-
-- [ ] **AX3 서비스 구현** (현재 placeholder)
-- [ ] **OIDC Provider 소유권 정리** (5번 항목)
-- [ ] **Backend state 공유 방법** (`aws/env/backend/terraform.tfstate`가 로컬에만 있음)
+워킹 디렉터리: `/Users/yoohakseon/Documents/GitLab/changshin/changshin-api`
+- 단일 통합 리포. `apps/ax-api`(API) + `apps/batch`(cron). 클러스터에 Pod 정상 동작 중.
+- 시작점: **D-019 후속 정리** + **Auth 모듈 통합(legacy → ax-api)** + **AX-2 모듈 골격 잡기**
+- 참고: legacy 자산은 `/Users/yoohakseon/Documents/GitLab/changshin/changshin-legacy/` (필요한 코드는 cherry-pick)
 
 ### 장기
 
