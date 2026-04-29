@@ -155,7 +155,7 @@ OIDC Provider `git.weplanet.co.kr`는 **AWS 계정당 1개만 존재 가능**한
 - [x] **iac 첫 적용** — `terraform apply` (Pod Identity, IAM Role, Flux OCIRepository/Kustomization 생성)
 - [x] **첫 Pod 외부 노출 검증** — Route53 alias + ACM `*.dev.weplanet.co.kr` 와일드카드 + ALB → `https://changshin-api.dev.weplanet.co.kr/auth/health` 200 OK
 - [x] **Swagger 외부 접근** — `globalPrefix='auth'` 적용, swagger documentPath `/auth/api-docs`로 이동, basic auth 자격증명을 `auth-api-docs` Secret으로 강화
-- [x] **SKU 이미지 S3 + DB 1차 반영** (2026-04-29) — `weplanet-files/sku/` 287개 업로드, `Sku.imageUrl` UPDATE rows=289, 매칭 실패 2 (후속 정규화 대상) [[31 - Decision Log#D-022]]
+- [x] **SKU 이미지 S3 + DB 1차 반영** (2026-04-29) — `weplanet-files/images/skus/<uuid>.png` 287개 업로드, `Sku.imageUrl` 풀 cloudfront URL UPDATE rows=289, 매칭 실패 2 (후속 정규화 대상). 보일러 컨벤션(legacy `files.controller`) 정렬 [[31 - Decision Log#D-022]]
 
 ### 단기 (현재 사이클) ← **다음 세션 재개 포인트**
 

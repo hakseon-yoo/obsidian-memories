@@ -482,25 +482,27 @@ tags:
 
 ---
 
-## D-022 SKU 이미지 S3 업로드 1차 완료
+## D-022 SKU 이미지 S3 업로드 1차 완료 (보일러 컨벤션 적용)
 
 - **일자**: 2026-04-29
 - **상태**: accepted
-- **결정**: SKU 마스터의 제품 이미지를 dev 버킷 `weplanet-files` 의 `sku/<materialCode>.png` key 로 업로드하고, DB `Sku.imageUrl` 컬럼에 동일한 object key 를 저장한다. 응답 시 presigned URL 또는 CloudFront URL 로 변환하는 패턴은 [[#D-021]] 에서 정한 그대로 유지.
-- **맥락**: 창신 제품 카탈로그 PDF 에서 추출한 289 개 SKU 이미지를 S3 + DB 에 1차 반영. 이미지-자재코드 매칭은 이전 세션에서 완료(매칭률 88.6%, 39개 미매칭은 변형 코드/CSV 중복으로 후속 정규화 대상). 업로드+UPDATE 는 멱등 1회성 스크립트로 자산화.
+- **결정**: SKU 마스터의 제품 이미지를 dev 버킷 `weplanet-files` 의 `images/skus/<uuid>.png` key 로 업로드하고, DB `Sku.imageUrl` 컬럼에는 **풀 CloudFront URL** (`https://dev-file.weplanet.co.kr/images/skus/<uuid>.png`) 을 저장한다. legacy 보일러 `files.controller` 패턴(`${type}s/${kind}` prefix + `crypto.randomUUID().${ext}` key + cloudfront 풀 URL 응답) 과 동일.
+- **맥락**: 창신 제품 카탈로그 PDF 에서 추출한 289 개 SKU 이미지를 S3 + DB 에 1차 반영. 처음에는 `sku/<materialCode>.png` 로 적재했으나 보일러 컨벤션과 어긋나 cleanup 후 재실행. 이미지-자재코드 매칭은 이전 세션에서 완료(매칭률 88.6%, 39개 미매칭은 변형 코드/CSV 중복으로 후속 정규화 대상).
 - **대안**:
-  - **CloudFront public URL 을 그대로 DB 에 저장** — 권한 제어가 어렵고 보일러 컨벤션(객체 key 저장 → presigned 변환)과도 맞지 않음
-  - **수동 콘솔 업로드 후 SQL 일괄 UPDATE** — 재현성 0, 추후 prod 반영·재처리 시 추적 불가
+  - **`sku/<materialCode>.png` (1차 시도, 폐기)** — 사람이 읽기 쉽지만 위플래닛 보일러(`files.controller` + 다른 프로젝트 sonova 등) 컨벤션과 어긋남. FE 가 `imageUrl` 을 그대로 사용 못하고 변환 단계가 필요해짐
+  - **path-only 저장 (`images/skus/<uuid>.png`)** — 응답 시 cloudfront prefix 부착 필요. legacy 의 `files.controller` 가 클라에 풀 URL 반환 → 클라가 그대로 저장하는 흐름이라 풀 URL 저장이 더 일관됨
+  - **수동 콘솔 업로드 + 직접 SQL** — 재현성 0
 - **근거**:
-  - `Sku.imageUrl` 코멘트 가이드: "S3 object key 저장 (예: sku/<materialCode>.png), 응답 시 presigned URL 변환"
-  - PutObject 멱등성 + `In(materialCodes)` 일괄 UPDATE 로 변형 productCode (같은 자재코드 → 다른 productCode) 도 한 번에 갱신
-  - dry-run 모드 분리로 사전 영향 범위 확인 가능
+  - **legacy `files.controller`**: `key = \`${crypto.randomUUID()}.${extensions[0]}\`` 로 temp 업로드 → `copyObject({ prefix: '${type}s/${kind}' })` 로 영구 버킷 이동 → 응답 `url: \`${cloudfront}/${path}\``. 이 흐름이 위플래닛 표준
+  - 다른 위플래닛 프로젝트(sonova) 도 imageUrl 에 풀 cloudfront URL 저장 (예: `https://dev-file.sonovashop.co.kr/images/etc/<uuid>.jpg`)
+  - 같은 materialCode 의 productCode 변형은 **같은 uuid · 같은 imageUrl 공유** (소재만 다른 동일 형상이라 이미지 1개로 충분)
 - **영향**:
-  - **스크립트**: `apps/ax-api/scripts/sku-image-upload.ts` 자산화 (재실행 가능). `pnpm --filter ax-api sku:image-upload <dir> [--dry-run]`
-  - **버킷·prefix**: dev `s3://weplanet-files/sku/`, ContentType=`image/png` 고정
-  - **실행 결과 (1차, 2026-04-29)**: 이미지 파일 289 / S3 업로드 287 / S3 실패 0 / DB UPDATE rows 289 / DB 매칭 실패 2 (`CSCY30-CPP_AL`, `CSCY50-UPP_AL` — DB 에 동일 materialCode SKU 없음, 후속 시드 작업 시 처리)
-  - **후속**: prod 반영은 별도 결정. 미매칭 자재코드 39 + 2(이번 실행분) 정리 후 2차 실행
-  - **샘플 URL 경로 (dev)**: `https://dev-file.weplanet.co.kr/sku/CSA130-S.png` — 실제 응답은 presigned URL 변환에 의존
+  - **스크립트**: `apps/ax-api/scripts/sku-image-upload.ts` 자산화. `pnpm --filter ax-api sku:image-upload <dir> [--dry-run] [--force]`. 기본은 `imageUrl` 비어있는 SKU 만 처리(재실행 안전), `--force` 로 새 uuid 덮어쓰기 가능
+  - **버킷·prefix**: dev `s3://weplanet-files/images/skus/<uuid>.png`, ContentType=`image/png`
+  - **DB 저장 형식**: `https://dev-file.weplanet.co.kr/images/skus/<uuid>.png` (풀 URL)
+  - **실행 결과 (재시도, 2026-04-29)**: 이미지 파일 289 / S3 업로드 287 / S3 실패 0 / DB UPDATE rows 289 / distinct URL 287 (변형 productCode 2쌍 — `CSC100-DU`, `CSC60-DU` — 가 같은 URL 공유) / DB 매칭 실패 2 (`CSCY30-CPP_AL`, `CSCY50-UPP_AL`)
+  - **1차 잘못된 적재 cleanup**: `s3://weplanet-files/sku/` 287 객체 삭제 + DB 289 rows `imageUrl=NULL` 되돌림 후 재실행
+  - **후속**: prod 반영은 별도 결정. 미매칭 자재코드 39 + 2 정리 후 2차 실행. `Sku.imageUrl` 컬럼 코멘트(현재 "S3 object key 저장")는 풀 URL 저장으로 갱신 필요
 
 ---
 

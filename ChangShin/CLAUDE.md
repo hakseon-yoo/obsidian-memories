@@ -11,22 +11,26 @@
 
 ### 현재 작업 맥락
 
-- **주요 프로젝트**: 창신 AX 시리즈 (AX1 · AX2 · AX3)
+- **본인 담당**: **창신 AX-2 (지능형 스케줄러)**. AX1·AX3는 별도 담당자/팀이 진행하며, 본인은 인프라 골격(`apps/ax1-api`, `apps/ax3-api`, ECR, 네임스페이스, k8s 매니페스트)까지만 세팅 완료.
 - **아키텍처 (2026-04-28 변경)**: 4서비스 분리 → **단일 통합 API 서비스 (`changshin-api`)** 로 통합 ([[Infrastructure/31 - Decision Log#D-019|D-019]])
   - 리포: GitLab `changshin/changshin-api` 1개
   - 워크로드: `apps/ax-api` (HTTP API) + `apps/batch` (cron)
-  - 도메인 분리: NestJS 모듈 디렉터리 단위 (`Auth`, `AX1`, `AX2`, `AX3`)
+  - 도메인 분리: NestJS 모듈 디렉터리 단위 (`Auth`, `AX1`, `AX2`, `AX3`) — 트랙별 sub-barrel ([[Infrastructure/31 - Decision Log#D-020|D-020]])
   - DB: PostgreSQL 단일, 스키마 단위 논리 분리 유지
   - 운영 중: AWS EKS dev 환경 (`changshin-dev`), `https://changshin-api.dev.weplanet.co.kr/`
+- **AX-2 스코프 결정 (2026-04-29)**:
+  - MVP: **2026-06 말** (~2개월)
+  - 모듈 우선순위: **워크프로세스 흐름 순서** (수주→납기예측→생산계획→물류→정산)
+  - 클라이언트: **웹 only + 반응형 웹** (네이티브·PWA 없음)
 - **현재 단계**:
   - **D-019 후속 정리** — Auth legacy 자산 통합, `aud` 처리 결정, ECR 통폐합
   - AX-2 Module 1·2 MVP 스펙 확정 준비
-- **당면 과제**:
+  - **SKU 마스터 1차 완료** — 도메인 설계 [[Infrastructure/31 - Decision Log#D-021|D-021]], DB 시드 330건, 이미지 S3 반영 [[Infrastructure/31 - Decision Log#D-022|D-022]] (287/289 매칭, 미매칭 41건 후속)
+- **당면 과제 (본인 P0 어젠다)**:
   - 딜로이트 인터뷰 답변 취합 · [[AX-2 지능형 스케줄러/08 - 아직 답이 필요한 질문|AX-2 열린 질문]] 실무진 확인 미팅
-  - [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트|클라이언트 미팅 P0 질의]] 정리
-  - SKU 마스터 데이터 정합성 점검 계획 수립
+  - [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트#0. P0 빠른 참조 (착수 전 결정 필수)|클라이언트 미팅 P0 빠른 참조]] — 우선순위: ① ERP 연동(B 3건) → ② Auth(C 3건) → ③ 도메인(A 9건) → ④ 운영·#66 파일럿
   - `changshin-api`에 Auth 모듈 통합 + AX-2 모듈 골격 작성
-- **마지막 업데이트**: 2026-04-28
+- **마지막 업데이트**: 2026-04-29
 
 ### 세션 시작 체크리스트
 
