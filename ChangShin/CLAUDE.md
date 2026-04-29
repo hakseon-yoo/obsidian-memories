@@ -88,6 +88,10 @@
 
 - [[Backend/00 - Backend (Index)]] — 서버 코드 허브 (NestJS 기반, 작업 진행 중)
 
+### Meetings
+
+- [[Meetings/00 - Meetings (Index)]] — 회의록 허브 (클라이언트·사내·파트너 미팅 정리. 회의 결과 액션은 [[00 - Action Board]] 와 동기화)
+
 ### (예정) 다른 영역
 
 > 아래는 준비되면 추가. 지금은 플레이스홀더.
