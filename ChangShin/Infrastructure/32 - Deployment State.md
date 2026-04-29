@@ -80,7 +80,7 @@ tags:
 | OIDC Provider | `arn:aws:iam::687582709363:oidc-provider/git.weplanet.co.kr` |
 | CI Role ARN | `arn:aws:iam::687582709363:role/changshin-oidc-ci` |
 | OIDC Audience | `flux-deploy` |
-| ECR (현재) | `…/changshin-auth`, `…/changshin-auth-deploy` 등 4세트 — D-019 후속 통폐합 예정 |
+| ECR (현재) | `changshin-api`, `changshin-api-deploy` (API), `changshin-batch`, `changshin-batch-deploy` (Batch) — 워크로드별 1세트씩 ([[31 - Decision Log#D-025]]). + `changshin-iac` (Flux OCI) |
 | ECR (iac/Flux OCI) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-iac` |
 | S3 temp | `changshin-temp` |
 | Terraform state S3 | `changshin-terraform-backend` |

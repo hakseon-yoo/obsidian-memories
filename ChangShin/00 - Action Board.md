@@ -32,7 +32,7 @@ tags:
 | ~~legacy admin-api → ax-api 흡수~~ → **완료 (2026-04-29)**: `Administrator`/`AdministratorPassword` 엔티티 + `AdministratorService`/`AdministratorModule` (`shared/administrator/`), `AdminJwtStrategy`, `AuthController`/`AuthService` (`controllers/auth/`), `AdministratorsController` (`controllers/administrators/`), `AdminHttpModule` 신규 묶음, `ax-api.module.ts` imports 추가. 타입체크 통과 | ✅ | 일반 사용자 흐름(`users`/`verifications` 등)은 #34 답변 후 별도 결정 |
 | ~~`aud` 클레임 처리 방향 결정~~ → **위플래닛 표준 `user / admin` 채택** ([[Infrastructure/31 - Decision Log#D-024]]) | ✅ | 2026-04-29 결정 |
 | ~~Ingress path 단순화 여부~~ → **D-011 path 분리 유지로 결정** ([[Infrastructure/31 - Decision Log#D-023]]) | ✅ | 2026-04-29 회의 후속으로 닫힘 |
-| **ECR 리포 통폐합** (`changshin-{auth,ax1,ax2,ax3}` 4세트 → 1세트) | ❌ | [[Infrastructure/31 - Decision Log#미결정 · 논의 필요]] · [[Backend/20 - Service Template]] |
+| ~~ECR 리포 통폐합~~ → **점검 결과 이미 1세트(api+api-deploy)로 시작. batch 는 [[Infrastructure/31 - Decision Log#D-025\|D-025]] 로 별도 1세트 추가** | ✅ | 2026-04-29. 사용자 `terraform apply` 필요 (changshin-iac base + dev) |
 | DB 스키마 마이그레이션 (`auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*`) | 🔥 | [[Infrastructure/10 - Architecture#2. 공유 데이터베이스 전략]] |
 
 ### B. AX-2 도메인 모듈 구현 시작
@@ -168,6 +168,7 @@ tags:
 
 | 일자 | 항목 |
 |------|------|
+| 2026-04-29 | **D-025 batch 워크로드 = 별도 ECR** — `changshin-batch`+`changshin-batch-deploy` 신규. ECR 통폐합 점검 결과 api 1세트는 이미 운영 중. batch 보일러 잔재(`weplanet-changshin-batch`) 정리. changshin-iac/changshin-api 양쪽 변경 ([[Infrastructure/31 - Decision Log#D-025]]) |
 | 2026-04-29 | **legacy admin-api → ax-api 흡수 완료** — Administrator 도메인(`shared/administrator/`) + AdminJwtStrategy + admin auth/administrators 컨트롤러 + AdminHttpModule. 타입체크 통과. D-024 적용 |
 | 2026-04-29 | **D-024 JWT `aud` = 위플래닛 표준 `user / admin`** — D-019 후속 "`aud` 처리 방향" 닫음. D-007 의 서비스 분기 의미를 클라이언트 종류 식별로 재정의 ([[Infrastructure/31 - Decision Log#D-024]]) |
 | 2026-04-29 | **D-023 AX1·AX2·AX3 URL 분리** — FE 화면만 path 분리, BE 는 D-011 그대로 유지. D-019 후속 "Ingress path 단순화" 닫음 ([[Infrastructure/31 - Decision Log#D-023]]) |

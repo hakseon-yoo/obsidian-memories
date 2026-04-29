@@ -415,7 +415,7 @@ tags:
   - **DB 스키마**: D-002의 논리 분리 원칙은 유지 (단일 서비스가 여러 스키마에 접근). `auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*` 분리 유지하되 단일 DB 계정/연결로 운영
   - **도메인 경계 보존**: AX-2 등 도메인별 모듈 폴더 구조를 명확히 유지해, 향후 다시 분리하고 싶을 때 비용을 낮춘다
   - **Ingress 라우팅**: D-011의 path 기반 그대로 유지하기로 결정 ([[#D-023]]). `/api/*` 단일 통합 단순화는 폐기
-  - **ECR**: D-016의 `{svc}` + `{svc}-deploy` 패턴이 4세트 → 1세트로 축소 (또는 기존 4세트 중 1세트만 유지)
+  - **ECR**: 실제로는 처음부터 `api`+`api-deploy` 1세트로 시작 (4세트 분리는 만들어진 적 없음). batch 워크로드는 [[#D-025]] 로 별도 1세트(`changshin-batch`+`changshin-batch-deploy`) 추가 결정
   - **비용 절감**: Pod Identity association · IAM Role · Secret 등 4벌 → 1벌
 
 ---
@@ -506,6 +506,37 @@ tags:
 
 ---
 
+## D-025 batch 워크로드 = 별도 ECR (`changshin-batch` + `changshin-batch-deploy`)
+
+- **일자**: 2026-04-29
+- **상태**: accepted ([[#D-019]] 후속 — "ECR 4세트 → 1세트 후속 결정" 의 batch 부분 닫음)
+- **결정**:
+  - **API ECR**: `changshin-api` + `changshin-api-deploy` 1세트 — 그대로 유지
+  - **Batch ECR**: `changshin-batch` + `changshin-batch-deploy` 신규 1세트 추가
+  - 보일러 잔재였던 `weplanet-changshin-batch` 명명 폐기, 프로젝트 prefix 통일
+- **맥락**: ECR 통폐합 점검 결과 D-019 적용 시점에 이미 `api`/`api-deploy` 1세트로 운영 중. **추가 통폐합할 게 없는 상태**였음. 다만 batch 워크로드의 k8s 매니페스트가 `weplanet-changshin-batch` 라는 보일러 잔재 명명으로 남아있고 ECR 리포는 만들어진 적 없어 실제 빌드/배포 안 되는 상태. AX-2 모듈 구현 시 cron/스케줄 작업이 필요해질 가능성 → 통폐합 검토와 묶어 결정.
+- **대안**:
+  - **(a) 단일 이미지 + entrypoint 분기** (ax-api 이미지 안에 batch 포함, K8s deploy 의 `command` 만 다르게): D-019 단일 통합 정신과 가장 정합. CI 1회 빌드, ECR 1세트 유지. 단점은 batch 의 의존성·이미지가 ax-api 와 결합되어 batch 만 별도 의존성을 가질 때 분리 비용
+  - **(c) batch 폐기 / 보류**: 가장 단순. cron 작업이 정말 필요할 때만 부활. 단점은 미래에 다시 빌드/배포 인프라 세팅 필요
+- **근거**:
+  - **batch 의 진화 방향이 ax-api 와 다를 가능성**: 외부 ERP 폴링·SKU 마스터 갱신·이메일 발송 등 ax-api API 와 다른 의존성을 가질 수 있음
+  - **CI 빌드 시간 분리**: ax-api 코드 변경이 batch 빌드를 트리거하지 않음 (반대도 마찬가지)
+  - **ECR 2세트로 증가하지만 D-019 단일 서비스(API)** 정신은 그대로 — batch 는 워크로드 종류가 다른 별개 카테고리라 ax-api 와 동등 비교 대상이 아님
+  - **운영 격리**: batch 의 image 롤백·배포 사이클이 API 와 독립
+  - 보일러 명명(`weplanet-changshin-batch`) 정리는 [[#D-016]] 의 `{project_name}-{service}` 컨벤션 준수
+- **영향**:
+  - **changshin-iac 변경**:
+    - `aws/env/base.yml` 의 `ecr.repositories` 에 `batch`, `batch-deploy` 추가 → `changshin-batch`, `changshin-batch-deploy` 생성
+    - `aws/env/dev/config.yml` 의 `eks.services` 에 batch 항목 추가 (Pod Identity + Flux OCI 배포)
+    - `terraform apply` 필요 (사용자 수동 작업)
+  - **changshin-api 변경**:
+    - `.gitlab-ci.yml` batch 잡 2개(job-nestjs, job-flux) 주석 해제 + ecr 이름 정리 (`weplanet-changshin-batch` → `changshin-batch`)
+    - `k8s/clusters/dev/batch/deploy.yaml` image 라인 갱신
+  - **운영**: batch Pod 가 dev 클러스터에 정상 진입 (현재는 image pull 실패로 죽어있을 가능성)
+  - **D-019 영향 항목 갱신**: ECR 4세트→1세트 후속이 (api 1세트 + batch 1세트) 로 닫힘. 추가 trackECR 분리는 미래 결정
+
+---
+
 ## D-024 JWT `aud` = 위플래닛 표준 `user / admin` 채택
 
 - **일자**: 2026-04-29
@@ -591,13 +622,14 @@ tags:
 
 **현재 미결정 (요약)** — 자세한 맥락·우선순위는 [[00 - Action Board]] 참조:
 
-- D-019 후속: ECR 통폐합 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+- D-019 후속: (모든 후속 결정 완료 — 아래 "결정 완료" 참조)
 - 클라이언트 도메인 확정 시 인증서 + host 교체 → [[00 - Action Board#D-2. 인프라 · 도메인 (임시 결정, 영구화 필요)]]
 - 80 포트 listener 미동작 진단 → [[00 - Action Board#📥 백로그]]
 - D-021 후속: CSF60-DU · CSF100-DU 챔버 구조 / 시리즈 표기 흔들림 → [[00 - Action Board#🧹 데이터 클렌징 후속]]
 - D-019 후속 결정 완료: 도메인 모듈 디렉터리 컨벤션 → [[#D-020]] 로 결정 (트랙별 sub-barrel)
 - D-019 후속 결정 완료: Ingress path 단순화 여부 → [[#D-023]] 로 결정 (D-011 path 분리 유지, `/api/*` 단일 통합 폐기)
 - D-019 후속 결정 완료: `aud` 클레임 처리 → [[#D-024]] 로 결정 (위플래닛 표준 `user / admin` 채택)
+- D-019 후속 결정 완료: ECR 통폐합 → 점검 결과 처음부터 1세트로 시작 (api+api-deploy). batch 워크로드는 [[#D-025]] 로 별도 ECR 1세트 추가
 
 ---
 
