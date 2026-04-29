@@ -157,36 +157,21 @@ OIDC Provider `git.weplanet.co.kr`는 **AWS 계정당 1개만 존재 가능**한
 - [x] **Swagger 외부 접근** — `globalPrefix='auth'` 적용, swagger documentPath `/auth/api-docs`로 이동, basic auth 자격증명을 `auth-api-docs` Secret으로 강화
 - [x] **SKU 이미지 S3 + DB 1차 반영** (2026-04-29) — `weplanet-files/images/skus/<uuid>.png` 287개 업로드, `Sku.imageUrl` 풀 cloudfront URL UPDATE rows=289, 매칭 실패 2 (후속 정규화 대상). 보일러 컨벤션(legacy `files.controller`) 정렬 [[31 - Decision Log#D-022]]
 
-### 단기 (현재 사이클) ← **다음 세션 재개 포인트**
+### 단기 / 중기 / 장기 작업 — Action Board 로 이전
 
-- [ ] **`changshin-api` 통합 마무리** ([[31 - Decision Log#D-019|D-019]] 후속)
-  - [ ] 기존 `changshin-auth-api`의 Auth 자산(register/login/refresh/password 등)을 `changshin-api/apps/ax-api/src/modules/auth/` 로 흡수
-  - [ ] 보일러 잔재 정리 (verifications/admin/files/faqs 등 본 프로젝트와 무관한 컨트롤러)
-  - [ ] `aud` 클레임 처리 방향 결정 (제거 / 클라이언트 컨텍스트 / scope 통합)
-  - [ ] Ingress path 단순화 여부 결정
-  - [ ] ECR 통폐합 (4세트 → 1세트, gitlab-ci `ecr_repo`/`ecr_deploy` 인자 갱신)
-  - [ ] D-002 스키마 마이그레이션 (`auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*`)
-- [ ] **AX-2 도메인 모듈 구현 시작** — [[AX-2 지능형 스케줄러/02 - Module 1 · 납기일 예측|M1]] · [[AX-2 지능형 스케줄러/03 - Module 2 · 생산 계획 관리|M2]] 우선
-- [ ] **changshin-iac의 `.gitlab-ci.yml` 생성** — Terraform plan/apply 자동화 (현재는 로컬에서 수동 apply)
-
-### 중기
-
-- [ ] **AX1·AX3 도메인 모듈 구현** (도메인 정의 후 — [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트#7. AX 시리즈 도메인 명확화|클라이언트 확인 필요]])
-- [ ] **클라이언트 도메인 확정 시 인증서/host 교체** [[31 - Decision Log#D-015]]
-- [ ] **80 listener 미동작 진단** — HTTPS-only로 갈지, 80→443 redirect 정식 적용할지 결정
-- [ ] **OIDC Provider 소유권 정리** (5번 항목)
-- [ ] **Backend state 공유 방법** (`aws/env/backend/terraform.tfstate`가 로컬에만 있음)
+> [!tip] 단일 보드로 이전됨
+> 미완 작업은 [[00 - Action Board]] 에서 단일 소스로 관리. 본 문서는 **현재 운영 상태와 참조값**에 집중.
+>
+> - **현재 사이클 P0**: [[00 - Action Board#🔥 현재 사이클 (본인 P0 — 직접 진행)]]
+> - **백로그**: [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]]
+> - **장기**: [[00 - Action Board#📅 장기 / Phase 4]]
 
 ### 다음 세션 재개 포인트
 
 워킹 디렉터리: `/Users/yoohakseon/Documents/GitLab/changshin/changshin-api`
 - 단일 통합 리포. `apps/ax-api`(API) + `apps/batch`(cron). 클러스터에 Pod 정상 동작 중.
-- 시작점: **D-019 후속 정리** + **Auth 모듈 통합(legacy → ax-api)** + **AX-2 모듈 골격 잡기**
+- 시작점: **D-019 후속 정리** + **Auth 모듈 통합(legacy → ax-api)** + **AX-2 모듈 골격 잡기** — 자세한 항목은 [[00 - Action Board]]
 - 참고: legacy 자산은 `/Users/yoohakseon/Documents/GitLab/changshin/changshin-legacy/` (필요한 코드는 cherry-pick)
-
-### 장기
-
-- [ ] **Azure 이전 (Phase 2, [[30 - Azure Migration]])**
 
 ---
 

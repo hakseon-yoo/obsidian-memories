@@ -264,11 +264,7 @@ pnpm dev:batch           # 배치 (별도 터미널)
 
 ## 열린 질문
 
-- [ ] 디렉토리 명: `modules/` vs 보일러 컨벤션의 `controllers/`
-- [ ] `packages/`에 어디까지 분리할지 (현재 data/decorators/config 존재 — 더 추가할지)
-- [ ] `apps/ax2-api` legacy stub 제거 시점
-- [ ] TypeORM Migration 실행 주체 (API 시작 시? 별도 job?)
-- [ ] API 버저닝(`/v1/...`) 도입 시점
+> 모든 미완 항목은 [[00 - Action Board]] 에서 관리. 디렉터리 컨벤션 / `packages/` 분리 범위 / legacy stub 정리 / Migration 실행 주체 / API 버저닝 등은 [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]] 참조.
 
 ---
 

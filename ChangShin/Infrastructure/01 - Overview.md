@@ -109,12 +109,9 @@ flowchart TB
 
 ## 열린 질문
 
-- [ ] D-019 후속: `aud` 클레임 처리 방향 (제거 vs 클라이언트 컨텍스트 구분 재정의)
-- [ ] D-019 후속: Ingress path 단순화 (`/auth`, `/api/ax{1,2,3}` → `/api/*` 통합)
-- [ ] D-019 후속: ECR 리포 통폐합 (4세트 → 1세트)
-- [ ] 멀티 AZ · HA 수준 (개발/스테이징/운영 차등)
-- [ ] Azure 이전 예상 시기 · 트리거 조건
-- [ ] 환경 분리 정책 (dev/stage/prod)
+> 모든 미완 항목은 [[00 - Action Board]] 에서 관리. 본 문서 관련:
+> - D-019 후속 (aud · path · ECR) → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+> - 멀티 AZ · HA / 환경 분리 / Azure 이전 트리거 → [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]]
 
 ---
 

@@ -213,11 +213,9 @@ export class AuthenticationGuard implements CanActivate {
 
 ## 열린 질문
 
-- [ ] `aud` 클레임 옵션 A/B/C 중 결정
-- [ ] Access · Refresh 토큰 수명 (15m/1h vs 7d/14d 등)
-- [ ] Refresh 토큰 저장소 (DB vs Redis)
-- [ ] SSO·OIDC 외부 IdP 연동 여부 (D-009 자체 JWT 유지 vs 하이브리드)
-- [ ] MFA 도입 시점
+> 모든 미완 항목은 [[00 - Action Board]] 에서 관리. 본 문서 관련:
+> - `aud` 클레임 옵션 결정 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+> - Access·Refresh 토큰 수명 / 저장소 / MFA / 외부 IdP → [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]]
 
 ---
 

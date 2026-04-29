@@ -185,11 +185,10 @@ pnpm dev:batch
 
 ## 열린 질문
 
-- [ ] `aud` 클레임 처리 (제거 / 클라이언트 컨텍스트 / scope) — D-019 후속
-- [ ] Ingress path 단순화 여부 — D-019 후속
-- [ ] 도메인 모듈의 디렉터리 컨벤션 (`modules/` vs `controllers/`)
-- [ ] 도메인 간 직접 import 허용 여부 (느슨한 결합 강제 vs 편의)
-- [ ] AX1·AX3 도메인 정의 (클라이언트 인터뷰 후 결정 — [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트#7. AX 시리즈 도메인 명확화|질의]] 진행)
+> 모든 미완 항목은 [[00 - Action Board]] 에서 관리. 본 문서 관련:
+> - `aud` 처리 / Ingress path 단순화 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+> - 도메인 모듈 디렉터리 컨벤션 / 직접 import 허용 → [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]]
+> - AX1·AX3 도메인 정의 → [[00 - Action Board#⛔ 본인 책임 외 (AX1·AX3 담당자 위임)]]
 
 ---
 

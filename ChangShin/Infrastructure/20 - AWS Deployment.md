@@ -236,9 +236,10 @@ flowchart LR
 
 ## 열린 질문
 
-- [ ] 도메인(예: `changshin.io` 등) 확정
-- [ ] ECR 통폐합 전략 (4세트 → 1세트)
-- [ ] stage/prod 환경 구축 시점·범위
+> 모든 미완 항목은 [[00 - Action Board]] 에서 관리. 본 문서 관련:
+> - 도메인 확정 → [[00 - Action Board#D-2. 인프라 · 도메인 (임시 결정, 영구화 필요)]]
+> - ECR 통폐합 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+> - stage/prod 환경 구축 시점 → [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]]
 
 ---
 

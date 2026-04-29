@@ -178,10 +178,9 @@ namespace는 환경 무관 `changshin` ([[31 - Decision Log#D-017]]). 환경 식
 
 ## 열린 질문
 
-- [ ] `aud` 처리 방향 (제거 / 컨텍스트 구분 / scope 통합)
-- [ ] Ingress path 단순화 여부
-- [ ] 도메인 모듈의 DI 경계 (다른 도메인 service 직접 import 허용 / 막을지)
-- [ ] 도메인 단위 외부 webhook (ERP) 라우팅 위치 (Auth 모듈? 도메인 모듈?)
+> 모든 미완 항목은 [[00 - Action Board]] 에서 관리. 본 문서 관련:
+> - `aud` 처리 / Ingress path 단순화 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+> - 도메인 모듈 DI 경계 / ERP webhook 라우팅 위치 → [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]]
 
 ---
 
