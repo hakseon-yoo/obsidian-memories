@@ -414,7 +414,7 @@ tags:
   - **인증**: D-007 `aud` 기반 분기는 서비스 분기 목적으로는 의미 약화. JWT 자체는 유지(D-009). `aud`는 **제거하거나 클라이언트 컨텍스트(웹/모바일/외부 ERP) 구분용으로 재정의** — 후속 결정 필요
   - **DB 스키마**: D-002의 논리 분리 원칙은 유지 (단일 서비스가 여러 스키마에 접근). `auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*` 분리 유지하되 단일 DB 계정/연결로 운영
   - **도메인 경계 보존**: AX-2 등 도메인별 모듈 폴더 구조를 명확히 유지해, 향후 다시 분리하고 싶을 때 비용을 낮춘다
-  - **Ingress 라우팅**: D-011의 path 기반 그대로 (단일 backend로 모두 라우팅) 또는 단일 `/api/*` prefix로 단순화 — 후속 결정
+  - **Ingress 라우팅**: D-011의 path 기반 그대로 유지하기로 결정 ([[#D-023]]). `/api/*` 단일 통합 단순화는 폐기
   - **ECR**: D-016의 `{svc}` + `{svc}-deploy` 패턴이 4세트 → 1세트로 축소 (또는 기존 4세트 중 1세트만 유지)
   - **비용 절감**: Pod Identity association · IAM Role · Secret 등 4벌 → 1벌
 
@@ -506,6 +506,34 @@ tags:
 
 ---
 
+## D-023 AX1·AX2·AX3 URL 분리 = 프론트 화면만 분리, BE 는 D-011 path 분리 유지
+
+- **일자**: 2026-04-29
+- **상태**: accepted (D-019 후속 — "Ingress path 단순화 여부" 결정 닫음)
+- **결정**:
+  - **프론트엔드 화면 URL**: AX1·AX2·AX3 화면을 **각각 별도 URL** 로 분리한다 (탭 X). 같은 호스트 내 path 라우팅으로 분리: `app.changshin.{domain}/ax1`, `/ax2`, `/ax3`. 별도 도메인·서브도메인 미사용.
+  - **백엔드 API**: [[#D-011]] 의 path 기반 분리를 **그대로 유지**. `/auth/*`, `/api/ax1/*`, `/api/ax2/*`, `/api/ax3/*`. **`/api/*` 단일 통합으로의 단순화는 폐기**.
+  - **Ingress·도메인 인프라**: 단일 호스트, 단일 ALB, 단일 ACM. 변경 없음.
+- **맥락**: [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정#2-11. AX1·AX2·AX3 화면 구조 — 별도 URL|2026-04-29 클라이언트 회의]] 에서 "AX1·AX2·AX3 = 탭 X, 각각 별도 URL" 로 결정됨. 본인(AX-2 담당) 확인: **이는 프론트 화면 URL 분리 의도이며 BE 도메인 분리는 아님**. [[#D-019]] 영향 항목의 "Ingress 라우팅 = D-011 그대로 vs `/api/*` 단일 통합" 후속 결정이 미정 상태였는데, 이 회의 결과로 path 분리 유지 쪽으로 닫힘.
+- **대안**:
+  - **(b) 서브도메인 분리** (`ax1.changshin.io`, `ax2.~`, `ax3.~`): D-011 에서 이미 검토·폐기된 안. cookieDomain 확장·CORS·ACM SAN 추가 비용 발생. 회의 결정 "마스터 계정 단일 진입" 과 정합성 떨어짐. 미래에 트래픽 분리·독립 배포 요구 커지면 Ingress 규칙만 바꿔 전환 가능 ([[#D-011]] 영향 항목 명시)
+  - **(c) BE API 도 통합 path** (`/api/*` 단일): 트레이스/로그·observability 측면에서 트랙 식별자가 path 에 박혀 있는 게 운영상 유리. 추후 트랙별 rate limit·접근 제어도 path 기반이 단순. 폐기.
+- **근거**:
+  - 회의의 "별도 URL" 본질은 **사용자/영업이 각 트랙 화면을 직접 북마크·공유 가능** 이라는 UX 요구. SPA 라우팅 path 로 충분히 충족
+  - **단일 origin 유지의 이득**: CORS 부담 최소, 같은 도메인 쿠키 공유로 회의 결정 "마스터 계정 기준 시작" 과 정합. 단일 Auth 진입 → JWT 검증 → 화면별 권한 으로 깔끔
+  - **D-011 채택 근거 그대로 유효**: ACM·Route53·ALB 1세트, K8s Ingress 단순, Flux GitOps 비용 낮음
+  - **D-019(단일 통합) + D-020(트랙별 sub-barrel) 와 정합**: NestJS controller 단위 prefix 로 `/api/ax{1,2,3}/*` 분리 = `Ax{,2,3}HttpModule` 컨벤션 (`coding-conventions.md`) 과 1:1 매핑
+  - **미래 옵션 보존**: AX1·AX3 담당자가 추후 도메인 분리를 원하면 [[#D-011]] 영향 항목대로 Ingress 규칙만 바꿔 전환. D-023 도 superseded 처리하면 됨
+- **영향**:
+  - **Ingress 매니페스트 변경 없음** (D-011 그대로). `/api/*` 단일 통합으로의 리팩토링 작업 폐기
+  - **NestJS globalPrefix · controller prefix**: 트랙별 prefix(`api/ax1`, `api/ax2`, `api/ax3`, `auth`) 유지. 이미 `Ax{,2,3}HttpModule` 컨벤션 + `coding-conventions.md` 가 이 패턴
+  - **Swagger 경로**: `/api-docs/swagger-json` (AX1), `/api-docs/ax2/swagger-json` (AX2) 등 트랙별 분리 유지 (`packages/data/config/src/default.ts` 의 `apiDocs.urls` 와 정합)
+  - **프론트엔드 (별도 담당)**: SPA 라우터(React Router 등)에서 `/ax1`, `/ax2`, `/ax3` 별도 화면. 마스터 계정 로그인 후 각 화면 진입. 모바일은 반응형 웹으로 동일 path 사용
+  - **`aud` 클레임**: 화면 분리됐지만 BE 가 단일이라 서비스 분기용 의미는 약화 — **`aud` 처리 결정은 D-023 와 별개로 미정 (Action Board 유지)**. 클라이언트 컨텍스트(웹/모바일/외부 ERP) 구분용으로 재정의 vs 제거 중 선택은 후속
+  - **회의 후속 동기화**: [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정#3. Action Items|회의 M-6]] 항목 (별도 URL 구조 설계안) 닫음 — 본 결정으로 갈음
+
+---
+
 ## (템플릿) D-### 제목
 
 - **일자**:
@@ -525,11 +553,12 @@ tags:
 
 **현재 미결정 (요약)** — 자세한 맥락·우선순위는 [[00 - Action Board]] 참조:
 
-- D-019 후속: `aud` 클레임 처리 / Ingress path 단순화 / ECR 통폐합 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+- D-019 후속: `aud` 클레임 처리 / ECR 통폐합 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
 - 클라이언트 도메인 확정 시 인증서 + host 교체 → [[00 - Action Board#D-2. 인프라 · 도메인 (임시 결정, 영구화 필요)]]
 - 80 포트 listener 미동작 진단 → [[00 - Action Board#📥 백로그]]
 - D-021 후속: CSF60-DU · CSF100-DU 챔버 구조 / 시리즈 표기 흔들림 → [[00 - Action Board#🧹 데이터 클렌징 후속]]
 - D-019 후속 결정 완료: 도메인 모듈 디렉터리 컨벤션 → [[#D-020]] 로 결정 (트랙별 sub-barrel)
+- D-019 후속 결정 완료: Ingress path 단순화 여부 → [[#D-023]] 로 결정 (D-011 path 분리 유지, `/api/*` 단일 통합 폐기)
 
 ---
 

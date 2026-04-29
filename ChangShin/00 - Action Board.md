@@ -32,7 +32,7 @@ tags:
 | Auth legacy 자산 → `apps/ax-api/src/modules/auth/` 흡수 | 🔥 | [[Infrastructure/32 - Deployment State#단기 (현재 사이클)]] |
 | 보일러 잔재 정리 (verifications · admin · files · faqs 등) | 🔥 | 〃 |
 | **`aud` 클레임 처리 방향 결정** (제거 / 컨텍스트 / scope 통합) | ❌ | [[Infrastructure/31 - Decision Log#미결정 · 논의 필요]] · [[Backend/10 - Auth Strategy]] |
-| **Ingress path 단순화 여부** (`/auth`+`/api/ax{1,2,3}` → `/api/*` 통합) | ❌ | [[Infrastructure/31 - Decision Log#미결정 · 논의 필요]] · [[Infrastructure/10 - Architecture]] |
+| ~~Ingress path 단순화 여부~~ → **D-011 path 분리 유지로 결정** ([[Infrastructure/31 - Decision Log#D-023]]) | ✅ | 2026-04-29 회의 후속으로 닫힘 |
 | **ECR 리포 통폐합** (`changshin-{auth,ax1,ax2,ax3}` 4세트 → 1세트) | ❌ | [[Infrastructure/31 - Decision Log#미결정 · 논의 필요]] · [[Backend/20 - Service Template]] |
 | DB 스키마 마이그레이션 (`auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*`) | 🔥 | [[Infrastructure/10 - Architecture#2. 공유 데이터베이스 전략]] |
 
@@ -59,7 +59,7 @@ tags:
 
 | 항목 | 상태 | 비고 |
 |------|------|------|
-| **AX1·AX2·AX3 URL 구조 결정** — 회의 결과 "별도 URL" 방향 → D-019 후속 Ingress path 통합 vs 분리 결정에 직접 영향 | 🔥 | [[Infrastructure/31 - Decision Log#미결정 · 논의 필요]] 갱신 후보 |
+| ~~AX1·AX2·AX3 URL 구조 결정~~ → **FE 화면만 path 분리, BE 는 D-011 그대로** ([[Infrastructure/31 - Decision Log#D-023]]) | ✅ | 2026-04-29 결정 |
 | **로그인·마스터 계정·권한 IA** — Auth 모듈 설계 직결 | ❌ | [[Backend/10 - Auth Strategy]] · 마스터 계정 1차 → 권한 그룹 확장 |
 | **5월 말 vs 6월 말 타임라인 정합성 점검** — 본인 P0(6월말) ↔ 회의(5월말 1차) | ❌ | [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트#0. P0 빠른 참조 (착수 전 결정 필수)\|#64]] |
 | **NDA 체결 후 3D 도면 수령** — SKU 미매칭 41건 보강 활용 가능 | ❓ | 팀 스파르타 ↔ 창신 NDA 진행 후 |
@@ -169,6 +169,7 @@ tags:
 
 | 일자 | 항목 |
 |------|------|
+| 2026-04-29 | **D-023 AX1·AX2·AX3 URL 분리** — FE 화면만 path 분리, BE 는 D-011 그대로 유지. D-019 후속 "Ingress path 단순화" 닫음 ([[Infrastructure/31 - Decision Log#D-023]]) |
 | 2026-04-29 | **SKU 이미지 S3 + DB 1차 반영** — 287/289 매칭 ([[Infrastructure/31 - Decision Log#D-022]]) |
 | 2026-04-29 | **SKU 마스터 도메인 설계** + DB 시드 330건 ([[Infrastructure/31 - Decision Log#D-021]]) |
 | 2026-04-28 | **D-020 도메인 패키지 트랙별 분리** (`ax/ax2/ax3/shared/` sub-barrel) |
