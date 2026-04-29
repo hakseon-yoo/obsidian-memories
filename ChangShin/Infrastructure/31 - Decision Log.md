@@ -482,6 +482,28 @@ tags:
 
 ---
 
+## D-022 SKU 이미지 S3 업로드 1차 완료
+
+- **일자**: 2026-04-29
+- **상태**: accepted
+- **결정**: SKU 마스터의 제품 이미지를 dev 버킷 `weplanet-files` 의 `sku/<materialCode>.png` key 로 업로드하고, DB `Sku.imageUrl` 컬럼에 동일한 object key 를 저장한다. 응답 시 presigned URL 또는 CloudFront URL 로 변환하는 패턴은 [[#D-021]] 에서 정한 그대로 유지.
+- **맥락**: 창신 제품 카탈로그 PDF 에서 추출한 289 개 SKU 이미지를 S3 + DB 에 1차 반영. 이미지-자재코드 매칭은 이전 세션에서 완료(매칭률 88.6%, 39개 미매칭은 변형 코드/CSV 중복으로 후속 정규화 대상). 업로드+UPDATE 는 멱등 1회성 스크립트로 자산화.
+- **대안**:
+  - **CloudFront public URL 을 그대로 DB 에 저장** — 권한 제어가 어렵고 보일러 컨벤션(객체 key 저장 → presigned 변환)과도 맞지 않음
+  - **수동 콘솔 업로드 후 SQL 일괄 UPDATE** — 재현성 0, 추후 prod 반영·재처리 시 추적 불가
+- **근거**:
+  - `Sku.imageUrl` 코멘트 가이드: "S3 object key 저장 (예: sku/<materialCode>.png), 응답 시 presigned URL 변환"
+  - PutObject 멱등성 + `In(materialCodes)` 일괄 UPDATE 로 변형 productCode (같은 자재코드 → 다른 productCode) 도 한 번에 갱신
+  - dry-run 모드 분리로 사전 영향 범위 확인 가능
+- **영향**:
+  - **스크립트**: `apps/ax-api/scripts/sku-image-upload.ts` 자산화 (재실행 가능). `pnpm --filter ax-api sku:image-upload <dir> [--dry-run]`
+  - **버킷·prefix**: dev `s3://weplanet-files/sku/`, ContentType=`image/png` 고정
+  - **실행 결과 (1차, 2026-04-29)**: 이미지 파일 289 / S3 업로드 287 / S3 실패 0 / DB UPDATE rows 289 / DB 매칭 실패 2 (`CSCY30-CPP_AL`, `CSCY50-UPP_AL` — DB 에 동일 materialCode SKU 없음, 후속 시드 작업 시 처리)
+  - **후속**: prod 반영은 별도 결정. 미매칭 자재코드 39 + 2(이번 실행분) 정리 후 2차 실행
+  - **샘플 URL 경로 (dev)**: `https://dev-file.weplanet.co.kr/sku/CSA130-S.png` — 실제 응답은 presigned URL 변환에 의존
+
+---
+
 ## (템플릿) D-### 제목
 
 - **일자**:
