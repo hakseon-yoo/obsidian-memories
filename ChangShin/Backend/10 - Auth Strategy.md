@@ -3,7 +3,7 @@ title: Auth Strategy (Single-Service JWT)
 parent: "[[00 - Backend (Index)]]"
 project: 창신
 created: 2026-04-23
-updated: 2026-04-28
+updated: 2026-04-29
 status: draft
 tags:
   - backend
@@ -20,8 +20,8 @@ tags:
 > [!summary] 한 줄로 말하면
 > Auth 모듈이 같은 프로세스 안에서 **JWT를 발급**하고, 모든 도메인 모듈이 **공통 가드(`AuthenticationGuard`)** 로 같은 JWT를 검증한다. 외부 IdP 미사용 (자체 JWT, [[Infrastructure/31 - Decision Log#D-009|D-009]]).
 
-> [!warning] 2026-04-28 변경
-> 4서비스 분리 시기에는 `aud=ax1|ax2|ax3`로 토큰을 **서비스별로** 발급할 계획이었으나 ([[Infrastructure/31 - Decision Log#D-007|D-007]]), 단일 서비스로 통합되면서 그 의미가 약화되었다. `aud` 처리 방향은 후속 결정 ([[Infrastructure/31 - Decision Log#미결정 · 논의 필요|미결정]]).
+> [!info] 2026-04-29 결정 ([[Infrastructure/31 - Decision Log#D-024|D-024]])
+> `aud` 는 **위플래닛 표준** `'user' / 'admin'` 두 값으로 채택. 서비스 분기(`ax1|ax2|ax3`, [[Infrastructure/31 - Decision Log#D-007|D-007]])는 [[Infrastructure/31 - Decision Log#D-019|D-019]] 단일 통합 + [[Infrastructure/31 - Decision Log#D-023|D-023]] URL 분리 방식 결정으로 의미 소멸. `aud=admin` = 시스템 관리자·마스터 계정, `aud=user` = 외주처·ODM·창신 일반 직원.
 
 ---
 
@@ -58,7 +58,7 @@ sequenceDiagram
 |--------|------|------|
 | `iss` | `https://changshin-api.dev.weplanet.co.kr` | 발급자 |
 | `sub` | `user-uuid-1234` | 사용자 ID |
-| `aud` | (TBD) | **재정의 예정** — 아래 §4 참조 |
+| `aud` | `user` 또는 `admin` | 클라이언트 종류 식별 ([[Infrastructure/31 - Decision Log#D-024|D-024]]). `/admin/*` → admin, 그 외 → user |
 | `iat` | `1714000000` | 발급 시각 |
 | `exp` | `1714003600` | 만료 시각 (access: 1h 권장) |
 | `jti` | `uuid` | 토큰 고유 ID |
@@ -98,29 +98,43 @@ sequenceDiagram
 
 ---
 
-## 4. `aud` 클레임 재정의 옵션 (후속 결정 필요)
+## 4. `aud` 클레임 — 위플래닛 표준 `user / admin` ([[Infrastructure/31 - Decision Log#D-024|D-024]])
 
-[[Infrastructure/31 - Decision Log#D-007|D-007]]의 `aud=ax1|ax2|ax3` 분기는 단일 서비스에서 **서비스 라우팅 의미가 사라짐**. 다음 중 선택 필요:
+### 값 정의
 
-### 옵션 A: 제거
+| `aud` | 대상 | 경로 |
+|------|------|------|
+| `admin` | 시스템 관리자 · 마스터 계정 · 운영 화면 | `/admin/*` |
+| `user` | 외주처 · ODM · 창신 일반 직원 | 그 외 모든 도메인 경로 |
 
-- JWT에 `aud` 미포함
-- 가장 단순. 도메인 권한 분리는 `roles` · `scope`로 표현
-- 추천도: ⭐⭐⭐
+### Strategy 분리
 
-### 옵션 B: 클라이언트 컨텍스트 구분
+```ts
+// AUDIENCE='user' (외주처·ODM·창신 일반 직원)
+class JwtStrategy extends PassportStrategy(Strategy, 'jwt') { ... }
 
-- `aud=web | mobile | erp-webhook | partner-app`
-- 발행 컨텍스트별로 다른 정책(만료 시간 · CORS · 로깅) 적용 가능
-- 추천도: ⭐⭐ (필요해질 때 도입)
+// AUDIENCE='admin' (마스터 계정·관리자)
+class JwtAdminStrategy extends PassportStrategy(Strategy, 'jwt-admin') { ... }
+```
 
-### 옵션 C: 도메인 권한 표현 (scope과 통합)
+- 쿠키 분리: `user-access-token` / `admin-access-token` (refresh 도 동일)
+- Redis 세션 키 분리: `{aud}:{sub}:version`, `userRefreshTokens:{aud}:{sub}` — `@system/jwt` 가 자동 처리
+- 데코레이터: `@Auth({ type: 'admin' })` / `@Auth({ type: 'user' })` (위플래닛 표준)
 
-- `aud=["ax1", "ax2"]` 식으로 어느 도메인에 접근 가능한지 표현
-- 도메인 진입점 가드에서 검증
-- 사실상 `scope`와 중복 → `scope` 사용을 권장
+### 경로 매핑 (보일러 표준)
 
-> **권장 시작**: 옵션 A로 단순화. 필요 시 옵션 B로 확장.
+```
+/admin/*  → JwtAdminStrategy
+그 외      → JwtStrategy (user)
+```
+
+`AuthenticationGuard` 가 prefix 로 strategy 분기 (`.claude/rules/auth-security.md` §"경로 기반 Strategy" 참조).
+
+### 미채택 옵션 (참고)
+
+- **완전 제거**: `@system/jwt` 공유 패키지 + Redis 키 마이그레이션 비용 큼. 위플래닛 보일러 컨벤션 위반
+- **클라이언트 컨텍스트** (`web/mobile/erp-webhook`): "웹 only + 반응형 웹"([[Infrastructure/31 - Decision Log#D-023|D-023]]) 으로 web/mobile 분기 무의미. ERP 연동 답변 대기 중 — **필요 시 D-024 위에 `aud=erp-webhook` 추가** 가능 (별도 D-### 발행)
+- **도메인 권한 표현** (`aud=["ax1","ax2"]`): `roles` · `scope` 와 중복 → `scope` 사용
 
 ---
 
@@ -145,7 +159,7 @@ export class AuthenticationGuard implements CanActivate {
       publicKey: this.publicKey,
       algorithms: ['RS256'],
       // issuer: env.JWT_ISSUER  // 선택
-      // audience: env.JWT_AUDIENCE  // aud 옵션 결정 후
+      // audience: 'user' or 'admin'  // 경로 기반 strategy 분기 (D-024)
     });
 
     req.user = payload;
@@ -207,14 +221,15 @@ export class AuthenticationGuard implements CanActivate {
 - [ ] 서명 깨진 토큰 → 401
 - [ ] Refresh 토큰으로 재발급
 - [ ] 로그아웃 후 refresh 토큰 재사용 시도 → 거부
-- [ ] (옵션 B 채택 시) 잘못된 `aud`로 호출 → 거부
+- [ ] `/admin/*` 에 `aud=user` 토큰으로 호출 → 401 (D-024)
+- [ ] 그 외 경로에 `aud=admin` 토큰으로 호출 → 401 또는 strategy 매칭 실패 (D-024)
 
 ---
 
 ## 열린 질문
 
 > 모든 미완 항목은 [[00 - Action Board]] 에서 관리. 본 문서 관련:
-> - `aud` 클레임 옵션 결정 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+> - ✅ `aud` 클레임 옵션 결정 → [[Infrastructure/31 - Decision Log#D-024]] (위플래닛 표준 user/admin)
 > - Access·Refresh 토큰 수명 / 저장소 / MFA / 외부 IdP → [[00 - Action Board#📥 백로그 (다음 사이클 / 결정·답변 도착 시 진행)]]
 
 ---

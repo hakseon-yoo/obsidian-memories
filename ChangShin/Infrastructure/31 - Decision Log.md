@@ -411,7 +411,7 @@ tags:
   - **저장소**: `changshin/changshin-api` 1개로 통합. 기존 `changshin-auth-api`, `changshin-ax2-api`, `changshin-ax3-api`는 `changshin-legacy/`로 이전 (코드 자산 보존, 더 이상 빌드/배포 안 됨)
   - **앱 구조**: `changshin-api/apps/ax-api/` (NestJS) + `apps/batch/` (cron/배치). 도메인은 NestJS 모듈로 분리 (예: `controllers/auth/`, `controllers/ax1/`, `controllers/ax2/`, `controllers/ax3/`)
   - **K8s**: namespace=`changshin` 유지(D-017). Deployment 1개(`ax-api`), Ingress 1개(`/api/*` 또는 path 그대로). ECR `changshin-ax`(또는 기존 명) 1개 + `changshin-ax-deploy` 1개
-  - **인증**: D-007 `aud` 기반 분기는 서비스 분기 목적으로는 의미 약화. JWT 자체는 유지(D-009). `aud`는 **제거하거나 클라이언트 컨텍스트(웹/모바일/외부 ERP) 구분용으로 재정의** — 후속 결정 필요
+  - **인증**: D-007 `aud` 기반 서비스 분기는 의미 소멸. JWT 자체는 유지(D-009). `aud` 는 위플래닛 표준 `user / admin` 으로 재정의 결정됨 ([[#D-024]])
   - **DB 스키마**: D-002의 논리 분리 원칙은 유지 (단일 서비스가 여러 스키마에 접근). `auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*` 분리 유지하되 단일 DB 계정/연결로 운영
   - **도메인 경계 보존**: AX-2 등 도메인별 모듈 폴더 구조를 명확히 유지해, 향후 다시 분리하고 싶을 때 비용을 낮춘다
   - **Ingress 라우팅**: D-011의 path 기반 그대로 유지하기로 결정 ([[#D-023]]). `/api/*` 단일 통합 단순화는 폐기
@@ -506,6 +506,44 @@ tags:
 
 ---
 
+## D-024 JWT `aud` = 위플래닛 표준 `user / admin` 채택
+
+- **일자**: 2026-04-29
+- **상태**: accepted (D-019 후속 — "`aud` 처리 방향" 결정 닫음. D-007 의 서비스 분기 의미를 클라이언트 종류 식별로 재정의)
+- **결정**:
+  - JWT 의 `aud` 클레임은 **`'user'` / `'admin'` 두 값** 만 사용한다.
+  - **`aud=admin`**: 시스템 관리자 · 마스터 계정 · 운영 화면 (`/admin/*` 경로)
+  - **`aud=user`**: 외주처 · ODM · 창신 일반 직원 (그 외 모든 도메인 경로)
+  - JWT strategy 두 종 (`JwtAdminStrategy`, `JwtStrategy`) 분리. legacy `changshin-ax3-api/apps/admin-api/src/strategies/admin-jwt-strategy.ts` + `vendor-api/src/strategies/jwt.strategy.ts` 패턴 흡수.
+  - 쿠키·Redis 세션 키도 분리: `admin-access-token` / `user-access-token`, `admin:{sub}:version` / `user:{sub}:version` (legacy 패턴 그대로)
+- **맥락**:
+  - [[#D-007]] 의 `aud=ax1|ax2|ax3` (서비스별 분기) 는 [[#D-019]] 로 단일 통합되며 의미 소멸. [[#D-023]] 으로 URL 분리도 FE 화면만이라 BE aud 의 서비스 분기 의미는 완전 사라짐.
+  - 동시에 `@system/jwt` 공유 패키지가 aud 를 다목적(JWT audience · Redis 세션 키 prefix · role 매핑)으로 강제 사용 중 — 완전 제거 시 공유 패키지 + Redis 마이그레이션 비용 큼.
+  - 위플래닛 보일러 표준([[../../GitLab/changshin/changshin-api/.claude/rules/auth-security.md|`.claude/rules/auth-security.md`]]) 의 페이로드 정의: `aud = API audience (user / admin)` — 다른 위플래닛 프로젝트(Sonova 등)도 같은 패턴.
+  - [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정#2-10. 접근 제어 · 웹 구조|2026-04-29 클라이언트 회의]] 에서 "마스터 계정 1차 → 권한 그룹 확장" 결정. 마스터=admin, 추후 일반 사용자=user 로 자연스럽게 매핑.
+- **대안**:
+  - **옵션 A (완전 제거)**: JWT 단순화는 매력적이지만 (1) `@system/jwt` 공유 패키지 5개 메서드 시그니처 변경, (2) Redis 키 스키마 마이그레이션, (3) 위플래닛 보일러 컨벤션 위반(다른 프로젝트와 발 맞추기 어려움). 비용 大
+  - **옵션 B (클라이언트 컨텍스트, `web/mobile/erp`)**: [[#D-023]] 결과 "웹 only + 반응형 웹" 이라 web/mobile 분기 무의미. ERP 연동(#26~#28) 답변 대기 중이라 시점 미정 — **조기 최적화**. 필요 시 D-024 의 user/admin 위에 추가 가능
+  - **옵션 E (현 상태 유지, `aud=user` 단일)**: 변경 비용 0 이지만 마스터 계정이 'user' aud 로 발급되어 세션 격리 안 됨. 회의 결정 "마스터 계정 1차" 의 권한 표현 부재. 추후 admin 도입 시 다시 결정 필요 — 미루기보다 지금 표준 채택이 이득
+- **근거**:
+  - **공유 패키지 변경 비용 0**: `@system/jwt` 가 이미 aud 인자를 받는 구조. legacy 의 admin/user 분리 strategy 두 종을 그대로 흡수하면 됨
+  - **회의 결정 자연 매핑**: 마스터 계정 = `aud=admin`, 추후 외주처·ODM·창신 직원 = `aud=user`. 권한 그룹 추가(#37) 은 같은 aud 안에서 `roles` 로 표현
+  - **위플래닛 표준 준수**: 다른 프로젝트와 보일러 자산 공유 유지
+  - **세션 격리**: admin 토큰과 user 토큰이 Redis 키 prefix 로 분리 → 마스터 계정 즉시 강제 로그아웃이 일반 사용자에 영향 안 줌
+  - **미래 확장 보존**: ERP webhook 등 옵션 B 가 필요해지면 `aud=erp-webhook` 추가하면 됨 (D-024 보완 또는 D-### 추가)
+- **영향**:
+  - **현재 코드**: `apps/ax-api/src/strategies/jwt.strategy.ts` (AUDIENCE='user') 유지. **`JwtAdminStrategy` 신규 추가** (AUDIENCE='admin', 쿠키 `admin-access-token`/`admin-refresh-token`)
+  - **경로 매핑** (`.claude/rules/auth-security.md` 표준): `/admin/*` → `jwt-admin`, 그 외 → `jwt` (user). `AuthenticationGuard` 가 prefix 로 strategy 분기
+  - **데코레이터**: `@Auth({ type: 'admin' })` / `@Auth({ type: 'user' })` (위플래닛 표준 그대로)
+  - **마스터 계정 1차 발급**: `aud=admin` 으로 사인. 권한은 단일 `admin` role 로 충분 (#37 권한 그룹 세분은 후속)
+  - **외주처·ODM 사용자 발급** (#34/#35 답변 후): `aud=user`
+  - **Redis 세션 키 분리** 자동 적용 (legacy `getVersionKey`, `getUserRefreshTokenKey` 그대로)
+  - **JWKS 외부 노출**: 옵션 B 의 erp-webhook 채택 시 필요. 현재는 같은 프로세스에서 발급·검증이라 노출 불필요 ([[../Backend/10 - Auth Strategy#3-2. 키 저장]])
+  - **D-007 superseded by D-024**: aud 의 새 의미는 D-024 가 단일 출처. D-007 본문은 supersede 표기 그대로 유지
+  - **회의 후속 동기화**: [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정#3. Action Items|회의 M-5]] (로그인·마스터 계정·권한 IA) 의 aud/세션 부분 갈음. UI/IA 설계는 별개로 진행
+
+---
+
 ## D-023 AX1·AX2·AX3 URL 분리 = 프론트 화면만 분리, BE 는 D-011 path 분리 유지
 
 - **일자**: 2026-04-29
@@ -553,12 +591,13 @@ tags:
 
 **현재 미결정 (요약)** — 자세한 맥락·우선순위는 [[00 - Action Board]] 참조:
 
-- D-019 후속: `aud` 클레임 처리 / ECR 통폐합 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
+- D-019 후속: ECR 통폐합 → [[00 - Action Board#A. changshin-api 통합 마무리 (D-019 후속)]]
 - 클라이언트 도메인 확정 시 인증서 + host 교체 → [[00 - Action Board#D-2. 인프라 · 도메인 (임시 결정, 영구화 필요)]]
 - 80 포트 listener 미동작 진단 → [[00 - Action Board#📥 백로그]]
 - D-021 후속: CSF60-DU · CSF100-DU 챔버 구조 / 시리즈 표기 흔들림 → [[00 - Action Board#🧹 데이터 클렌징 후속]]
 - D-019 후속 결정 완료: 도메인 모듈 디렉터리 컨벤션 → [[#D-020]] 로 결정 (트랙별 sub-barrel)
 - D-019 후속 결정 완료: Ingress path 단순화 여부 → [[#D-023]] 로 결정 (D-011 path 분리 유지, `/api/*` 단일 통합 폐기)
+- D-019 후속 결정 완료: `aud` 클레임 처리 → [[#D-024]] 로 결정 (위플래닛 표준 `user / admin` 채택)
 
 ---
 
