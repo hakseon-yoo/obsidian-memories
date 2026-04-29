@@ -29,7 +29,7 @@ tags:
 
 | 항목 | 상태 | 출처 |
 |------|------|------|
-| **legacy admin-api → ax-api 흡수**: `controllers/administrators/` + `controllers/auth/` + `strategies/admin-jwt-strategy.ts` + `Administrator` 엔티티(`shared/administrator/`). [[Infrastructure/31 - Decision Log#D-024\|D-024]] `aud=admin` strategy 와 함께. legacy 의 그 외 컨트롤러(`users`/`verifications`/`files`/`faqs`/`notices` 등)는 **미흡수 확정** — 일반 사용자 흐름은 #34 답변 후 별도 결정 | 🔥 | [[Infrastructure/32 - Deployment State#단기 (현재 사이클)]] · [[Backend/10 - Auth Strategy]] |
+| ~~legacy admin-api → ax-api 흡수~~ → **완료 (2026-04-29)**: `Administrator`/`AdministratorPassword` 엔티티 + `AdministratorService`/`AdministratorModule` (`shared/administrator/`), `AdminJwtStrategy`, `AuthController`/`AuthService` (`controllers/auth/`), `AdministratorsController` (`controllers/administrators/`), `AdminHttpModule` 신규 묶음, `ax-api.module.ts` imports 추가. 타입체크 통과 | ✅ | 일반 사용자 흐름(`users`/`verifications` 등)은 #34 답변 후 별도 결정 |
 | ~~`aud` 클레임 처리 방향 결정~~ → **위플래닛 표준 `user / admin` 채택** ([[Infrastructure/31 - Decision Log#D-024]]) | ✅ | 2026-04-29 결정 |
 | ~~Ingress path 단순화 여부~~ → **D-011 path 분리 유지로 결정** ([[Infrastructure/31 - Decision Log#D-023]]) | ✅ | 2026-04-29 회의 후속으로 닫힘 |
 | **ECR 리포 통폐합** (`changshin-{auth,ax1,ax2,ax3}` 4세트 → 1세트) | ❌ | [[Infrastructure/31 - Decision Log#미결정 · 논의 필요]] · [[Backend/20 - Service Template]] |
@@ -168,6 +168,7 @@ tags:
 
 | 일자 | 항목 |
 |------|------|
+| 2026-04-29 | **legacy admin-api → ax-api 흡수 완료** — Administrator 도메인(`shared/administrator/`) + AdminJwtStrategy + admin auth/administrators 컨트롤러 + AdminHttpModule. 타입체크 통과. D-024 적용 |
 | 2026-04-29 | **D-024 JWT `aud` = 위플래닛 표준 `user / admin`** — D-019 후속 "`aud` 처리 방향" 닫음. D-007 의 서비스 분기 의미를 클라이언트 종류 식별로 재정의 ([[Infrastructure/31 - Decision Log#D-024]]) |
 | 2026-04-29 | **D-023 AX1·AX2·AX3 URL 분리** — FE 화면만 path 분리, BE 는 D-011 그대로 유지. D-019 후속 "Ingress path 단순화" 닫음 ([[Infrastructure/31 - Decision Log#D-023]]) |
 | 2026-04-29 | **SKU 이미지 S3 + DB 1차 반영** — 287/289 매칭 ([[Infrastructure/31 - Decision Log#D-022]]) |
