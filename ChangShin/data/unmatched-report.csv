@@ -1,0 +1,49 @@
+category,code_or_page,detail
+csv_no_image,CSF60-DU,시리즈=F | 해석=F시리즈 / 60 / Dual
+csv_no_image,CSF60-DU,시리즈=F | 해석=F시리즈 / 60 / Dual
+csv_no_image,CSF100-DU,시리즈=F | 해석=F시리즈 / 100 / Dual
+csv_no_image,CSF100-DU,시리즈=F | 해석=F시리즈 / 100 / Dual
+csv_no_image,CSM12-J,시리즈=M | 해석=M시리즈(팩트) / 12 / 장식
+csv_no_image,CSRN30-C(R3),시리즈=R-3 | 해석=RN형 / 30 / 초음파 (R3 variant)
+csv_no_image,CSSR(2)30-SP,시리즈=S | 해석=S시리즈(R2) / 30 / Dropper
+csv_no_image,CSSR(2)30-ATD,시리즈=S | 해석=S시리즈(R2) / 30 / Auto Dropper
+csv_no_image,CSSR(2)30-P(펌프/오버캡),시리즈=S | 해석=S시리즈(R2) / 30 / Pump
+csv_no_image,CSSR(2)30-P(S),시리즈=S | 해석=S시리즈(R2) / 30 / Short Pump
+csv_no_image,CSSR(2)30-P(SL),시리즈=S | 해석=S시리즈(R2) / 30 / Short Pump Long cap
+csv_no_image,CSSR50-SP,시리즈=S | 해석=S시리즈(R) / 50 / Dropper
+csv_no_image,CSSR50-ATD,시리즈=S | 해석=S시리즈(R) / 50 / Auto Dropper
+csv_no_image,CSSR50-P(S),시리즈=S | 해석=S시리즈(R) / 50 / Short Pump
+csv_no_image,CSSR50-P(SL),시리즈=S | 해석=S시리즈(R) / 50 / Short Pump Long cap
+csv_no_image,CSSR50-P(펌프/오버캡),시리즈=S | 해석=S시리즈(R) / 50 / Pump
+csv_no_image,CSC(24)100-NS,시리즈=C-5 | 해석=C시리즈(24파이) / 100 / New Screw
+csv_no_image,CSC(24)100-P,시리즈=C-5 | 해석=C시리즈(24파이) / 100 / Pump
+csv_no_image,CSC(24)100-CP,시리즈=C-5 | 해석=C시리즈(24파이) / 100 / Collar Pump
+csv_no_image,CSC(24)150-NS,시리즈=C-5 | 해석=C시리즈(24파이) / 150 / New Screw
+csv_no_image,CSC(24)150-P,시리즈=C-5 | 해석=C시리즈(24파이) / 150 / Pump
+csv_no_image,CSC(24)150-CP,시리즈=C-5 | 해석=C시리즈(24파이) / 150 / Collar Pump
+csv_no_image,CSSN(2)30-P(O),시리즈=S | 해석=S시리즈(N2형) / 30 / Pump (overcap)
+csv_no_image,CSSN(2)30-P(펌프/오버캡),시리즈=S | 해석=S시리즈(N2형) / 30 / Pump
+csv_no_image,CSSN(4)30-P(펌프/오버캡),시리즈=S | 해석=S시리즈(N4형) / 30 / Pump
+csv_no_image,CSSN50-P(펌프/오버캡),시리즈=S | 해석=S시리즈(N형) / 50 / Pump
+csv_no_image,CSSN30-SP스포이드,시리즈=S | 해석=S시리즈(N형) / 30 / Dropper
+csv_no_image,CSSN(2)30-SP스포이드,시리즈=S | 해석=S시리즈(N2형) / 30 / Dropper
+csv_no_image,CSSN(4)30-SP스포이드,시리즈=S | 해석=S시리즈(N4형) / 30 / Dropper
+csv_no_image,CSS40-SP스포이드,시리즈=S | 해석=S시리즈 / 40 / Dropper
+csv_no_image,CSSN50-SP스포이드,시리즈=S | 해석=S시리즈(N형) / 50 / Dropper
+csv_no_image,CSS10-SP스포이드,시리즈=S | 해석=S시리즈 / 10 / Dropper
+csv_no_image,CSSN30-ATD,시리즈=S | 해석=S시리즈(N형) / 30 / Auto Dropper
+csv_no_image,CSSN(4)30-ATD,시리즈=S | 해석=S시리즈(N4형) / 30 / Auto Dropper
+csv_no_image,CSSN40-P(S),시리즈=S | 해석=S시리즈(N형) / 40 / Short Pump
+csv_no_image,CSSN(4)30-P(S),시리즈=S | 해석=S시리즈(N4형) / 30 / Short Pump
+csv_no_image,CSSN40-P(SL),시리즈=S | 해석=S시리즈(N형) / 40 / Short Pump Long Cap
+csv_no_image,CSSN(4)30-P(SL),시리즈=S | 해석=S시리즈(N4형) / 30 / Short Pump Long Cap
+csv_no_image,CSSR(N)30-SP스포이드,시리즈=S | 해석=S시리즈(RN형) / 30 / Dropper
+pdf_image_orphan,page-14,"bbox=(100,431,191,507) reason=no candidate code below+same-column"
+pdf_image_orphan,page-33,"bbox=(99,363,191,604) reason=no candidate code below+same-column"
+pdf_image_orphan,page-33,"bbox=(261,372,343,592) reason=no candidate code below+same-column"
+pdf_image_orphan,page-45,"bbox=(93,440,204,538) reason=duplicate code CSM2 (first matched on page 45)"
+pdf_image_orphan,page-54,"bbox=(250,103,347,187) reason=duplicate code CSRN30-C (first matched on page 52)"
+pdf_image_orphan,page-66,"bbox=(95,93,205,179) reason=no candidate code below+same-column"
+pdf_image_orphan,page-66,"bbox=(236,128,357,168) reason=no candidate code below+same-column"
+pdf_image_orphan,page-66,"bbox=(388,128,505,168) reason=no candidate code below+same-column"
+pdf_image_orphan,page-66,"bbox=(96,465,192,512) reason=no candidate code below+same-column"

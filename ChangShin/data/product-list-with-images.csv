@@ -1,0 +1,331 @@
+시리즈,자재코드,제품코드 (Deloitte 추가 분류),해석된 코드 의미,최종 Mapping,소재 Sanitized,용기/외용기 소재,주요 제품 여부_Lv0,주요 제품 여부_Lv1,주요 제품 여부_Lv2,장식,오버캡,외캡,캡,내캡,중캡,숄더,덮개,박킹/패킹,플러그,피스톤,받침,내용기,외용기,용기,펌프,펌프외캡,하캡,리필용기,상체,중체,하체,버튼,스포이드캡,유리관,고무,하버튼,솔대,용기커버,스크류/스크류받침,주걱,용량,크기,무게(g),,image_file
+A,CSA130-S,CSA130-S,A시리즈(구형사각) / 130 / 스크류 캡,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,ABS,,,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,130,42x181,158.3,,product-images/CSA130-S.png
+A,CSA130-Y,CSA130-Y,A시리즈(구형사각) / 130 / 초음파 캡(Y),Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,ABS,,ABS,,ABS,,,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,130,42x181,173.1,,product-images/CSA130-Y.png
+A,CSA130-P,CSA130-P,A시리즈(구형사각) / 130 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,130,42x195.8,162.8,,product-images/CSA130-P.png
+A,CSA100-S,CSA100-S,A시리즈(구형사각) / 100 / 스크류 캡,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,ABS,,LDPE,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,100,38x162,123.6,,product-images/CSA100-S.png
+A,CSA100-P,CSA100-P,A시리즈(구형사각) / 100 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,100,38x180.7,119.9,,product-images/CSA100-P.png
+A,CSA45-P,CSA45-P,A시리즈(구형사각) / 45 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,45,33.5x153,76.2,,product-images/CSA45-P.png
+A,CSA35-P,CSA35-P,A시리즈(구형사각) / 35 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,35,33.5x122,65.9,,product-images/CSA35-P.png
+A,CSA25-P,CSA25-P,A시리즈(구형사각) / 25 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,25,33.5x103,54.8,,product-images/CSA25-P.png
+A,CSA50-C,CSA50-C,A시리즈(구형사각) / 50 / 초음파 캡(C),Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,69x50,151.6,,product-images/CSA50-C.png
+A,CSA50-Y,CSA50-Y,A시리즈(구형사각) / 50 / 초음파 캡(Y),Open Jar,PMMA (아크릴),PMMA,주요 제품,주요 10개 제품코드,주요 10개 제품코드,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,68.5x46.5,138.5,,product-images/CSA50-Y.png
+A,CSA50-U,CSA50-U,A시리즈(구형사각) / 50 / 언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,57.4x41.7,128.4,,product-images/CSA50-U.png
+A,CSA30-C,CSA30-C,A시리즈(구형사각) / 30 / 초음파 캡(C),Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,50x42.5,99.9,,product-images/CSA30-C.png
+A,CSA30-Y,CSA30-Y,A시리즈(구형사각) / 30 / 초음파 캡(Y),Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,57.4x42,92.7,,product-images/CSA30-Y.png
+A,CSA30-U,CSA30-U,A시리즈(구형사각) / 30 / 언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,57.4x42,87.9,,product-images/CSA30-U.png
+A,CSA15-C,CSA15-C,A시리즈(구형사각) / 15 / 초음파 캡(C),Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,15,50x37,71.2,,product-images/CSA15-C.png
+A,CSA15-U,CSA15-U,A시리즈(구형사각) / 15 / 언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,15,50x37,62,,product-images/CSA15-U.png
+A,CSA50-RY,CSA50-RY,A시리즈(구형사각) / 50 / 단차+초음파 캡(Y),Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,69x48,131.4,,product-images/CSA50-RY.png
+A,CSA50-RU,CSA50-RU,A시리즈(구형사각) / 50 / 단차+언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,69x48,130.4,,product-images/CSA50-RU.png
+A,CSA30-RY,CSA30-RY,A시리즈(구형사각) / 30 / 단차+초음파 캡(Y),Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,69x48,89.7,,product-images/CSA30-RY.png
+A,CSA30-RU,CSA30-RU,A시리즈(구형사각) / 30 / 단차+언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,69x48,85.6,,product-images/CSA30-RU.png
+장식A,CSA130-J,CSA130-J,A시리즈(구형사각) / 130 / 장식 캡,Pump Bottle,PMMA (아크릴),PMMA,,,,PMMA,,,ABS,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,130,42x196,165.6,,product-images/CSA130-J.png
+장식A,CSA45-J,CSA45-J,A시리즈(구형사각) / 45 / 장식 캡,Pump Bottle,PMMA (아크릴),PMMA,,,,PMMA,,,ABS,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,45,33.5x153,78.1,,product-images/CSA45-J.png
+장식A,CSA35-J,CSA35-J,A시리즈(구형사각) / 35 / 장식 캡,Pump Bottle,PMMA (아크릴),PMMA,,,,PMMA,,,ABS,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,35,33.5x122,69.5,,product-images/CSA35-J.png
+장식A,CSA25-J,CSA25-J,A시리즈(구형사각) / 25 / 장식 캡,Pump Bottle,PMMA (아크릴),PMMA,,,,PMMA,,,ABS,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,25,33.5x103,56.3,,product-images/CSA25-J.png
+장식A,CSA50-J,CSA50-J,A시리즈(구형사각) / 50 / 장식 캡,Open Jar,PMMA (아크릴),PMMA,,,,PMMA,,ABS,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,69x50,151.7,,product-images/CSA50-J.png
+장식A,CSA30-J,CSA30-J,A시리즈(구형사각) / 30 / 장식 캡,Open Jar,PMMA (아크릴),PMMA,,,,PMMA,,ABS,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58x42.5,100.4,,product-images/CSA30-J.png
+장식A,CSA15-J,CSA15-J,A시리즈(구형사각) / 15 / 장식 캡,Open Jar,PMMA (아크릴),PMMA,,,,PMMA,,ABS,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,15,33.5x122,68.1,,product-images/CSA15-J.png
+B,CSB140-S,CSB140-S,B시리즈(신형사각) / 140 / 스크류 캡,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,PP,,ABS,,,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,140,42x184,161.4,,product-images/CSB140-S.png
+B,CSB140-P,CSB140-P,B시리즈(신형사각) / 140 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PMMA,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,140,42x184,168.4,,product-images/CSB140-P.png
+B,CSB45-P,CSB45-P,B시리즈(신형사각) / 45 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PMMA,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,45,35x156,99.6,,product-images/CSB45-P.png
+B,CSB35-P,CSB35-P,B시리즈(신형사각) / 35 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PMMA,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,35,35x126,82.4,,product-images/CSB35-P.png
+B,CSB25-P,CSB25-P,B시리즈(신형사각) / 25 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PMMA,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,25,35x106,71.5,,product-images/CSB25-P.png
+B,CSB50-C,CSB50-C,B시리즈(신형사각) / 50 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,PP,,ABS,,LDPE,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,58.5x58,87.6,,product-images/CSB50-C.png
+B,CSB30-C,CSB30-C,B시리즈(신형사각) / 30 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,PP,,ABS,,LDPE,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58.5x42.5,67.3,,product-images/CSB30-C.png
+C1~2,CSC130-S,CSC130-S,C시리즈(구형원형) / 130 / 스크류 캡,Gravity-fed Bottle,PMMA (아크릴),PMMA,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_C130,,,PMMA,,ABS,,ABS,,LDPE,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,130,45.5x195.5,142.3,,product-images/CSC130-S.png
+C1~2,CSC130-P,CSC130-P,C시리즈(구형원형) / 130 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_C130,,PETG/ABS,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,130,45.5x195.5,114.8,,product-images/CSC130-P.png
+C1~2,CSC100-S,CSC100-S,C시리즈(구형원형) / 100 / 스크류 캡,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,ABS,,LDPE,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,100,41x170,117.5,,product-images/CSC100-S.png
+C1~2,CSC100-P,CSC100-P,C시리즈(구형원형) / 100 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,100,41x170,118.4,,product-images/CSC100-P.png
+C1~2,CSC80-S,CSC80-S,C시리즈(구형원형) / 80 / 스크류 캡,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,ASA,,ABS,,LDPE,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,80,39.5x169,106.2,,product-images/CSC80-S.png
+C1~2,CSC80-P,CSC80-P,C시리즈(구형원형) / 80 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,80,39.5x169,111.5,,product-images/CSC80-P.png
+C1~2,CSC50-P,CSC50-P,C시리즈(구형원형) / 50 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,50,33.3x173.5,85.1,용량 45/50ml SKU 존재했으나 50ml 단일 SKU로 관리 (45ml 단종),product-images/CSC50-P.png
+C1~2,CSC35-P,CSC35-P,C시리즈(구형원형) / 35 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,35,33.3x153.5,82.3,,product-images/CSC35-P.png
+C1~2,CSC25-P,CSC25-P,C시리즈(구형원형) / 25 / 디스펜싱 펌프,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,25,33.3x127,66,,product-images/CSC25-P.png
+C1~2,CSCD50-C,CSCD50-C,C시리즈(원형-D) / 50 / 초음파 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67x48,148.5,,product-images/CSCD50-C.png
+C1~2,CSCS50-C,CSCS50-C,C시리즈(원형-S) / 50 / 초음파 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,LDPE,,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67x48,148.1,,product-images/CSCS50-C.png
+C1~2,CSCD50-CY,CSCD50-CY,C시리즈(원형-D) / 50 / 초음파 캡,Open Jar,PMMA (아크릴),SMMA,,,,,,ABS,,ABS,,,LDPE,,,,,PP,SMMA,,,,,,,,,,,,,,,,,,50,71x49,131.7,,product-images/CSCD50-CY.png
+C1~2,CSCD50-CU,CSCD50-CU,C시리즈(원형-D) / 50 / 초음파,Open Jar,PMMA (아크릴),P/SMMA,,,,,,ABS,,ABS,,,LDPE,,,,,PP,P/SMMA,,,,,,,,,,,,,,,,,,50,73x49,128.9,,product-images/CSCD50-CU.png
+C1~2,CSCS50-CU,CSCS50-CU,C시리즈(원형-S) / 50 / 초음파,Open Jar,PMMA (아크릴),P/SMMA,,,,,,ABS,,ABS,,,LDPE,,,,,PP,P/SMMA,,,,,,,,,,,,,,,,,,50,73x49,129.5,,product-images/CSCS50-CU.png
+C1~2,CSCD50-HCU,CSCD50-HCU,C시리즈(원형-D) / 50 / 하이캡+초음파,Open Jar,PMMA (아크릴),P/SMMA,,,,,,ABS,,ABS,,,LDPE,,,,,PP,P/SMMA,,,,,,,,,,,,,,,,,,50,72x54.7,130.2,,product-images/CSCD50-HCU.png
+C1~2,CSCS50-HCU,CSCS50-HCU,C시리즈(원형-S) / 50 / 하이캡+초음파,Open Jar,PMMA (아크릴),P/SMMA,,,,,,ABS,,ABS,,,LDPE,,,,,PP,P/SMMA,,,,,,,,,,,,,,,,,,50,72.7x54,129.6,,product-images/CSCS50-HCU.png
+C1~2,CSCD30-C,CSCD30-C,C시리즈(원형-D) / 30 / 초음파 캡,Open Jar,PMMA (아크릴),P/SMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,P/SMMA,,,,,,,,,,,,,,,,,,30,62.3x43.4,101.4,,product-images/CSCD30-C.png
+C1~2,CSC15-C,CSC15-C,C시리즈(구형원형) / 15 / 초음파 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,15,50x37.7,51.1,,product-images/CSC15-C.png
+C1~2,CSC15-U,CSC15-U,C시리즈(구형원형) / 15 / 언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,15,50x37.7,47.7,,product-images/CSC15-U.png
+C1~2,CSCY50-Y,CSCY50-Y,C시리즈(Y형) / 50 / 초음파 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67x49,112.1,,product-images/CSCY50-Y.png
+C1~2,CSCY(R)50-U,CSCY(R)50-U,C시리즈(Y형) / 50 / 언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67.9x48.7,109.6,,product-images/CSCY(R)50-U.png
+C1~2,CSCY50-HU,CSCY50-HU,C시리즈(Y형) / 50 / 하이캡+언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,64.7x54.3,111.8,,product-images/CSCY50-HU.png
+C1~2,CSCY30-Y,CSCY30-Y,C시리즈(Y형) / 30 / 초음파 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,57.3x42.7,72.8,,product-images/CSCY30-Y.png
+C1~2,CSCY30-U,CSCY30-U,C시리즈(Y형) / 30 / 언더컷 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,57.3x42.7,72.2,,product-images/CSCY30-U.png
+C1~2,CSCY30-HU,CSCY30-HU,C시리즈(Y형) / 30 / 하이캡+언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,57.7x46.6,73.6,,product-images/CSCY30-HU.png
+C1~2,CSC100-C,CSC100-C,C시리즈 / 100 / 단캡,Open Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,,,,PP,,,,,PP,SAN,,,,,,,,,,,,,,,,,,100,75x60,117.7,,product-images/CSC100-C.png
+C1~2,CSCB50-CU,CSCB50-CU,C시리즈(베이스) / 50 / 언더컷,Open Jar,PETG,PETG,,,,,,ABS,,PP,,,LDPE,,,,PETG,,PETG,,,,,,,,,,,,,,,,,,50,67.3x49.2,80.2,,product-images/CSCB50-CU.png
+C1~2,CSCY50-UPP/AL,CSCY50-UPP/AL,C시리즈(Y형) / 50 / 언더컷 + PP/AL,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67x58,,,product-images/CSCY50-UPP/AL.png
+C1~2,CSCY30-CPP/AL,CSCY30-CPP/AL,C시리즈(Y형) / 30 / 초음파 + PP/AL,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,57.3x42,,,product-images/CSCY30-CPP/AL.png
+C1~2,CSCY50-GU,CSCY50-GU,C시리즈(Y형) / 50 / 라운드+언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67.5x56.3,112,,product-images/CSCY50-GU.png
+C1~2,CSCY30-GU,CSCY30-GU,C시리즈(Y형) / 30 / 라운드+언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58x45.8,72.3,,product-images/CSCY30-GU.png
+C1~2,CSCY50-GC,CSCY50-GC,C시리즈(Y형) / 50 / 라운드+초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67.5x56.3,124.4,,product-images/CSCY50-GC.png
+C1~2,CSCY30-GC,CSCY30-GC,C시리즈(Y형) / 30 / 라운드+초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58x45.8,77.7,,product-images/CSCY30-GC.png
+C-3,CSC230-NS,CSC230-NS,C시리즈(구형원형) / 230 / New + Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,PE,PE,,,,PET,,,,,,,,,,,,,,,,,,230,46.6x191.1,73.6,,product-images/CSC230-NS.png
+C-3,CSC165-NS,CSC165-NS,C시리즈 / 165 / New + Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,165,40x140,49.6,,product-images/CSC165-NS.png
+C-3,CSC150-NS,CSC150-NS,C시리즈 / 150 / New + Screw,Gravity-fed Bottle,PET,PET,주요 제품,주요 10개 제품코드,주요 10개 제품코드,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,150,42.6x173.7,91.8,,product-images/CSC150-NS.png
+C-3,CSC130-NS,CSC130-NS,C시리즈 / 130 / New + Screw,Gravity-fed Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_C130,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,130,43.3x130.8,90.5,,product-images/CSC130-NS.png
+C-3,CSC100-NS,CSC100-NS,C시리즈 / 100 / New + Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,100,43.3x100.8,73.3,,product-images/CSC100-NS.png
+C-3,CSC230-RS,CSC230-RS,C시리즈 / 230 / 단차 + Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,230,46.6x191.1,68.7,,product-images/CSC230-RS.png
+C-3,CSC200-RS,CSC200-RS,C시리즈 / 200 / 단차 + Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,200,44x142,42.5,,product-images/CSC200-RS.png
+C-3,CSC190-RS,CSC190-RS,C시리즈 / 190 / 단차 + Screw,Gravity-fed Bottle,PET,PET,,,,,,PP,,,,,,-,PE,,,,PET,,,,,,,,,,,,,,,,,,190,44x140,42.5,,product-images/CSC190-RS.png
+C-3,CSC130-RS,CSC130-RS,C시리즈 / 130 / 단차 + Screw,Gravity-fed Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_C130,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,130,42.9x195.5,83.7,,product-images/CSC130-RS.png
+C-3,CSC100-RS,CSC100-RS,C시리즈 / 100 / 단차 + Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,100,43x132,67.9,,product-images/CSC100-RS.png
+C-3,CSC230-G,CSC230-G,C시리즈 / 230 / 라운드 캡,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,PE,PE,,,,PET,,,,,,,,,,,,,,,,,,230,46.6x191.6,72.8,,product-images/CSC230-G.png
+C-3,CSC130-G,CSC130-G,C시리즈 / 130 / 라운드 캡,Gravity-fed Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_C130,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,130,43x163,84.8,,product-images/CSC130-G.png
+C-3,CSC100-G,CSC100-G,C시리즈 / 100 / 라운드 캡,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,PE,,,,PET,,,,,,,,,,,,,,,,,,100,42.3x134,72.7,,product-images/CSC100-G.png
+C-3,CSCD50-RY,CSCD50-RY,C시리즈(D형) / 50 / 단차 + 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,72.9x48.6,128.9,,product-images/CSCD50-RY.png
+C-3,CSCS50-RY,CSCS50-RY,C시리즈(S형) / 50 / 단차 + 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,72.9x48.6,128.3,,product-images/CSCS50-RY.png
+C-3,CSCD50-RU,CSCD50-RU,C시리즈(D형) / 50 / 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,72.9x49,128.4,,product-images/CSCD50-RU.png
+C-3,CSCS50-RU,CSCS50-RU,C시리즈(S형) / 50 / 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,72.9x49,130.2,,product-images/CSCS50-RU.png
+C-3,CSCD30-RY,CSCD30-RY,C시리즈(D형) / 30 / 단차 + 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,55.3x41.3,91.4,,product-images/CSCD30-RY.png
+C-3,CSCD30-RU,CSCD30-RU,C시리즈(D형) / 30 / 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,62.7x42.4,87.9,,product-images/CSCD30-RU.png
+C-3,CSCD50-HRU,CSCD50-HRU,C시리즈(D형) / 50 / High + 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,62.4x54.5,128.8,,product-images/CSCD50-HRU.png
+C-3,CSCD30-HRU,CSCD30-HRU,C시리즈(D형) / 30 / High + 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,62.7x47.6,89.3,,product-images/CSCD30-HRU.png
+C-3,CSCY10-RU,CSCY10-RU,C시리즈(Y형) / 10 / 단차 + 언더컷,Open Jar,AS/SAN/GPPS,SAN,,,,,,PP,,,,,,,,,,PP,SAN,,,,,,,,,,,,,,,,,,10,46.5x19,31.1,,product-images/CSCY10-RU.png
+C-3,CSCY10-U,CSCY10-U,C시리즈(Y형) / 10 / 언더컷,Open Jar,AS/SAN/GPPS,SAN,,,,,,PP,,,,,,,,,,PP,SAN,,,,,,,,,,,,,,,,,,10,46.5x19,33.3,,product-images/CSCY10-U.png
+C-3,CSCD50-GC,CSCD50-GC,C시리즈(D형) / 50 / 라운드 + 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,64.4x49.1,139.9,,product-images/CSCD50-GC.png
+C-3,CSCS50-GC,CSCS50-GC,C시리즈(S형) / 50 / 라운드 + 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,71.7x48.3,139.9,,product-images/CSCS50-GC.png
+C-3,CSCD30-GC,CSCD30-GC,C시리즈(D형) / 30 / 라운드 + 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,62x47.8,93.6,,product-images/CSCD30-GC.png
+C-3,CSCD50-GU,CSCD50-GU,C시리즈(D형) / 50 / 라운드 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,64.4x49.1,129,,product-images/CSCD50-GU.png
+C-3,CSCS50-GU,CSCS50-GU,C시리즈(S형) / 50 / 라운드 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,71.7x48.3,128.3,,product-images/CSCS50-GU.png
+C-3,CSCD30-GU,CSCD30-GU,C시리즈(D형) / 30 / 라운드 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,62x47.8,93.6,,product-images/CSCD30-GU.png
+C-4,CSC230-NP,CSC230-NP,C시리즈 / 230 / New + Pump,Pump Bottle,PET,PET,,,,,PETG,,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,230,38.5x186.54,80.6,,product-images/CSC230-NP.png
+C-4,CSC160-NP,CSC160-NP,C시리즈 / 160 / New + Pump,Pump Bottle,PET,PET,,,,,PETG,,,,,,,,,,,,,PET,PP/AL,,,,,,,,,,,,,,,,160,37.1x143.4,84.6,,product-images/CSC160-NP.png
+C-4,CSC130-NP,CSC130-NP,C시리즈 / 130 / New + Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_C130,,PETG,,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,130,43.3x177.5,97.7,,product-images/CSC130-NP.png
+C-4,CSC100-NP,CSC100-NP,C시리즈 / 100 / New + Pump,Pump Bottle,PET,PET,,,,,PETG,,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,100,42.2x147.9,80.9,,product-images/CSC100-NP.png
+C-4,CSC230-RP,CSC230-RP,C시리즈 / 230 / 단차 + Pump,Pump Bottle,PET,PET,,,,,PETG,,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,230,46.5x207,72.6,,product-images/CSC230-RP.png
+C-4,CSC50-RP,CSC50-RP,C시리즈 / 50 / 단차 + Pump,Pump Bottle,PET,PET,,,,,PETG,,,,,,,,,,,,PET,,PP,PP,,,,,,,,,,,,,,,50,32.4x148.7,80.9,,product-images/CSC50-RP.png
+C-4,CSC130-RP,CSC130-RP,C시리즈 / 130 / 단차 + Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_C130,,PETG,,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,130,42.9x177.5,91.6,,product-images/CSC130-RP.png
+C-4,CSC100-RP,CSC100-RP,C시리즈 / 100 / 단차 + Pump,Pump Bottle,PET,PET,,,,,PETG,,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,100,42.2x147.5,75.3,,product-images/CSC100-RP.png
+C-4,CSC100-NA,CSC100-NA,C시리즈 / 100 / New + Airless,Airless Pump Bottle,PP,PP,,,,,PETG,,,,,ABS,,,,LLDPE,ABS,,PP,,PP/AL,,,,,,,,,,,,,,,,100,39.4x174.9,55.3,,product-images/CSC100-NA.png
+C-4,CSC50-NA,CSC50-NA,C시리즈 / 50 / New + Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,ABS,,,,LLDPE,,PP,PETG,,,PP,,,,,,,,,,,,,,,50,40.7x159.8,122.6,,product-images/CSC50-NA.png
+C-4,CSC50-RA,CSC50-RA,C시리즈 / 50 / 단차 + Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,,,,,LLDPE,ABS,PP,PETG,,,PP,,,,,,,,,,,,,,,50,32.4x148.7,80.9,,product-images/CSC50-RA.png
+C-4,CSC50-DWC,CSC50-DWC,C시리즈 / 50 / 다원컴퍼니 캡,Open Jar,PMMA (아크릴),SMMA,,,,,,PETG,,PP,,,LDPE,,,,,PP,SMMA,,,,,,,,,,,,,,,,,,50,67.2x60.9,137.7,,product-images/CSC50-DWC.png
+C-4,CSC50-NDWC,CSC50-NDWC,C시리즈 / 50 / New + 다원컴퍼니 캡,Open Jar,PMMA (아크릴),PMMA,,,,,,PETG,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,66.6x63,161.7,,product-images/CSC50-NDWC.png
+C-4,CSCT50-NDWC,CSCT50-NDWC,T시리즈 / 50 / New + 다원컴퍼니 캡,Open Jar,PETG,PETG,,,,,,PETG,,PP,,,LLDPE,,,,,,PETG,,,,,,,,,,,,,,,,,,50,67x49.5,110.6,,product-images/CSCT50-NDWC.png
+C-4,CSCT50-DWC,CSCT50-DWC,T시리즈 / 50 / 다원컴퍼니 캡,Open Jar,PETG,PETG,,,,,,PETG,,PP,,,LLDPE,,,,,,PETG,,,,,,,,,,,,,,,,,,50,67x48.5,85.7,,product-images/CSCT50-DWC.png
+C-4,CSSP100-OP,CSSP100-OP,S시리즈 / 100 / 특수 펌프,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PN200,,,,,,,,,,,,,PET,ABS/PP,,,,,,,,,,,,,,,,100,42x178.5,,,product-images/CSSP100-OP.png
+C-4,CSCN30-P,CSCN30-P,C시리즈(N형) / 30 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PP,PMMA,,PP/AL,,,,,,,,,,,,,,,,30,35.8x112.3,,,product-images/CSCN30-P.png
+C-4,CSC60-DU,CSC60-DU - PETG,C시리즈 / 60 / Dual,Double Chamber Bottle,PETG,PETG/PP,,,,,,PN200,,,,ABS,,,,,,,,PETG/PP,PP,,ABS,,,,,,,,,,,,,,30/30,39.2x68.3,53,,product-images/CSC60-DU.png
+C-4,CSC60-DU,CSC60-DU - PP,C시리즈 / 60 / Dual,Double Chamber Bottle,PP,PETG/PP,,,,,,PN200,,,,ABS,,,,,,,,PETG/PP,PP,,ABS,,,,,,,,,,,,,,30/30,39.2x68.3,53,,product-images/CSC60-DU.png
+C-4,CSC100-DU,CSC100-DU - PETG,C시리즈 / 100 / Dual,Double Chamber Bottle,PETG,PETG/PP,,,,,,PN200,,,,ABS,,,,,,,,PETG/PP,PP,,ABS,,,,,,,,,,,,,,50/50,39.2x161,56.6,,product-images/CSC100-DU.png
+C-4,CSC100-DU,CSC100-DU - PP,C시리즈 / 100 / Dual,Double Chamber Bottle,PP,PETG/PP,,,,,,PN200,,,,ABS,,,,,,,,PETG/PP,PP,,ABS,,,,,,,,,,,,,,50/50,39.2x161,56.6,,product-images/CSC100-DU.png
+C-에어리스,CSC35-A,CSC35-A,C시리즈 / 35 / Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,,,,,LLDPE,ABS,,PETG,,PP/AL,,,,,,,,,,,,,,,,35,28.4x141.5,47.6,,product-images/CSC35-A.png
+C-에어리스,CSC25-A,CSC25-A,C시리즈 / 25 / Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,,,,,LLDPE,ABS,,PETG,,PP/AL,,,,,,,,,,,,,,,,25,28.4x121,41.8,,product-images/CSC25-A.png
+C-에어리스,CSCB50-A,CSCB50-A,C시리즈(베이스) / 50 / Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,,,,,LLDPE,ABS,,PETG,,PP/AL,,,,,,,,,,,,,,,,50,32.4x151.2,59.5,,product-images/CSCB50-A.png
+C-에어리스,CSCB35-A,CSCB35-A,C시리즈(베이스) / 35 / Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,,,,,LLDPE,ABS,,PETG,,PP/AL,,,,,,,,,,,,,,,,35,32.4x125.2,51.2,,product-images/CSCB35-A.png
+C-에어리스,CSCB50-SA,CSCB50-SA,C시리즈(베이스) / 50 / Screw + Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,ABS,,,,LLDPE,ABS,,PETG,,PP/AL,,,,,,,,,,,,,,,,50,32.4x151.2,59.6,,product-images/CSCB50-SA.png
+C-에어리스,CSCB35-SA,CSCB35-SA,C시리즈(베이스) / 35 / Screw + Airless,Airless Pump Bottle,PETG,PETG,,,,,PETG,,,,,ABS,,,,LLDPE,ABS,,PETG,,PP/AL,,,,,,,,,,,,,,,,35,32.4x125.2,51,,product-images/CSCB35-SA.png
+D,CSD140-S,CSD140-S,D시리즈(신형원형) / 140 / Screw,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,PP,,ABS,,LDPE,,,,PETG,PMMA,,,,,,,,,,,,,,,,,,140,45.6x187,131.9,,product-images/CSD140-S.png
+D,CSD140-P,CSD140-P,D시리즈 / 140 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,,PETG,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,140,45.6x194,139.4,,product-images/CSD140-P.png
+D,CSD45-P,CSD45-P,D시리즈 / 45 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,45,33x169,81.9,,product-images/CSD45-P.png
+D,CSD35-P,CSD35-P,D시리즈 / 35 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,PETG,,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,35,33x149,75.3,,product-images/CSD35-P.png
+D,CSD25-P,CSD25-P,D시리즈 / 25 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,,PETG,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,25,33x122,60.1,,product-images/CSD25-P.png
+D,CSD50-C,CSD50-C,D시리즈 / 50 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,ABS,LDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,62.5x58,80,,product-images/CSD50-C.png
+D,CSD30-C,CSD30-C,D시리즈 / 30 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,ABS,,LDPE,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,62.5x42.5,63.4,,product-images/CSD30-C.png
+E-1,CSE130-S,CSE130-S,E시리즈(테퍼) / 130 / Screw,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,,,ABS,,,LDPE,,,PETG,PMMA,,,,,,,,,,,,,,,,,,130,50x184.1,166.7,,product-images/CSE130-S.png
+E-1,CSE130-P,CSE130-P,E시리즈 / 130 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,130,50.5x195.1,163.3,,product-images/CSE130-P.png
+E-1,CSE45-P,CSE45-P,E시리즈 / 45 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,45,39.8x157.4,80,,product-images/CSE45-P.png
+E-1,CSE35-P,CSE35-P,E시리즈 / 35 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,35,39.8x129.9,70.6,,product-images/CSE35-P.png
+E-1,CSE50-C,CSE50-C,E시리즈 / 50 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,76.3x51.8,149.3,,product-images/CSE50-C.png
+E-1,CSE30-C,CSE30-C,E시리즈 / 30 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,65.6x43.7,101.2,,product-images/CSE30-C.png
+E-1,CSE15-C,CSE15-C,E시리즈 / 15 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,15,52.5x38.1,49.4,,product-images/CSE15-C.png
+E-2,CSE130-Y,CSE130-Y,E시리즈 / 130 / 초음파(Y),Gravity-fed Bottle,AS/SAN/GPPS,SAN,,,,,,ABS,,PP,,,,,LLDPE,,,PETG,SAN,,,,,,,,,,,,,,,,,,130,48.5x184.8,124.1,,product-images/CSE130-Y.png
+E-2,CSE45-Y,CSE45-Y,E시리즈 / 45 / 초음파(Y),Pump Bottle,AS/SAN/GPPS,SAN,,,,,ABS,,,,,ABS,,,,,,PETG,SAN,,PP/AL,,,,,,,,,,,,,,,,45,39.8x157.4,79.3,,product-images/CSE45-Y.png
+E-2,CSE35-Y,CSE35-Y,E시리즈 / 35 / 초음파(Y),Pump Bottle,AS/SAN/GPPS,SAN,,,,,ABS,,,,,ABS,,,,,,PETG,SAN,,PP/AL,,,,,,,,,,,,,,,,35,39.8x131.9,70.1,,product-images/CSE35-Y.png
+E-2,CSE50-Y,CSE50-Y,E시리즈 / 50 / 초음파(Y),Open Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,PP,,ABS,,,,,,PP,SAN,,,,,,,,,,,,,,,,,,50,60.1x58.2,84.1,,product-images/CSE50-Y.png
+E-2,CSE30-Y,CSE30-Y,E시리즈 / 30 / 초음파(Y),Open Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,PP,,ABS,,,,,,PP,SAN,,,,,,,,,,,,,,,,,,30,60.1x58.2,82,,product-images/CSE30-Y.png
+F,CSF130-S,CSF130-S,F시리즈(타원형) / 130 / Screw,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,,,ABS,,,LLDPE,,,PETG,PMMA,,,,,,,,,,,,,,,,,,130,62.1x187.6,218.9,,product-images/CSF130-S.png
+F,CSF130-P,CSF130-P,F시리즈 / 130 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,130,61.1x182.3,208.1,,product-images/CSF130-P.png
+F,CSF45-P,CSF45-P,F시리즈 / 45 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,45,57.2x150.1,153.7,,product-images/CSF45-P.png
+F,CSF50-C,CSF50-C,F시리즈 / 50 / 초음파,Open Jar,PMMA (아크릴),PMMA,주요 제품,주요 10개 제품코드,주요 10개 제품코드,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,80x50.6,145,,product-images/CSF50-C.png
+F,CSF30-C,CSF30-C,F시리즈 / 30 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,71.6x44.3,115.6,,product-images/CSF30-C.png
+F,CSF50-RU,CSF50-RU,F시리즈 / 50 / 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,80.1x49.1,131.4,,product-images/CSF50-RU.png
+F,CSF30-RU,CSF30-RU,F시리즈 / 30 / 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,71.6x43.3,98.8,,product-images/CSF30-RU.png
+F,CSF50-HRU,CSF50-HRU,F시리즈 / 50 / High + 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,80.1x54.5,133.5,,product-images/CSF50-HRU.png
+F,CSF30-HRU,CSF30-HRU,F시리즈 / 30 / High + 단차 + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,71.6x48.8,100.7,,product-images/CSF30-HRU.png
+F,CSF60-DU,CSF60-DU - PETG,F시리즈 / 60 / Dual,Double Chamber Bottle,PETG,PETG,,,,,,PETG,,,,ABS,,,,,ABS,,PETG/PP,,PP,,,,,,,,,,,,,,,,60,39.7x107,53.5,,
+F,CSF60-DU,CSF60-DU - PP,F시리즈 / 60 / Dual,Double Chamber Bottle,PP,PP,,,,,,PETG,,,,ABS,,,,,ABS,,PETG/PP,,PP,,,,,,,,,,,,,,,,60,39.7x107,53.5,,
+F,CSF100-DU,CSF100-DU - PETG,F시리즈 / 100 / Dual,Double Chamber Bottle,PETG,PETG,,,,,,PETG,,,,ABS,,,,,ABS,,PETG/PP,,PP,,,,,,,,,,,,,,,,100,39.7x139,65.7,,
+F,CSF100-DU,CSF100-DU - PP,F시리즈 / 100 / Dual,Double Chamber Bottle,PP,PP,,,,,,PETG,,,,ABS,,,,,ABS,,PETG/PP,,PP,,,,,,,,,,,,,,,,100,39.7x139,65.7,,
+G-1,CSG130-S,CSG130-S,G시리즈(라운드) / 130 / Screw,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,,,ABS,,,LDPE,,,PETG,PMMA,,,,,,,,,,,,,,,,,,130,45x185.8,149.5,,product-images/CSG130-S.png
+G-1,CSG130-P,CSG130-P,G시리즈 / 130 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,130,46.3x200.8,154.8,,product-images/CSG130-P.png
+G-1,CSC50-G,CSC50-G,C시리즈 / 50 / 라운드 캡,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,50,34.5x170.9,87.2,,product-images/CSC50-G.png
+G-1,CSC35-G,CSC35-G,C시리즈 / 35 / 라운드 캡,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,35,34.5x148.2,79.6,,product-images/CSC35-G.png
+G-1,CSC25-G,CSC25-G,C시리즈 / 25 / 라운드 캡,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP/AL,,,,,,,,,,,,,,,,25,34.5x121.5,65.3,,product-images/CSC25-G.png
+G-1,CSG50-C,CSG50-C,G시리즈 / 50 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67.5x56,115.8,,product-images/CSG50-C.png
+G-1,CSG50-U,CSG50-U,G시리즈 / 50 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67.5x56,107.3,,product-images/CSG50-U.png
+G-1,CSG30-C,CSG30-C,G시리즈 / 30 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58.2x47.9,74.2,,product-images/CSG30-C.png
+G-1,CSG30-U,CSG30-U,G시리즈 / 30 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58.2x47.9,69,,product-images/CSG30-U.png
+G-1,CSG50-CU,CSG50-CU,G시리즈 / 50 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,68x48.6,107.8,,product-images/CSG50-CU.png
+G-1,CSG30-CU,CSG30-CU,G시리즈 / 30 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58.2x42,69.1,,product-images/CSG30-CU.png
+G-1,CSG50-CY,CSG50-CY,G시리즈 / 50 / 초음파 + Y,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,68x48.6,105.2,,product-images/CSG50-CY.png
+G-1,CSG30-CY,CSG30-CY,G시리즈 / 30 / 초음파 + Y,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,ABS,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,58.2x42,70.5,,product-images/CSG30-CY.png
+G-2,CSGN300-C,CSGN300-C,G시리즈(N형) / 300 / 단캡,Open Jar,PP,PP,,,,,,PP,,,,,PP,,,,,,PP,,,,,,,,,,,,,,,,,,300,90.5x70.4,154,,product-images/CSGN300-C.png
+G-2,CSGN100-C,CSGN100-C,G시리즈(N형) / 100 / 단캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,100,74.9x58.2,125.6,,product-images/CSGN100-C.png
+G-2,CSGN80-C,CSGN80-C,G시리즈(N형) / 80 / 단캡,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,80,74.9x58.2,123.6,,product-images/CSGN80-C.png
+G-2,CSGN50-U,CSGN50-U,G시리즈(N형) / 50 / 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,67.9x49.3,107.8,,product-images/CSGN50-U.png
+G-2,CSGN10-C,CSGN10-C,G시리즈(N형) / 10 / 단캡,Open Jar,PP,PP,,,,,,,PP,,,,,,,,,,,PP,,,,,,,,,,,,,,,,,10,35.8x26,11.1,,product-images/CSGN10-C.png
+H,CSH300-C,CSH300-C,H시리즈 / 300 / 단캡,Open Jar,PP,PP,,,,,,PP,,,,,PP,,,,,,,PP,,,,,,,,,,,,,,,,,300,97x75.7,173.6,,product-images/CSH300-C.png
+H,CSH250-C,CSH250-C,H시리즈 / 250 / 단캡,Open Jar,PP,PP,,,,,,PP,,,,,PP,,,,,,,PP,,,,,,,,,,,,,,,,,250,97x65.7,156.1,,product-images/CSH250-C.png
+H,CSH100-NC,CSH100-NC,H시리즈 / 100 / New + 단캡,Open Jar,PP,PP,,,,,,PP,,,,,PP,,,,,,,PP,,,,,,,,,,,,,,,,,100,68.04x65.6,93.3,,product-images/CSH100-NC.png
+H,CSH50-NC,CSH50-NC,H시리즈 / 50 / New + 단캡,Open Jar,PP,PP,주요 제품,ALL PP 모델,ALL PP 모델,,,PP,,,,,PP,,,,,,,PP,,,,,,,,,,,,,,,,,50,54.3x52.5,49,,product-images/CSH50-NC.png
+H,CSH50-C,CSH50-C,H시리즈 / 50 / 단캡,Open Jar,AS/SAN/GPPS,GPPS,,,,,,GPPS,,,,,PVC,,,,,,,GPPS,,,,,,,,,,,,,,,,,50,60x41.2,51.7,,product-images/CSH50-C.png
+H,CSH30-C,CSH30-C,H시리즈 / 30 / 단캡,Open Jar,AS/SAN/GPPS,GPPS,,,,,,GPPS,,,,,PVC,,,,,,,GPPS,,,,,,,,,,,,,,,,,30,50.2x37.9,33.5,,product-images/CSH30-C.png
+H,CSH5-C,CSH5-C,H시리즈 / 5 / 단캡,Open Jar,AS/SAN/GPPS,GPPS,,,,,,GPPS,,,,,PVC,,,,,,,GPPS,,,,,,,,,,,,,,,,,5,34x22,10.4,,product-images/CSH5-C.png
+H,CSH10-C,CSH10-C,H시리즈 / 10 / 단캡,Open Jar,PP,PP,,,,,,,PP,,,,,,,,,,,PP,,,,,,,,,,,,,,,,,10,35.8x26,12.2,,product-images/CSH10-C.png
+I,CSI130-S,CSI130-S,I시리즈(남성용) / 130 / Screw,Gravity-fed Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,,,ABS,,,LDPE,,,PETG,PMMA,,,,,,,,,,,,,,,,,,130,82x133.3,183.5,*남성용 향수 바틀 추정,product-images/CSI130-S.png
+J,CSJ35-A,CSJ35-A,J시리즈 / 35 / Airless,Airless Pump Bottle,PP,PP,,,,,,PP,,,,,,,,LLDPE,,,PP,,PP,,,,,,,,,,,,,,,,35,42.7x104.3,54.7,,product-images/CSJ35-A.png
+J,CSJ60-A,CSJ60-A,J시리즈 / 60 / Airless,Airless Pump Bottle,PP,PP,,,,,,PP,,,,,,,,LLDPE,,,PP,,PP,,,,,,,,,,,,,,,,60,42.7x124.7,61.4,,product-images/CSJ60-A.png
+J,CSJB60-A,CSJB60-A,J시리즈(B형) / 60 / Airless,Airless Pump Bottle,PP,PP,,,,,,PP,,,,,,,,LLDPE,,,PP,,PP,,,,,,,,,,,,,,,,60,53.2x105,78.3,,product-images/CSJB60-A.png
+J,CSJB110-A,CSJB110-A,J시리즈(B형) / 110 / Airless,Airless Pump Bottle,PP,PP,,,,,,PP,,,,,,,,LLDPE,,,PP,,PP,,,,,,,,,,,,,,,,110,53.2x128.7,93.1,,product-images/CSJB110-A.png
+J,CSJB160-A,CSJB160-A,J시리즈(B형) / 160 / Airless,Airless Pump Bottle,PP,PP,,,,,,PP,,,,,,,,LLDPE,,,PP,,PP,,,,,,,,,,,,,,,,160,53.2x170.7,102.4,,product-images/CSJB160-A.png
+K,CSK50-PWD,CSK50-PWD,K시리즈(파우더) / 50 / Powder cap,Shifter Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,ABS,,,,LLDPE,,,,,,SAN,,,,,,,,,,,,,,,,,50,83.9x51.5,122.2,,product-images/CSK50-PWD.png
+K,CSK30-PWD,CSK30-PWD,K시리즈 / 30 / Powder cap,Shifter Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,ABS,,,,LLDPE,,,,,,SAN,,,,,,,,,,,,,,,,,30,83.9x40.6,105.3,,product-images/CSK30-PWD.png
+K,CSK10-PWD,CSK10-PWD,K시리즈 / 10 / Powder cap,Shifter Jar,PMMA (아크릴),PMMA,,,,,,ABS,,,,,,LLDPE,,,,,,PMMA,,,,,,,,,,,,,,,,,10,54.8x24.1,21.7,,product-images/CSK10-PWD.png
+K,CSK20-NPWD,CSK20-NPWD,K시리즈 / 20 / New + Powder,Shifter Jar,AS/SAN/GPPS,SAN,,,,,,,,,,,,,,,,,SAN,,,,,,ABS,ABS,,,,,,,,,,,20,69.97x40.6,65.6,,product-images/CSK20-NPWD.png
+K,CSK10-NPWD,CSK10-NPWD,K시리즈 / 10 / New + Powder,Shifter Jar,AS/SAN/GPPS,SAN,,,,,,,,,,,,,,,,,SAN,,,,,,ABS,ABS,,,,,,,,,,,10,69.97x32.7,57.5,,product-images/CSK10-NPWD.png
+L,CSL130-P,CSL130-P,L시리즈 / 130 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP,,,,,,,,,,,,,,,,130,52.3x197.3,161.5,,product-images/CSL130-P.png
+L,CSL50-P,CSL50-P,L시리즈 / 50 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP,,,,,,,,,,,,,,,,50,41.7x158.6,103.3,,product-images/CSL50-P.png
+L,CSL30-P,CSL30-P,L시리즈 / 30 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP,,,,,,,,,,,,,,,,30,41.7x158.6,101.2,,product-images/CSL30-P.png
+L,CSL50-C,CSL50-C,L시리즈 / 50 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,,ABS,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,70x83.9,173.7,,product-images/CSL50-C.png
+L,CSL30-C,CSL30-C,L시리즈 / 30 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,,ABS,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,60.7x72.7,118.5,,product-images/CSL30-C.png
+L,CSL130-NP,CSL130-NP,L시리즈 / 130 / New + Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP,,,,,,,,,,,,,,,,130,52.2x189.0,159.5,,product-images/CSL130-NP.png
+L,CSL50-NP,CSL50-NP,L시리즈 / 50 / New + Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP,,,,,,,,,,,,,,,,50,41.6x155,105.5,,product-images/CSL50-NP.png
+L,CSL30-NP,CSL30-NP,L시리즈 / 30 / New + Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PETG,,,,ABS,,,,,,PETG,PMMA,,PP,,,,,,,,,,,,,,,,30,41.6x155,102.5,,product-images/CSL30-NP.png
+L,CSL50-NU,CSL50-NU,L시리즈 / 50 / New + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,69.6x59.4,127.6,,product-images/CSL50-NU.png
+L,CSL30-NU,CSL30-NU,L시리즈 / 30 / New + 언더컷,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,60.4x51.5,80.3,,product-images/CSL30-NU.png
+M,CSM12-J,CSM12-J,M시리즈(팩트) / 12 / 장식,Cushion Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,,ABS,ABS,ABS,,,,,,,,,,12,71.6x23.6,55.3,,
+M,CSM12-C,CSM12-C,M시리즈(팩트) / 12 / 초음파,Cushion Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,,ABS,ABS,ABS,,,,,,,,,,12,71.6x22.2,47.8,,product-images/CSM12-C.png
+M,CSM1,CSM1,M시리즈 / 코드 규칙 없음,Single Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,,ABS,ABS,ABS,,,,,,,,,,12,,39.7,,product-images/CSM1.png
+M,CSM2,CSM2,M시리즈 / 코드 규칙 없음,Single Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,,ABS,ABS,ABS,,,,,,,,,,12,,33.8,,product-images/CSM2.png
+M,CSM15-AJ1,CSM15-AJ1,M시리즈 / 15 / Airless + 장식,Cushion Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,PP,ABS,ABS,ABS,,,,,,,,,,15,75.81x27.7,67.4,,product-images/CSM15-AJ1.png
+M,CSM15-AC1,CSM15-AC1,M시리즈 / 15 / Air Cushion,Cushion Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,PP,ABS,ABS,ABS,,,,,,,,,,15,75.81x27.5,52.2,,product-images/CSM15-AC1.png
+M,CSM15-AJ2,CSM15-AJ2,M시리즈 / 15 / Airless + 장식,Cushion Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,PP,ABS,ABS,ABS,,,,,,,,,,15,75.81x27.7,65.5,,product-images/CSM15-AJ2.png
+M,CSM15-AC2,CSM15-AC2,M시리즈 / 15 / Air Cushion,Cushion Compact,ABS,0,,,,,,,,,,,PETG,,,,,,,,,,,PP,ABS,ABS,ABS,,,,,,,,,,15,75.81x27.5,53.2,,product-images/CSM15-AC2.png
+N,CSN50-C,CSN50-C,N시리즈(왁스통) / 50 / 언더컷,Open Jar,PP,PP,,,,,,PETG,,PP,,,LLDPE,,,,,,PP,,,,,,,,,,,,,,,,,,50,70.6x38,62.6,,product-images/CSN50-C.png
+N,CSN30-C,CSN30-C,N시리즈 / 30 / 언더컷,Open Jar,PP,PP,,,,,,PETG,,PP,,,LLDPE,,,,,,PP,,,,,,,,,,,,,,,,,,30,60.6x35.9,50,,product-images/CSN30-C.png
+N,CSN15-C,CSN15-C,N시리즈 / 15 / 언더컷,Open Jar,PP,PP,,,,,,PETG,,PP,,,LLDPE,,,,,,PP,,,,,,,,,,,,,,,,,,15,51.8x28.2,28.1,,product-images/CSN15-C.png
+O,CSO150-P,CSO150-P,O시리즈(조약돌) / 150 / Pump,Pump Bottle,PETG,PETG,,,,,,PETG,,,,ABS,,,,,,,PETG,,PP,,,,,,,,,,,,,,,,150,55.5x144.9,96.3,,product-images/CSO150-P.png
+O,CSO50-A,CSO50-A,O시리즈 / 50 / Airless,Airless Pump Bottle,PETG,PETG,,,,,,PETG,,,,ABS,,,,LLDPE,,,PETG,,PP,,,,,,,,,,,,,,,,50,55.5x142.8,187.6,,product-images/CSO50-A.png
+O,CSO50-C,CSO50-C,O시리즈 / 50 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,50,69.2x67.9,133,,product-images/CSO50-C.png
+O,CSO30-C,CSO30-C,O시리즈 / 30 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,ABS,,PP,,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,30,60.5x60.3,92,,product-images/CSO30-C.png
+O,CSO20-S,CSO20-S,O시리즈 / 20 / Screw,Gravity-fed Bottle,PETG,PETG,,,,,,PP,,,,,,,LLDPE,,,,PETG,,,,,,,,,,,,,,,,,,20,32.2x67.3,13.4,,product-images/CSO20-S.png
+P,CSP140-P,CSP140-P,P시리즈 / 140 / Pump,Pump Bottle,PETG,PETG,,,,,,PMMA,,,,ABS,,,,,,,PETG,,PP/AL,,,,,,,,,,,,,,,,140,47x170.1,111.4,,product-images/CSP140-P.png
+P,CSP40-P,CSP40-P,P시리즈 / 40 / Pump,Pump Bottle,PMMA (아크릴),PMMA,,,,,,PMMA,,,,ABS,,,,,,PP,PMMA,,PP/AL,,,,,,,,,,,,,,,,40,45.7x146.3,153.6,,product-images/CSP40-P.png
+P,CSP40-C,CSP40-C,P시리즈 / 40 / 초음파,Open Jar,PMMA (아크릴),PMMA,,,,,,PMMA,,,ABS,,LLDPE,,,,,PP,PMMA,,,,,,,,,,,,,,,,,,40,72.8x82.2,145,,product-images/CSP40-C.png
+Q,CSQ170-P,CSQ170-P,Q시리즈 / 170 / Pump,Pump Bottle,PET,PET,,,,,,PETG,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,170,54.2x180.5,91.7,,product-images/CSQ170-P.png
+Q,CSQ50-P,CSQ50-P,Q시리즈 / 50 / Pump,Pump Bottle,PET,PET,,,,,,PETG,,,,ABS,,,,,,,PET,,PP,,,,,,,,,,,,,,,,50,45.8x115.8,70.5,,product-images/CSQ50-P.png
+Q,CSQ50-C,CSQ50-C,Q시리즈 / 50 / 단캡,Open Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,POM,,,LLDPE,,,,,PP,SAN,,,,,,,,,,,,,,,,,,50,76.6x56.7,128.8,,product-images/CSQ50-C.png
+Q,CSQ30-C,CSQ30-C,Q시리즈 / 30 / 단캡,Open Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,POM,,,LLDPE,,,,,PP,SAN,,,,,,,,,,,,,,,,,,30,76.6x56.7,127.6,,product-images/CSQ30-C.png
+R-1,CSR120-P,CSR120-P,R시리즈(디퓨즈) / 120 / Pump,Pump Bottle,PETG,PETG,,,,,,PETG,,,,ABS,,,,,ABS,PP,PETG,,PP/AL,,,,,,,,,,,,,,,,120,60.6x151.1,116.8,,product-images/CSR120-P.png
+R-1,CSR50(120)-P,CSR50(120)-P,R시리즈 / 50(120) / Pump,Pump Bottle,PETG,PETG,,,,,,PETG,,,,ABS,,,,,ABS,PP,PETG,,PP/AL,,,,,,,,,,,,,,,,120,60.6x151.1,108.7,,product-images/CSR50(120)-P.png
+R-1,CSR50-A,CSR50-A,R시리즈 / 50 / Airless,Airless Pump Bottle,PETG,PETG,,,,,,,,,,ABS,,,,LLDPE,ABS,PP,PETG,,PP/AL,,,,,,,,,,,,,,,,50,54.2x146,107.7,,product-images/CSR50-A.png
+R-1,CSR50-C,CSR50-C,R시리즈 / 50 / 초음파,Open Jar,PETG,PETG,,,,,,ABS,,,,,LLPDE,,,,ABS,PP,PETG,,,,,,,,,,,,,,,,,,50,66.1x64.6,117.8,,product-images/CSR50-C.png
+R-1,CSR30-C,CSR30-C,R시리즈 / 30 / 초음파,Open Jar,PETG,PETG,,,,,,ABS,,,,,LLPDE,,,,ABS,PP,PETG,,,,,,,,,,,,,,,,,,30,53.9x54.5,70,,product-images/CSR30-C.png
+R-2,CSRN130-P,CSRN130-P,RN형 / 130 / Pump,Pump Bottle,PETG,PETG,,,,,,PETG,,,,,,,,,,,PETG,,PP,,,,,,,,,,,,,,,,130,41.7x180.7,58.6,,product-images/CSRN130-P.png
+R-2,CSRN130-S,CSRN130-S,RN형 / 130 / Screw,Gravity-fed Bottle,PETG,PETG,,,,,,PP,,,,,,,LDPE,,,,PETG,,,,,,,,,,,,,,,,,,130,41.7x166.1,51.1,,product-images/CSRN130-S.png
+R-2,CSRN60-C,CSRN60-C,RN형 / 60 / 단캡,Open Jar,PETG,PETG,주요 제품,용기 PET 크림용기모델,용기 PET_크림용기,,,ABS,,,,,LLDPE,,,,,PP,PETG,,,,,,,,,,,,,,,,,,60,72.7x58.8,69.5,,product-images/CSRN60-C.png
+R-2,CSRN50-C,CSRN50-C,RN형 / 50 /  단캡,Open Jar,PETG,PETG,주요 제품,용기 PET 크림용기모델,용기 PET_크림용기,,,ABS,,,,,LLDPE,,,,,PP,PETG,,,,,,,,,,,,,,,,,,50,72.7x58.8,69.2,,product-images/CSRN50-C.png
+R-2,CSRN30-C,CSRN30-C,RN형 / 30 / 단캡,Open Jar,PETG,PETG,,,,,,ABS,,,,,LLDPE,,,,,PP,PETG,,,,,,,,,,,,,,,,,,30,59x48.7,43.2,,product-images/CSRN30-C.png
+R-2,CSRS60-C,CSRS60-C,RS형 / 60 / 단캡,Open Jar,PETG,PETG,주요 제품,용기 PET 크림용기모델,용기 PET_크림용기,,,ABS,,,,,LLDPE,,,,,PP,PETG,,,,,,,,,,,,,,,,,,60,73x54.5,70.3,,product-images/CSRS60-C.png
+R-2,CSRS50-C,CSRS50-C,RS형 / 50 / 단캡,Open Jar,PETG,PETG,주요 제품,주요 10개 제품코드,주요 10개 제품코드,,,ABS,,,,,LLDPE,,,,,PP,PETG,,,,,,,,,,,,,,,,,,50,73x54.5,69,,product-images/CSRS50-C.png
+R-2,CSRS30-C,CSRS30-C,RS형 / 30 / 단캡,Open Jar,PETG,PETG,,,,,,ABS,,,,,LLDPE,,,,,PP,PETG,,,,,,,,,,,,,,,,,,30,59.5x46.5,44,,product-images/CSRS30-C.png
+R-3,CSRN55-C,CSRN55-C,RN형 / 55 / 단캡,Open Jar,PET,PET,,,,,,PET,,,,,PP,,,,,,PET,,,,,,,,,,,,,,,,,,55,64.9x44.6,75.8,,product-images/CSRN55-C.png
+R-3,CSRN30-C(R3),CSRN30-C(R3),RN형 / 30 / 초음파 (R3 variant),Open Jar,PET,PET,,,,,,PET,,,,,PP,,,,,,PET,,,,,,,,,,,,,,,,,,30,55.5x38.2,40.2,,
+S,CSS10-SP,CSS10-SP,S시리즈 / 10 / Dropper,Dropper Bottle,PETG,PETG,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,,,,,,,,ABS,,PETG,,,,,,,,,,,,,LLDPE,,,,,10,28.2x67.3,15,,product-images/CSS10-SP.png
+S,CSS30-P,CSS30-P,S시리즈 / 30 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,,,,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,30,38.2x100.5,60.2,,product-images/CSS30-P.png
+S,CSSR30-P,CSSR30-P,S시리즈(R형) / 30 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,,,,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,30,38.2x100.5,60.2,,product-images/CSSR30-P.png
+S,CSS50-P,CSS50-P,S시리즈 / 50 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,,,,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,50,38.2x123.3,71.7,,product-images/CSS50-P.png
+S,CSSN30-P,CSSN30-P,S시리즈(N형) / 30 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,,,,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,30,39.5x96.2,63.1,,product-images/CSSN30-P.png
+S,CSSN40-P,CSSN40-P,S시리즈(N형) / 40 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,,,,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,40,39.5x104.9,59.7,,product-images/CSSN40-P.png
+S,CSSN50-P,CSSN50-P,S시리즈(N형) / 50 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,,,,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,50,39.5x114.2,63.5,,product-images/CSSN50-P.png
+S,CSS15-SP,CSS15-SP,S시리즈 / 15 / Dropper,Dropper Bottle,PETG,PETG,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PETG,,ABS,,,,,LDPE,,,,PETG,,,,,,,,,,,,실리콘/NBR,,,,,,15,30.8x114.8,62.2,,product-images/CSS15-SP.png
+S,CSS30-SP,CSS30-SP,S시리즈 / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,GLASS,실리콘/NBR,,,,,,30,38.2x91.3,43.8,,product-images/CSS30-SP.png
+S,CSSR30-SP,CSSR30-SP,S시리즈(R형) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,GLASS,실리콘/NBR,,,,,,30,38.2x91.3,43.8,,product-images/CSSR30-SP.png
+S,CSS50-SP,CSS50-SP,S시리즈 / 50 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,GLASS,실리콘/NBR,,,,,,50,38.2x114.6,55.7,,product-images/CSS50-SP.png
+S,CSSN30-SP,CSSN30-SP,S시리즈(N형) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,GLASS,실리콘/NBR,,,,,,30,39.5x89,45.8,,product-images/CSSN30-SP.png
+S,CSSN40-SP,CSSN40-SP,S시리즈(N형) / 40 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,GLASS,실리콘/NBR,,,,,,40,39.4x96,46.2,,product-images/CSSN40-SP.png
+S,CSSN50-SP,CSSN50-SP,S시리즈(N형) / 50 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,GLASS,실리콘/NBR,,,,,,50,39.5x103.4,46.9,,product-images/CSSN50-SP.png
+S,CSSN(2)30-SP,CSSN(2)30-SP,S시리즈(N2형) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,GLASS,실리콘/NBR,,,,,,30,38.6x91.5,46.5,,product-images/CSSN(2)30-SP.png
+S,CSS30-ATD,CSS30-ATD,S시리즈 / 30 / Auto Dropper,Dropper Bottle,PETG,PETG,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PETG,,,,,,,,,ABS,,GLASS,,,,,,,30,38.2x,52.9,,product-images/CSS30-ATD.png
+S,CSSR30-ATD,CSSR30-ATD,S시리즈(R형) / 30 / Auto Dropper,Dropper Bottle,PETG,PETG,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PETG,,,,,,,,,ABS,,GLASS,,,,,,,30,38.2x,52.9,,product-images/CSSR30-ATD.png
+S,CSS50-ATD,CSS50-ATD,S시리즈 / 50 / Auto Dropper,Dropper Bottle,PETG,PETG,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PETG,,,,,,,,,ABS,,GLASS,,,,,,,50,38.2x114.7,65.2,,product-images/CSS50-ATD.png
+S,CSSN40-ATD,CSSN40-ATD,S시리즈(N형) / 40 / Auto Dropper,Dropper Bottle,PETG,PETG,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PETG,,,,,,,,,ABS,,GLASS,,,,,,,40,39.5x96.1,52.1,,product-images/CSSN40-ATD.png
+S,CSS30-P(S),CSS30-P(S),S시리즈 / 30 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,38.2x90,50.3,,product-images/CSS30-P(S).png
+S,CSS30-P(SL),CSS30-P(SL),S시리즈 / 30 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,38.2x98.2,51.8,,product-images/CSS30-P(SL).png
+S,CSSR30-P(S),CSSR30-P(S),S시리즈(R형) / 30 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,38.2x90,50.3,,product-images/CSSR30-P(S).png
+S,CSSR30-P(SL),CSSR30-P(SL),S시리즈(R형) / 30 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,38.2x98.2,51.8,,product-images/CSSR30-P(SL).png
+S,CSS50-P(S),CSS50-P(S),S시리즈 / 50 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,50,38.2x113,62,,product-images/CSS50-P(S).png
+S,CSS50-P(SL),CSS50-P(SL),S시리즈 / 50 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,50,38.2x121.2,63.6,,product-images/CSS50-P(SL).png
+S,CSS40-P(S),CSS40-P(S),S시리즈 / 40 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,40,39.5x93.7,52.8,,product-images/CSS40-P(S).png
+S,CSS40-P(SL),CSS40-P(SL),S시리즈 / 40 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,40,39.5x102.3,54.4,,product-images/CSS40-P(SL).png
+S,CSS20-SUN,CSS20-SUN,S시리즈 / 20 / Sun Stick,Twist-up Stick,ABS,ABS,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,,,,PP,ABS,,,,,,,,,,,,,,,PP,POM,,20,37.3x80,44.8,,product-images/CSS20-SUN.png
+S,CSS5-LIP,CSS5-LIP,S시리즈 / 5 / Lip applicator,Bottle w.Wand (Lip Gloss),PETG,PETG,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,PE,,,,,PETG,,,,,,,,,,,,,,PP,,,,5,17x93,15.1,,product-images/CSS5-LIP.png
+T,CST110-P,CST110-P,T시리즈 / 110 / Pump,Pump Bottle,PETG,PETG,,,,,PETG,,,,,PETG,,,,,,PETG,PETG,,PP/ABS/PP/AL,,,,,,,,,,,,,,,,110,46.5x193,194.1,,product-images/CST110-P.png
+T,CST15-AC,CST15-AC,T시리즈 / 15 / Air Cushion,Cushion Compact,PET,PET,,,,,,,,,,,,,,,,,PET,,,,,PP,SAN/ABS,ABS,,,,,,,,,,,15,76x32.5,91.3,,product-images/CST15-AC.png
+T,CST30-C,CST30-C,T시리즈 / 30 / 초음파,Open Jar,PETG,PETG,,,,,,PETG,,PP,,,LLDPE,,,,,,PETG,,,,,,,,,,,,,,,,,,30,57.1x65.4,119.6,,product-images/CST30-C.png
+T,CST15-C,CST15-C,T시리즈 / 15 / 초음파,Open Jar,PETG,PETG,,,,,,PETG,,PP,,,LLDPE,,,,,,PETG,,,,,,,,,,,,,,,,,,15,43.6x55.7,50.3,,product-images/CST15-C.png
+T,CST20-2S,CST20-2S,T시리즈 / 20 / 2S 구조,Gravity-fed Bottle,PETG,PETG,,,,,,PETG,,PETG,,,,,LDPE,,,,PETG,,,,,,,,,,,,,,,,,,20,28.5x89.5,35.8,,product-images/CST20-2S.png
+U,CSU150-AMP,CSU150-AMP,U시리즈(알베아 미스트) / 150 / Albea mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,150,39.8x188.5,60.4,,product-images/CSU150-AMP.png
+U,CSU120-AMP,CSU120-AMP,U시리즈 / 120 / Albea mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,120,39.8x164.3,60.3,,product-images/CSU120-AMP.png
+U,CSU100-AMP,CSU100-AMP,U시리즈 / 100 / Albea mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,100,39.8x142,52.5,,product-images/CSU100-AMP.png
+U,CSU80-AMP,CSU80-AMP,U시리즈 / 80 / Albea mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,80,39.8x125.9,53.4,,product-images/CSU80-AMP.png
+U,CSU60-AMP,CSU60-AMP,U시리즈 / 60 / Albea mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,60,39.8x109.8,51.8,,product-images/CSU60-AMP.png
+U,CSU150-RAMP,CSU150-RAMP,U시리즈 / 150 / Round mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,150,39.8x185.9,58.4,,product-images/CSU150-RAMP.png
+U,CSU120-RAMP,CSU120-RAMP,U시리즈 / 120 / Round mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,120,39.8x161.7,58.3,,product-images/CSU120-RAMP.png
+U,CSU100-RAMP,CSU100-RAMP,U시리즈 / 100 / Round mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,100,39.8x139.4,49.6,,product-images/CSU100-RAMP.png
+U,CSU80-RAMP,CSU80-RAMP,U시리즈 / 80 / Round mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,80,39.8x123.3,51.5,,product-images/CSU80-RAMP.png
+U,CSU60-RAMP,CSU60-RAMP,U시리즈 / 60 / Round mist pump,Spray Bottle,PET,PET,,,,,PETG,,,,,PETG,,,,,,,PET,,PP/AL,,,,,,,,,,,,,,,,60,39.8x107.2,49.4,,product-images/CSU60-RAMP.png
+V,CSV170-S,CSV170-S,V시리즈 / 170 / Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,,,,,PET,,,,,,,,,,,,,,,,,,170,50.6x168.5,71.3,,product-images/CSV170-S.png
+V,CSV35-P,CSV35-P,V시리즈 / 35 / Pump,Pump Bottle,AS/SAN/GPPS,SAN,,,,,220,,,,,ABS,,,,,,PETG,SAN,,PP/AL,,,,,,,,,,,,,,,,35,42.4x122.9,80.1,,product-images/CSV35-P.png
+V,CSV50-C,CSV50-C,V시리즈 / 50 / 초음파,Open Jar,AS/SAN/GPPS,SAN,,,,,,ABS,,PP,,,LLDPE,,,,,PP,SAN,,,,,,,,,,,,,,,,,,50,77.6x59.6,134,,product-images/CSV50-C.png
+V,CSV100-ATD,CSV100-ATD,V시리즈 / 100 / Auto Dropper,Dropper Bottle,PET,PET,,,,,,,,,,,,,LDPE,,,,PET,,,,,,,,,ABS,ABS,GLASS,,,,,,,100,39.3x149,71,,product-images/CSV100-ATD.png
+V,CSV35-ATD,CSV35-ATD,V시리즈 / 35 / Auto Dropper,Dropper Bottle,PET,PET,,,,,,,,,,ABS,,,LDPE,,,,PET,,,,,,,,,ABS,ABS,,,,,,,,35,36.6x120,81.6,,product-images/CSV35-ATD.png
+S,CSSR(2)30-SP,CSSR(2)30-SP,S시리즈(R2) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,30,,,,
+S,CSSR(2)30-ATD,CSSR(2)30-ATD,S시리즈(R2) / 30 / Auto Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PET,,,,,,,,,ABS,,Glass,,,,,,,30,,,,
+S,CSSR(2)30-P(펌프/오버캡),CSSR(2)30-P(펌프/오버캡),S시리즈(R2) / 30 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PE,,,,,,,,,,,,PET,,AL,,,,,,,,,,,,,,,,30,,,,
+S,CSSR(2)30-P(S),CSSR(2)30-P(S),S시리즈(R2) / 30 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,
+S,CSSR(2)30-P(SL),CSSR(2)30-P(SL),S시리즈(R2) / 30 / Short Pump Long cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,
+S,CSSR50-SP,CSSR50-SP,S시리즈(R) / 50 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,50,,,,
+S,CSSR50-ATD,CSSR50-ATD,S시리즈(R) / 50 / Auto Dropper,Dropper Bottle,PETG,PN200,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PN200,,,,,,,,,ABS,,Glass,,,,,,,50,,,,
+S,CSSR50-P(S),CSSR50-P(S),S시리즈(R) / 50 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,50,,,,
+S,CSSR50-P(SL),CSSR50-P(SL),S시리즈(R) / 50 / Short Pump Long cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,50,,,,
+S,CSSR50-P(펌프/오버캡),CSSR50-P(펌프/오버캡),S시리즈(R) / 50 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PE,,,,,,,,,,,,PET,,AL,,,,,,,,,,,,,,,,50,,,,
+C-5,CSC(24)100-NS,CSC(24)100-NS,C시리즈(24파이) / 100 / New Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,,,,,PET,,,,,,,,,,,,,,,,,,100,,,,
+C-5,CSC(24)100-P,CSC(24)100-P,C시리즈(24파이) / 100 / Pump,Pump Bottle,PET,PET,,,,,PETG,,,,,,,,,,,,PET,,PP,,,,,,,,,,,,,,,,100,,,,
+C-5,CSC(24)100-CP,CSC(24)100-CP,C시리즈(24파이) / 100 / Collar Pump,Pump Bottle,PET,PET,,,,,,,PP,,,,,,,,,,PET,,PP,,,,,,,,,,,,,,,,100,,,,
+C-5,CSC(24)150-NS,CSC(24)150-NS,C시리즈(24파이) / 150 / New Screw,Gravity-fed Bottle,PET,PET,,,,,,ABS,,PP,,,,,,,,,PET,,,,,,,,,,,,,,,,,,150,,,,
+C-5,CSC(24)150-P,CSC(24)150-P,C시리즈(24파이) / 150 / Pump,Pump Bottle,PET,PET,,,,,PP,,,,,,,,,,,,PET,,PP,,,,,,,,,,,,,,,,150,,,,
+C-5,CSC(24)150-CP,CSC(24)150-CP,C시리즈(24파이) / 150 / Collar Pump,Pump Bottle,PET,PET,,,,,,,PP,,,,,,,,,,PET,,PP,,,,,,,,,,,,,,,,150,,,,
+S,CSSN(2)30-P(O),CSSN(2)30-P(O),S시리즈(N2형) / 30 / Pump (overcap),Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,
+S,CSSN(2)30-P(펌프/오버캡),CSSN(2)30-P(펌프/오버캡),S시리즈(N2형) / 30 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PE,,,,,,,,,,,,PET,,AL,,,,,,,,,,,,,,,,30,,,,
+S,CSSN(4)30-P(펌프/오버캡),CSSN(4)30-P(펌프/오버캡),S시리즈(N4형) / 30 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PE,,,,,,,,,,,,PET,,AL,,,,,,,,,,,,,,,,30,,,,
+S,CSSN50-P(펌프/오버캡),CSSN50-P(펌프/오버캡),S시리즈(N형) / 50 / Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PE,,,,,,,,,,,,PET,,AL,,,,,,,,,,,,,,,,50,,,,
+S,CSSN30-SP스포이드,CSSN30-SP스포이드,S시리즈(N형) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,30,,,,
+S,CSSN(2)30-SP스포이드,CSSN(2)30-SP스포이드,S시리즈(N2형) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,30,,,,
+S,CSSN(4)30-SP스포이드,CSSN(4)30-SP스포이드,S시리즈(N4형) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,30,,,,
+S,CSS40-SP스포이드,CSS40-SP스포이드,S시리즈 / 40 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,40,,,,
+S,CSSN50-SP스포이드,CSSN50-SP스포이드,S시리즈(N형) / 50 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,50,,,,
+S,CSS10-SP스포이드,CSS10-SP스포이드,S시리즈 / 10 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,10,,,,
+S,CSSN30-ATD,CSSN30-ATD,S시리즈(N형) / 30 / Auto Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PET,,,,,,,,,ABS,,Glass,,,,,,,30,,,,
+S,CSSN(2)30-ATD,CSSN(2)30-ATD,S시리즈(N2형) / 30 / Auto Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PET,,,,,,,,,ABS,,Glass,,,,,,,30,,,,product-images/CSSN(2)30-ATD.png
+S,CSSN(4)30-ATD,CSSN(4)30-ATD,S시리즈(N4형) / 30 / Auto Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PET,,,,,,,,,ABS,,Glass,,,,,,,30,,,,
+S,CSSN50-ATD,CSSN50-ATD,S시리즈(N형) / 50 / Auto Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,ABS,,,,,,,LDPE,,,,PET,,,,,,,,,ABS,,Glass,,,,,,,50,,,,product-images/CSSN50-ATD.png
+S,CSSN50-P(S),CSSN50-P(S),S시리즈(N형) / 50 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,50,,,,product-images/CSSN50-P(S).png
+S,CSSN40-P(S),CSSN40-P(S),S시리즈(N형) / 40 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,40,,,,
+S,CSSN30-P(S),CSSN30-P(S),S시리즈(N형) / 30 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,product-images/CSSN30-P(S).png
+S,CSSN(2)30-P(S),CSSN(2)30-P(S),S시리즈(N2형) / 30 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,product-images/CSSN(2)30-P(S).png
+S,CSSN(4)30-P(S),CSSN(4)30-P(S),S시리즈(N4형) / 30 / Short Pump,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,
+S,CSSN50-P(SL),CSSN50-P(SL),S시리즈(N형) / 50 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,50,,,,product-images/CSSN50-P(SL).png
+S,CSSN40-P(SL),CSSN40-P(SL),S시리즈(N형) / 40 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,40,,,,
+S,CSSN30-P(SL),CSSN30-P(SL),S시리즈(N형) / 30 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,product-images/CSSN30-P(SL).png
+S,CSSN(2)30-P(SL),CSSN(2)30-P(SL),S시리즈(N2형) / 30 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,product-images/CSSN(2)30-P(SL).png
+S,CSSN(4)30-P(SL),CSSN(4)30-P(SL),S시리즈(N4형) / 30 / Short Pump Long Cap,Pump Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,PETG,,,,,,,,,,,,PET,,PP/ABS,,,,,,,,,,,,,,,,30,,,,
+S,CSSR(N)30-SP스포이드,CSSR(N)30-SP스포이드,S시리즈(RN형) / 30 / Dropper,Dropper Bottle,PET,PET,주요 제품,용기 PET시리즈 펌프 및 스크류 모델,용기 PET_펌프 및 스크류_S시리즈,,,PP,,,,,,,LDPE,,,,PET,,,,,,,,,,,Glass,실리콘,,,,,,30,,,,
