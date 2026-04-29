@@ -168,7 +168,7 @@ tags:
 
 | 일자 | 항목 |
 |------|------|
-| 2026-04-29 | **D-025 batch 워크로드 = 별도 ECR** — `changshin-batch`+`changshin-batch-deploy` 신규. ECR 통폐합 점검 결과 api 1세트는 이미 운영 중. batch 보일러 잔재(`weplanet-changshin-batch`) 정리. changshin-iac/changshin-api 양쪽 변경 ([[Infrastructure/31 - Decision Log#D-025]]) |
+| 2026-04-29 | **D-025 batch 워크로드 활성화 (taabshop 패턴)** — `changshin-batch` ECR 1개(image 보관용) + 단일 Flux Kustomization(api) 이 root kustomization 으로 ax-api+batch 모두 apply. batch 의 `job-flux` 잡 폐기. 1차 시도(batch 별도 Flux Kustomization) 점검 결과 ax-api 만 적용되는 문제 → taabshop 패턴 정합으로 정정 ([[Infrastructure/31 - Decision Log#D-025]]) |
 | 2026-04-29 | **legacy admin-api → ax-api 흡수 완료** — Administrator 도메인(`shared/administrator/`) + AdminJwtStrategy + admin auth/administrators 컨트롤러 + AdminHttpModule. 타입체크 통과. D-024 적용 |
 | 2026-04-29 | **D-024 JWT `aud` = 위플래닛 표준 `user / admin`** — D-019 후속 "`aud` 처리 방향" 닫음. D-007 의 서비스 분기 의미를 클라이언트 종류 식별로 재정의 ([[Infrastructure/31 - Decision Log#D-024]]) |
 | 2026-04-29 | **D-023 AX1·AX2·AX3 URL 분리** — FE 화면만 path 분리, BE 는 D-011 그대로 유지. D-019 후속 "Ingress path 단순화" 닫음 ([[Infrastructure/31 - Decision Log#D-023]]) |

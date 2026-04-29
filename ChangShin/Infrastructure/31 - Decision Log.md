@@ -506,13 +506,15 @@ tags:
 
 ---
 
-## D-025 batch 워크로드 = 별도 ECR (`changshin-batch` + `changshin-batch-deploy`)
+## D-025 batch 워크로드 = 별도 ECR (`changshin-batch`) + 단일 Flux Kustomization 으로 묶음
 
-- **일자**: 2026-04-29
+- **일자**: 2026-04-29 (taabshop 패턴 점검 후 정정)
 - **상태**: accepted ([[#D-019]] 후속 — "ECR 4세트 → 1세트 후속 결정" 의 batch 부분 닫음)
 - **결정**:
   - **API ECR**: `changshin-api` + `changshin-api-deploy` 1세트 — 그대로 유지
-  - **Batch ECR**: `changshin-batch` + `changshin-batch-deploy` 신규 1세트 추가
+  - **Batch ECR**: `changshin-batch` **(image 보관 1개만)** — 신규 추가. `changshin-batch-deploy` 는 만들지 않음 (Flux OCI artifact 분리 push 안 함)
+  - **Flux Kustomization**: 단일 `api` kustomization 하나로 root `k8s/clusters/dev/kustomization.yml` build → ax-api + batch 매니페스트 모두 apply. 별도 `batch` Flux Kustomization 운영 안 함.
+  - **CI**: api 의 `job-nestjs` + `job-flux`, batch 의 `job-nestjs` 만 활성. **batch 의 `job-flux` 잡 폐기** (root kustomization 에 batch 가 포함되어 있으므로 api 의 `job-flux` 가 batch 매니페스트도 같이 OCI artifact 로 push)
   - 보일러 잔재였던 `weplanet-changshin-batch` 명명 폐기, 프로젝트 prefix 통일
 - **맥락**: ECR 통폐합 점검 결과 D-019 적용 시점에 이미 `api`/`api-deploy` 1세트로 운영 중. **추가 통폐합할 게 없는 상태**였음. 다만 batch 워크로드의 k8s 매니페스트가 `weplanet-changshin-batch` 라는 보일러 잔재 명명으로 남아있고 ECR 리포는 만들어진 적 없어 실제 빌드/배포 안 되는 상태. AX-2 모듈 구현 시 cron/스케줄 작업이 필요해질 가능성 → 통폐합 검토와 묶어 결정.
 - **대안**:
@@ -525,15 +527,22 @@ tags:
   - **운영 격리**: batch 의 image 롤백·배포 사이클이 API 와 독립
   - 보일러 명명(`weplanet-changshin-batch`) 정리는 [[#D-016]] 의 `{project_name}-{service}` 컨벤션 준수
 - **영향**:
-  - **changshin-iac 변경**:
-    - `aws/env/base.yml` 의 `ecr.repositories` 에 `batch`, `batch-deploy` 추가 → `changshin-batch`, `changshin-batch-deploy` 생성
-    - `aws/env/dev/config.yml` 의 `eks.services` 에 batch 항목 추가 (Pod Identity + Flux OCI 배포)
+  - **changshin-iac 변경 (taabshop 패턴 정합)**:
+    - `aws/env/base.yml` 의 `ecr.repositories` 에 `batch` 만 추가 (`batch-deploy` 는 추가하지 않음)
+    - `aws/env/dev/config.yml` 의 `eks.services` 는 `api` 단일 유지. batch 항목 **추가하지 않음** (1차 시도에서 추가했다가 회수)
     - `terraform apply` 필요 (사용자 수동 작업)
   - **changshin-api 변경**:
-    - `.gitlab-ci.yml` batch 잡 2개(job-nestjs, job-flux) 주석 해제 + ecr 이름 정리 (`weplanet-changshin-batch` → `changshin-batch`)
-    - `k8s/clusters/dev/batch/deploy.yaml` image 라인 갱신
-  - **운영**: batch Pod 가 dev 클러스터에 정상 진입 (현재는 image pull 실패로 죽어있을 가능성)
-  - **D-019 영향 항목 갱신**: ECR 4세트→1세트 후속이 (api 1세트 + batch 1세트) 로 닫힘. 추가 trackECR 분리는 미래 결정
+    - `.gitlab-ci.yml`: api 의 `job-nestjs` + `job-flux`, batch 의 `job-nestjs` 활성. batch 의 `job-flux` 잡은 미사용 (제거)
+    - `k8s/clusters/dev/kustomization.yml` 의 `resources` 에 `batch` 추가 → 단일 Flux Kustomization (api) 이 root build 시 ax-api + batch 모두 apply
+    - `k8s/clusters/dev/batch/deploy.yaml` image: `changshin-batch:development`
+  - **배포 흐름**:
+    1. CI 가 ax-api / batch 두 image 를 각자 ECR (`changshin-api`, `changshin-batch`) 에 push
+    2. CI 의 api 잡 `job-flux` 가 root `./k8s` 디렉토리를 OCI artifact 로 `changshin-api-deploy` ECR 에 push
+    3. Flux 의 단일 OCIRepository (`api`) 가 그 OCI 받음 → Kustomization 이 `./clusters/dev` build → ax-api + batch 매니페스트 모두 apply
+    4. kubelet 이 각 Deployment 의 image 를 자기 ECR 에서 pull → 두 Pod 다 띄움
+  - **운영**: batch Pod 가 ax-api 와 같은 namespace(`dev`) 에서 함께 동작
+  - **D-019 영향 항목 갱신**: ECR 4세트→1세트 후속이 (api 1세트 + batch image ECR 1개) 로 닫힘
+  - **참고 패턴**: 위플래닛 `taabshop` 의 동일 구조 (root kustomization 에 user-api + batch 묶음, 단일 Flux Kustomization 운영) 채택
 
 ---
 
