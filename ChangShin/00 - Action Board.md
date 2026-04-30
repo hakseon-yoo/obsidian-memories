@@ -2,7 +2,7 @@
 title: Action Board (놓치고 가는 작업 단일 보드)
 project: 창신
 created: 2026-04-29
-updated: 2026-04-29
+updated: 2026-04-30
 tags:
   - MOC
   - action-board
@@ -52,9 +52,9 @@ tags:
 
 ---
 
-## 📅 회의 발생 액션 (2026-04-29 회의 후속)
+## 📅 회의 발생 액션 (회의 후속)
 
-> 출처: [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정]]
+> 출처: [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정]] · [[Meetings/2026-04-30 - 클라이언트 답변 - 수주 시나리오 · 납기 로직]]
 
 | 항목 | 상태 | 비고 |
 |------|------|------|
@@ -63,6 +63,9 @@ tags:
 | **5월 말 vs 6월 말 타임라인 정합성 점검** — 본인 P0(6월말) ↔ 회의(5월말 1차) | ❌ | [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트#0. P0 빠른 참조 (착수 전 결정 필수)\|#64]] |
 | **NDA 체결 후 3D 도면 수령** — SKU 미매칭 41건 보강 활용 가능 | ❓ | 팀 스파르타 ↔ 창신 NDA 진행 후 |
 | **SKU 매핑 정합성** — 본인 진행한 [[Infrastructure/31 - Decision Log#D-021\|D-021]]/[[Infrastructure/31 - Decision Log#D-022\|D-022]] 결과물이 회의 SKU 매핑 흐름과 연결되는지 확인 | ❌ | 정보 동기화 |
+| **수주 시나리오 입력 화면 필드 설계** — 기제품/신제품 2-way 분기 반영, Module 1 entity 설계 직전에 마무리 | 🔥 | [[Meetings/2026-04-30 - 클라이언트 답변 - 수주 시나리오 · 납기 로직]] |
+| **수주 확정 후 프로세스 온라인 미팅 일정 조율** — 서주현 팀장 (모니터 딜로이트) | 🔥 | 클라이언트가 카톡 답변 대신 미팅으로 설명 약속 |
+| **기제품 부자재·공정별 평균 소요 변수 인터뷰 결과 수령** — 서주현 팀장이 생산관리팀장 인터뷰 후 공유 예정 | ❓ | Module 1 알고리즘 본체 구현 트리거 |
 
 > 본 회의의 외부 액션(스파르타/고객사) 은 Action Board 에 등록하지 않고 [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정#3. Action Items\|회의록 자체]] 에서 추적.
 
@@ -168,6 +171,7 @@ tags:
 
 | 일자 | 항목 |
 |------|------|
+| 2026-04-30 | **클라이언트 답변 수령 (수주 시나리오 · 납기 로직)** — 수주 화면은 **기제품/신제품 2-way 분기**, 입력은 자재코드+수량. 신제품 금형 평균 45일(capa 1순위 변수). 기제품 변수는 생산관리팀장 인터뷰 후 추가 공유. 외주처 생산계획 미수신 전제 → 시스템 내 기수주 점유율 기반 지연 추정 ([[Meetings/2026-04-30 - 클라이언트 답변 - 수주 시나리오 · 납기 로직]]) |
 | 2026-04-30 | **D-027 K8s namespace = 환경별** — D-017 superseded. dev/stage/prod 환경 prefix 채택. 실제 운영 패턴(`dev` namespace)을 명시 결정으로 흡수 ([[Infrastructure/31 - Decision Log#D-027]]) |
 | 2026-04-30 | **D-026 PostgreSQL schema 분리 폐기** — D-002 partially superseded. 모든 테이블 `public` 단일 schema 사용. 단일 서비스 + 단일 DB 계정 운영에서 schema 분리 실익 약함. entity 갱신·마이그레이션 작업 불필요 ([[Infrastructure/31 - Decision Log#D-026]]) |
 | 2026-04-29 | **D-025 batch 워크로드 활성화 (taabshop 패턴)** — `changshin-batch` ECR 1개(image 보관용) + 단일 Flux Kustomization(api) 이 root kustomization 으로 ax-api+batch 모두 apply. batch 의 `job-flux` 잡 폐기. 1차 시도(batch 별도 Flux Kustomization) 점검 결과 ax-api 만 적용되는 문제 → taabshop 패턴 정합으로 정정 ([[Infrastructure/31 - Decision Log#D-025]]) |
