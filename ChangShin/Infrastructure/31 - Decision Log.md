@@ -51,7 +51,7 @@ tags:
 ## D-002 공유 DB 채택 (논리 분리)
 
 - **일자**: 2026-04-23
-- **상태**: accepted
+- **상태**: **partially superseded by [[#D-026]]** (2026-04-30 — schema 단위 논리 분리 폐기, 모든 테이블 `public` 사용. 단일 DB 인스턴스 공유는 그대로 유지)
 - **결정**: 4개 서비스가 **하나의 물리 DB 인스턴스를 공유**. 스키마(`auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*`) 단위 논리 분리.
 - **맥락**: 사용자·권한 등 공통 데이터가 많고, 초기 운영 부담을 줄여야 함.
 - **대안**:
@@ -352,7 +352,7 @@ tags:
 ## D-017 K8s 네임스페이스 = `changshin` (프로젝트명, 환경 무관)
 
 - **일자**: 2026-04-27
-- **상태**: accepted
+- **상태**: **superseded by [[#D-027]]** (2026-04-30 — 환경별 namespace `dev`/`stage`/`prod` 로 변경)
 - **결정**: 모든 changshin 앱 워크로드(`auth`, `ax1`, `ax2`, `ax3`)를 **`changshin` 단일 namespace**에 배치한다. namespace는 **프로젝트 식별자**로만 사용하고, 환경(dev/stg/prod)은 클러스터 자체로 구분(`changshin-dev` 클러스터 = dev, 향후 `changshin-prod` 클러스터 = prod).
 - **맥락**: 보일러 매니페스트의 namespace 기본값이 `dev`로 들어 있어 환경명과 혼동 소지가 컸음. taabshop 컨벤션은 namespace=프로젝트명(`taabshop`). 둘 중 어느 쪽을 따를지 결정 필요했음.
 - **대안**:
@@ -412,7 +412,7 @@ tags:
   - **앱 구조**: `changshin-api/apps/ax-api/` (NestJS) + `apps/batch/` (cron/배치). 도메인은 NestJS 모듈로 분리 (예: `controllers/auth/`, `controllers/ax1/`, `controllers/ax2/`, `controllers/ax3/`)
   - **K8s**: namespace=`changshin` 유지(D-017). Deployment 1개(`ax-api`), Ingress 1개(`/api/*` 또는 path 그대로). ECR `changshin-ax`(또는 기존 명) 1개 + `changshin-ax-deploy` 1개
   - **인증**: D-007 `aud` 기반 서비스 분기는 의미 소멸. JWT 자체는 유지(D-009). `aud` 는 위플래닛 표준 `user / admin` 으로 재정의 결정됨 ([[#D-024]])
-  - **DB 스키마**: D-002의 논리 분리 원칙은 유지 (단일 서비스가 여러 스키마에 접근). `auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*` 분리 유지하되 단일 DB 계정/연결로 운영
+  - **DB 스키마**: 모든 테이블을 PostgreSQL default schema(`public`) 단일 사용 ([[#D-026]] 로 D-002 의 schema 분리 폐기). 단일 DB 인스턴스/계정 운영은 그대로
   - **도메인 경계 보존**: AX-2 등 도메인별 모듈 폴더 구조를 명확히 유지해, 향후 다시 분리하고 싶을 때 비용을 낮춘다
   - **Ingress 라우팅**: D-011의 path 기반 그대로 유지하기로 결정 ([[#D-023]]). `/api/*` 단일 통합 단순화는 폐기
   - **ECR**: 실제로는 처음부터 `api`+`api-deploy` 1세트로 시작 (4세트 분리는 만들어진 적 없음). batch 워크로드는 [[#D-025]] 로 별도 1세트(`changshin-batch`+`changshin-batch-deploy`) 추가 결정
@@ -503,6 +503,55 @@ tags:
   - **실행 결과 (재시도, 2026-04-29)**: 이미지 파일 289 / S3 업로드 287 / S3 실패 0 / DB UPDATE rows 289 / distinct URL 287 (변형 productCode 2쌍 — `CSC100-DU`, `CSC60-DU` — 가 같은 URL 공유) / DB 매칭 실패 2 (`CSCY30-CPP_AL`, `CSCY50-UPP_AL`)
   - **1차 잘못된 적재 cleanup**: `s3://weplanet-files/sku/` 287 객체 삭제 + DB 289 rows `imageUrl=NULL` 되돌림 후 재실행
   - **후속**: prod 반영은 별도 결정. 미매칭 자재코드 39 + 2 정리 후 2차 실행. `Sku.imageUrl` 컬럼 코멘트(현재 "S3 object key 저장")는 풀 URL 저장으로 갱신 필요
+
+---
+
+## D-027 K8s 네임스페이스 = 환경별 (`dev` / `stage` / `prod`)
+
+- **일자**: 2026-04-30
+- **상태**: accepted ([[#D-017]] supersede — 환경 무관 단일 namespace 폐기)
+- **결정**: K8s 네임스페이스를 **환경별로 분리**한다. dev 는 `dev`, stage 는 `stage`, prod 는 `prod`. 단일 cluster 에 여러 환경 띄울 경우 namespace 단위 RBAC·NetworkPolicy 분리 가능.
+- **맥락**: [[#D-017]] 가 "changshin 프로젝트 단일 namespace, 환경 무관" 으로 결정했으나 실제 인프라(`changshin-iac/aws/env/dev/config.yml` 의 `services[].namespace: dev`, k8s 매니페스트의 `kustomization.yaml` 의 `namespace: dev`) 는 환경 prefix 패턴으로 운영 중. 2026-04-30 다이어그램 검토에서 불일치 발견. 실제 운영 패턴을 명시 결정으로 흡수.
+- **대안**:
+  - **(a) D-017 그대로 적용** (`changshin` 단일): 기존 매니페스트·iac 일괄 변경 + 운영 중인 Pod 재배치 필요. 환경별 cluster 분리가 명확하면 의미 있지만 단일 cluster 에 dev/stage/prod 분리 운영 가능성이 닫힘
+- **근거**:
+  - 이미 운영 중인 `dev` namespace + 매니페스트 + iac 그대로 인정
+  - **단일 cluster 다환경 운영 옵션 보존**: 비용 절감을 위해 dev/stage 를 한 cluster 에 둘 수 있음. namespace 분리하면 RBAC·NetworkPolicy 격리 가능
+  - **kustomization.yaml namespace 일관성**: 매니페스트의 명시 패턴과 정합
+  - **변경 비용 회피**: 운영 중 변경은 다운타임·롤백 시나리오 필요. 결정만 정정해 비용 없음
+- **영향**:
+  - **D-017 status**: superseded by D-027
+  - **현재 운영**: dev 클러스터의 모든 워크로드(`ax-api`, `batch`) 가 `dev` namespace 에서 동작 — 그대로
+  - **향후 stage/prod 추가**: 같은 cluster 에 띄우든 별도 cluster 든 namespace 는 환경명과 일치
+  - **rule 문서**: `.claude/rules/coding-conventions.md` 등에 명시할 컨벤션 변화 없음 (k8s manifest 가 이미 그 형태)
+
+---
+
+## D-026 PostgreSQL schema 분리 폐기 — 모든 테이블 `public` 단일 schema 사용
+
+- **일자**: 2026-04-30
+- **상태**: accepted ([[#D-002]] supersede — schema 단위 논리 분리 폐기)
+- **결정**:
+  - 모든 테이블을 PostgreSQL 의 default schema(`public`) 한 곳에 둔다
+  - 트랙별 schema (`auth`, `ax1`, `ax2`, `ax3`, `common`) 분리 안 함
+  - entity 의 `@Entity({ schema: '...' })` 옵션 사용 안 함
+- **맥락**: [[#D-002]] 가 4서비스 분리 시기에 권한 격리(서비스별 DB 계정이 자기 schema + common 만 접근) 와 트랙 모듈 경계 가독성 목적으로 schema 분리 결정. [[#D-019]] 단일 통합 후 단일 DB 계정이 모든 schema 접근하는 형태로 영향 항목 정리. 이번 시점 점검 결과 schema 분리의 실익이 더 약화됨.
+- **대안**:
+  - **(가) 지금 4 schema (auth 폐기, common/ax1/ax2/ax3) 또는 5 schema 유지**: D-002 정합. 모든 entity 에 schema 옵션 추가 + 마이그레이션 1~2개 + dev DB 적용. 반나절 작업
+  - **(나) 결정 보류**: Action Board 에 미정 상태 유지. 추가 entity 누적 시 비용 ↑
+- **근거**:
+  - **권한 분리 미적용**: D-019 단일 서비스 + 단일 DB 계정 운영. schema 별 권한 부여 안 함 → 격리 효과 없음
+  - **단일 서비스에서 trace 분리 의미 약함**: 트랙 모듈 경계는 NestJS controller / 도메인 패키지 디렉토리([[#D-020]] `ax/ax2/ax3/shared/`) 단위로 이미 명확
+  - **테이블명 prefix 로 식별 가능**: 컨벤션상 entity 이름이 `MarketSensing`, `OrderHistory` 처럼 도메인 식별 가능. PostgreSQL schema 추가 prefix 가 큰 가독성 이득 안 됨
+  - **마이그레이션·entity 갱신 비용**: 향후 entity 추가될수록 schema 옵션 누락 위험 + 검토 부담. 단일 schema 가 운영상 단순
+  - **장래 분리 옵션은 보존**: 권한 분리 / DB 분리 요구가 실제로 생기면 그 시점에 마이그레이션. dev 데이터 적은 시점 + prod 미가동이라 미래 비용도 낮음
+- **영향**:
+  - **D-002 status**: superseded by D-026
+  - **D-019 영향 항목**: schema 분리 유지 표기를 정정 — 모두 public 사용
+  - **현재 코드**: 변경 없음 (이미 모두 public 에 들어가 있음). 새 entity 도 schema 옵션 없이 default 사용
+  - **마이그레이션**: 추가 작업 없음. 기존 마이그레이션 파일 (TrendCandidate 관련 2개) 그대로 유효
+  - **Action Board "DB 스키마 마이그레이션"**: ✅ 닫힘 (작업 불필요)
+  - **장래 권한·DB 분리 시점**: 별도 D-### 로 다시 결정
 
 ---
 

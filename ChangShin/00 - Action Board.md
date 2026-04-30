@@ -33,7 +33,7 @@ tags:
 | ~~`aud` 클레임 처리 방향 결정~~ → **위플래닛 표준 `user / admin` 채택** ([[Infrastructure/31 - Decision Log#D-024]]) | ✅ | 2026-04-29 결정 |
 | ~~Ingress path 단순화 여부~~ → **D-011 path 분리 유지로 결정** ([[Infrastructure/31 - Decision Log#D-023]]) | ✅ | 2026-04-29 회의 후속으로 닫힘 |
 | ~~ECR 리포 통폐합~~ → **점검 결과 이미 1세트(api+api-deploy)로 시작. batch 는 [[Infrastructure/31 - Decision Log#D-025\|D-025]] 로 별도 1세트 추가** | ✅ | 2026-04-29. 사용자 `terraform apply` 필요 (changshin-iac base + dev) |
-| DB 스키마 마이그레이션 (`auth.*`, `ax1.*`, `ax2.*`, `ax3.*`, `common.*`) | 🔥 | [[Infrastructure/10 - Architecture#2. 공유 데이터베이스 전략]] |
+| ~~DB 스키마 마이그레이션~~ → **D-002 schema 분리 폐기, 모두 `public` 사용** ([[Infrastructure/31 - Decision Log#D-026\|D-026]]) | ✅ | 2026-04-30 결정. 작업 불필요 |
 
 ### B. AX-2 도메인 모듈 구현 시작
 
@@ -59,7 +59,7 @@ tags:
 | 항목 | 상태 | 비고 |
 |------|------|------|
 | ~~AX1·AX2·AX3 URL 구조 결정~~ → **FE 화면만 path 분리, BE 는 D-011 그대로** ([[Infrastructure/31 - Decision Log#D-023]]) | ✅ | 2026-04-29 결정 |
-| **로그인·마스터 계정·권한 IA** — Auth 모듈 설계 직결 | ❌ | [[Backend/10 - Auth Strategy]] · 마스터 계정 1차 → 권한 그룹 확장 |
+| **로그인·마스터 계정·권한 IA** — D-024 admin auth BE API 는 다 흡수됨([[Infrastructure/31 - Decision Log#D-024\|D-024]]). 첫 master 발급(bootstrap migration), 임시 비밀번호 변경 강제 흐름, 권한 그룹 확장 등 운영 IA 는 **필요 시점에 도입**. 사용자 그룹 #34 답변 / 실제 admin 화면 개발 트리거 발생 시 진행 | 📅 | 2026-04-30 보류. 검토 결과는 [[Meetings/2026-04-29 - 화장품 용기 데이터 프로젝트 범위 조정]] 와 D-024 영향 항목 참조 |
 | **5월 말 vs 6월 말 타임라인 정합성 점검** — 본인 P0(6월말) ↔ 회의(5월말 1차) | ❌ | [[AX-2 지능형 스케줄러/10 - 프로젝트 착수 질의 리스트#0. P0 빠른 참조 (착수 전 결정 필수)\|#64]] |
 | **NDA 체결 후 3D 도면 수령** — SKU 미매칭 41건 보강 활용 가능 | ❓ | 팀 스파르타 ↔ 창신 NDA 진행 후 |
 | **SKU 매핑 정합성** — 본인 진행한 [[Infrastructure/31 - Decision Log#D-021\|D-021]]/[[Infrastructure/31 - Decision Log#D-022\|D-022]] 결과물이 회의 SKU 매핑 흐름과 연결되는지 확인 | ❌ | 정보 동기화 |
@@ -168,6 +168,8 @@ tags:
 
 | 일자 | 항목 |
 |------|------|
+| 2026-04-30 | **D-027 K8s namespace = 환경별** — D-017 superseded. dev/stage/prod 환경 prefix 채택. 실제 운영 패턴(`dev` namespace)을 명시 결정으로 흡수 ([[Infrastructure/31 - Decision Log#D-027]]) |
+| 2026-04-30 | **D-026 PostgreSQL schema 분리 폐기** — D-002 partially superseded. 모든 테이블 `public` 단일 schema 사용. 단일 서비스 + 단일 DB 계정 운영에서 schema 분리 실익 약함. entity 갱신·마이그레이션 작업 불필요 ([[Infrastructure/31 - Decision Log#D-026]]) |
 | 2026-04-29 | **D-025 batch 워크로드 활성화 (taabshop 패턴)** — `changshin-batch` ECR 1개(image 보관용) + 단일 Flux Kustomization(api) 이 root kustomization 으로 ax-api+batch 모두 apply. batch 의 `job-flux` 잡 폐기. 1차 시도(batch 별도 Flux Kustomization) 점검 결과 ax-api 만 적용되는 문제 → taabshop 패턴 정합으로 정정 ([[Infrastructure/31 - Decision Log#D-025]]) |
 | 2026-04-29 | **legacy admin-api → ax-api 흡수 완료** — Administrator 도메인(`shared/administrator/`) + AdminJwtStrategy + admin auth/administrators 컨트롤러 + AdminHttpModule. 타입체크 통과. D-024 적용 |
 | 2026-04-29 | **D-024 JWT `aud` = 위플래닛 표준 `user / admin`** — D-019 후속 "`aud` 처리 방향" 닫음. D-007 의 서비스 분기 의미를 클라이언트 종류 식별로 재정의 ([[Infrastructure/31 - Decision Log#D-024]]) |

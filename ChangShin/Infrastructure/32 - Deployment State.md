@@ -84,7 +84,7 @@ tags:
 | ECR (iac/Flux OCI) | `687582709363.dkr.ecr.ap-northeast-2.amazonaws.com/changshin-iac` |
 | S3 temp | `changshin-temp` |
 | Terraform state S3 | `changshin-terraform-backend` |
-| K8s Namespace (앱 워크로드) | `changshin` (D-017) |
+| K8s Namespace (앱 워크로드) | `dev` (환경별 prefix, [[31 - Decision Log#D-027]] — D-017 supersede) |
 | 임시 외부 호스트 | `changshin-api.dev.weplanet.co.kr` (D-015) |
 | ALB DNS (auto-managed) | `k8s-default-1acb9e2c57-1088456801.ap-northeast-2.elb.amazonaws.com` |
 | RDS endpoint | `changshin-dev-changshin.cgigcuul8yn2.ap-northeast-2.rds.amazonaws.com` |
