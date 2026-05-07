@@ -1,20 +1,21 @@
 ---
-title: Module 3 · 물류 · 배차 관리
+title: Module 4 · 물류
 parent: "[[00 - AX-2 쉬운 설명서 (Index)]]"
-module: M3
+module: M4
 implementation: changshin-api · apps/ax-api · AX2 모듈 · logistics
 related_teams:
   - 자재팀
   - 외주처
   - ODM
+ppt_steps: (15), (16), (19)
 tags:
   - AX-2
-  - Module3
+  - Module4
   - 물류
   - 배차
 ---
 
-# Module 3 · 물류 · 배차 관리
+# Module 4 · 물류
 
 > 상위 문서: [[00 - AX-2 쉬운 설명서 (Index)]]
 
@@ -46,8 +47,8 @@ tags:
 
 ## 관련 질문
 
-- [[08 - 아직 답이 필요한 질문#Module 3 — 물류]]
+- [[09 - 아직 답이 필요한 질문#Module 4 — 물류]]
 
 ---
 
-> 다음: [[05 - Module 4 · 구매 · 정산]]
+> 다음: [[06 - 부속 영역 · 구매 · 정산]]

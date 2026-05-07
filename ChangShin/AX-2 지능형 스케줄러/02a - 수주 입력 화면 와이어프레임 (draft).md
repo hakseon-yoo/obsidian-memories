@@ -7,7 +7,7 @@ created: 2026-05-07
 updated: 2026-05-07
 primary_artifact: /Users/yoohakseon/Documents/GitLab/changshin/documents/창신-ax2.html
 related:
-  - "[[02 - Module 1 · 납기일 예측]]"
+  - "[[02 - Module 1 · 수주 예측·확정]]"
   - "[[Meetings/2026-04-30 - 클라이언트 답변 - 수주 시나리오 · 납기 로직]]"
   - "[[Meetings/2026-05-07 - 수주 확정 후 프로세스 설명]]"
 tags:
@@ -244,4 +244,4 @@ tags:
 
 ---
 
-> 처음으로: [[00 - AX-2 쉬운 설명서 (Index)]] · 모듈: [[02 - Module 1 · 납기일 예측]]
+> 처음으로: [[00 - AX-2 쉬운 설명서 (Index)]] · 모듈: [[02 - Module 1 · 수주 예측·확정]]
