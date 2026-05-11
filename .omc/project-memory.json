@@ -55,6 +55,12 @@
   },
   "hotPaths": [
     {
+      "path": "claude-vault-system/install.sh",
+      "accessCount": 5,
+      "lastAccessed": 1778488141726,
+      "type": "file"
+    },
+    {
       "path": "claude-memory/_boilerplate/CLAUDE.md",
       "accessCount": 4,
       "lastAccessed": 1778469198808,
@@ -313,9 +319,9 @@
       "type": "file"
     },
     {
-      "path": "claude-vault-system/install.sh",
+      "path": "claude-vault-system/commands/run-spec.md",
       "accessCount": 1,
-      "lastAccessed": 1778470495212,
+      "lastAccessed": 1778488118997,
       "type": "file"
     }
   ],
