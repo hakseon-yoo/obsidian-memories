@@ -1,0 +1,233 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1778465846011,
+  "projectRoot": "/Users/yoohakseon/Documents/Obsidian Vault",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "ChangShin": {
+      "path": "ChangShin",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1778465846001,
+      "keyFiles": [
+        "00 - Action Board.md",
+        "CLAUDE.md"
+      ]
+    },
+    "ChangShin/data": {
+      "path": "ChangShin/data",
+      "purpose": "Data files",
+      "fileCount": 3,
+      "lastAccessed": 1778465846001,
+      "keyFiles": [
+        "product-list-with-images.csv",
+        "unmatched-report.csv"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "claude-memory/_boilerplate/CLAUDE.md",
+      "accessCount": 3,
+      "lastAccessed": 1778467164687,
+      "type": "file"
+    },
+    {
+      "path": "claude-memory/_boilerplate/_index.md",
+      "accessCount": 2,
+      "lastAccessed": 1778467166332,
+      "type": "file"
+    },
+    {
+      "path": "HANDOFF.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466668594,
+      "type": "file"
+    },
+    {
+      "path": "_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466809935,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466815413,
+      "type": "file"
+    },
+    {
+      "path": "00_System/rules.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466825517,
+      "type": "file"
+    },
+    {
+      "path": "00_System/schema.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466834787,
+      "type": "file"
+    },
+    {
+      "path": "00_System/glossary.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466840563,
+      "type": "file"
+    },
+    {
+      "path": "10_Knowledge/_knowledge_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466845342,
+      "type": "file"
+    },
+    {
+      "path": "20_Resources/_resources_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466848400,
+      "type": "file"
+    },
+    {
+      "path": "30_Decisions/_decisions_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466851815,
+      "type": "file"
+    },
+    {
+      "path": "40_Projects/_projects_registry.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466858095,
+      "type": "file"
+    },
+    {
+      "path": "_templates/template-knowledge.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466860877,
+      "type": "file"
+    },
+    {
+      "path": "_templates/template-resource.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466863077,
+      "type": "file"
+    },
+    {
+      "path": "_templates/template-decision.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466865741,
+      "type": "file"
+    },
+    {
+      "path": "_templates/template-log.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466867802,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466970385,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/CLAUDE.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466980692,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/00_Project/overview.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466984800,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/00_Project/rules.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466987649,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/00_Project/glossary.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466990289,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/10_Specs/_specs_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466993410,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/20_Logs/_logs_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778466997509,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/30_References/_references_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778467000745,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/40_Decisions/_decisions_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778467004221,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/_templates/template-spec.md",
+      "accessCount": 1,
+      "lastAccessed": 1778467006771,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/_templates/template-log.md",
+      "accessCount": 1,
+      "lastAccessed": 1778467008718,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/_templates/template-decision.md",
+      "accessCount": 1,
+      "lastAccessed": 1778467014675,
+      "type": "file"
+    },
+    {
+      "path": "_boilerplate/_templates/template-reference.md",
+      "accessCount": 1,
+      "lastAccessed": 1778467014845,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
