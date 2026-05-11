@@ -12,3 +12,10 @@
 {"t":0,"agent":"afbeeea","agent_type":"Explore","event":"agent_stop","success":true,"duration_ms":67898}
 {"t":0,"agent":"a916824","agent_type":"unknown","event":"agent_stop","success":true}
 {"t":0,"agent":"a340f0c","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"ralph"}
+{"t":0,"agent":"system","event":"mode_change","mode_from":"none","mode_to":"ralph"}
+{"t":0,"agent":"a79e21f","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"oh-my-claudecode:cancel"}
+{"t":0,"agent":"a43874c","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"a144334","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"a21210e","agent_type":"unknown","event":"agent_stop","success":true}
