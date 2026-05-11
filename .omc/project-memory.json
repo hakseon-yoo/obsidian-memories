@@ -56,14 +56,62 @@
   "hotPaths": [
     {
       "path": "claude-memory/_boilerplate/CLAUDE.md",
-      "accessCount": 3,
-      "lastAccessed": 1778467164687,
+      "accessCount": 4,
+      "lastAccessed": 1778469198808,
       "type": "file"
     },
     {
       "path": "claude-memory/_boilerplate/_index.md",
+      "accessCount": 3,
+      "lastAccessed": 1778469198859,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/system/_index.md",
       "accessCount": 2,
-      "lastAccessed": 1778467166332,
+      "lastAccessed": 1778470335149,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/system/CLAUDE.md",
+      "accessCount": 2,
+      "lastAccessed": 1778470339823,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/system/00_System/rules.md",
+      "accessCount": 2,
+      "lastAccessed": 1778470350280,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/system/00_System/schema.md",
+      "accessCount": 2,
+      "lastAccessed": 1778470359957,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/system/00_System/glossary.md",
+      "accessCount": 2,
+      "lastAccessed": 1778470362988,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/boilerplate/CLAUDE.md",
+      "accessCount": 2,
+      "lastAccessed": 1778470372531,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/boilerplate/_index.md",
+      "accessCount": 2,
+      "lastAccessed": 1778470379895,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/commands/init-vault.md",
+      "accessCount": 2,
+      "lastAccessed": 1778470404786,
       "type": "file"
     },
     {
@@ -226,6 +274,42 @@
       "path": "_boilerplate/_templates/template-reference.md",
       "accessCount": 1,
       "lastAccessed": 1778467014845,
+      "type": "file"
+    },
+    {
+      "path": "claude-memory/10_Knowledge/_knowledge_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778469204765,
+      "type": "file"
+    },
+    {
+      "path": "claude-memory/30_Decisions/_decisions_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778469204815,
+      "type": "file"
+    },
+    {
+      "path": "claude-memory/20_Resources/_resources_index.md",
+      "accessCount": 1,
+      "lastAccessed": 1778469204865,
+      "type": "file"
+    },
+    {
+      "path": "claude-memory/40_Projects/_projects_registry.md",
+      "accessCount": 1,
+      "lastAccessed": 1778469204922,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/README.md",
+      "accessCount": 1,
+      "lastAccessed": 1778470476686,
+      "type": "file"
+    },
+    {
+      "path": "claude-vault-system/install.sh",
+      "accessCount": 1,
+      "lastAccessed": 1778470495212,
       "type": "file"
     }
   ],

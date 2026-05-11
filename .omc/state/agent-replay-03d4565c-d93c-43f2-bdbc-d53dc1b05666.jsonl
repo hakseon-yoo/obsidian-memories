@@ -4,3 +4,10 @@
 {"t":0,"agent":"a3999b7","agent_type":"unknown","event":"agent_stop","success":true}
 {"t":0,"agent":"afafa10","agent_type":"unknown","event":"agent_stop","success":true}
 {"t":0,"agent":"a76c710","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"a7b4e07","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"a94c258","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"ae6b38c","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"a8a921b","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"afbeeea","agent_type":"Explore","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"afbeeea","agent_type":"Explore","event":"agent_stop","success":true,"duration_ms":67898}
+{"t":0,"agent":"a916824","agent_type":"unknown","event":"agent_stop","success":true}

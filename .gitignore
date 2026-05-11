@@ -10,3 +10,6 @@ Thumbs.db
 
 # 휴지통
 .trash/
+
+# 별도 git repo로 관리되는 시스템 디렉토리 (weplanet GitLab으로 push)
+claude-vault-system/
